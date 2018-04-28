@@ -313,11 +313,11 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
   var todayOfWeek = getDailyTimeString(0, false, true);
   var returnText = "";
   if (!objectOnly) {
-    if(textOnly){
+    if (textOnly) {
       returnText = "•" + betterDailyDate + "\n";
     }
-    if(reddit){
-      returnText = "**" + days[todayOfWeek + add]+  ", " + betterDailyDate + "**\n \n";
+    if (reddit) {
+      returnText = "**" + days[todayOfWeek + add] + ", " + betterDailyDate + "**\n \n";
     }
   }
 
@@ -383,11 +383,11 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
 
           //It's been officially selected by this point
           sizeCount[modSize]++;
-          if (!objectOnly){
-            if(textOnly){
+          if (!objectOnly) {
+            if (textOnly) {
               returnText += "•" + modObj.description(str) + " \n ";
             }
-            if(reddit){
+            if (reddit) {
               returnText += "* " + modObj.redditdescription(str) + " \n \n";
             }
           }

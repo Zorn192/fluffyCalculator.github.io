@@ -147,7 +147,7 @@ function update() {
 
   $(".moreInfo").append("<tr><td><span title='Your helium' > Helium: </span>" + prettify(game.global.totalHeliumEarned) + "</td></tr>");
   $(".moreInfo").append("<tr><td>Xp per run: " + numberWithCommas(Math.ceil(zoneXP(zoneYP, false))) + "</td></tr>");
-  $(".moreInfo").append("<tr><td><span title='To level up' > Needed daily: </span>" + getneededPercent() + "%</td></tr>");
+  $(".moreInfo").append("<tr><td><span title='To level up' > Needed daily: </span>" + getneededPercent() + "</td></tr>");
   $(".moreInfo").append("<tr><td>You have " + prettify((currentExp / neededExp) * 100) + "% <span title='% of xp to level' >of  level </span></td></tr>");
   $(".moreInfo").append("<tr><td>Current Zone: " + game.global.world + "</td></tr>");
   $(".moreInfo").append("<tr><td>Suggested next: " + suggested() + "</td></tr>");
@@ -292,7 +292,7 @@ function scatterValues() {
       } while (zoneXP(t, middle) >= nextPrice);
     }
   }
-  check1 = (!result.length) ? ($("#showZoneYL").hide()) : ($("#showZoneYL").show());
+  check1 = (!result) ? ($("#showZoneYL").hide()) : ($("#showZoneYL").show());
   $("#zoneYL").html(result);
 }
 
@@ -462,14 +462,25 @@ function getneededPercent() {
 
   var needed = (neededExp - currentExp);
   var xpgain = (zoneXP(zoneYP, false));
+  var percentFromDays = 0;
+  var days = 0;
+  var tod = "days";
 
   var calc1 = (Math.pow(expGrowth, (zoneYP - 301)) - 1) / (expGrowth - 1);
   var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * ((0 / 100) + 1) * specialBonus * expGrowth;
   xpgain = calc1 * calc2;
   dailyNeeded = (Math.ceil((needed / xpgain) * 100) - 100);
 
-  // console.log(dailyNeeded + "\n" + needed + "\n" + xpgain);
-  return (dailyNeeded);
+  do {
+    percentFromDays += getDailyHeliumValue(countDailyWeight(getDailyChallenge(days, true)));
+    days++;
+  } while (dailyNeeded >= percentFromDays);
+
+  console.log(days + " " + percentFromDays);
+  if (days <= 1) {
+    tod = "day";
+  }
+  return (dailyNeeded + "% | <span title ='How many days until you get this cumulative %'> " + days + " " + tod + "</span>");
 }
 
 // Different saves for testing
