@@ -476,7 +476,7 @@ function getneededPercent() {
     days++;
   } while (dailyNeeded >= percentFromDays);
 
-  console.log(days + " " + percentFromDays);
+  // console.log(days + " " + percentFromDays);
   if (days <= 1) {
     tod = "day";
   }
