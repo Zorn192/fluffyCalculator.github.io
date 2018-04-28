@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<meta charset="utf-8" />
+<html>
+
+<head>
+  <title>Fluffy Calculator</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+</head>
+
+<body>
+  <div id="tipTitle" title="made by bhad">
+    F<span class="noselect astext" onclick="stealth()">l</span>uffy Calculator
+    <a target="_blank" href="changelog.html" id="version">v1.37</a>
+    <a style ="font-size: xx-small" target="_blank" href="daily.html">Daily</a>
+  </div>
+  <hr>
+  <div>
+    <div style="width: 100%; font-size: 0.95em;">
+      <div class="fluffyThird" id="fluffyLevel"></div>
+      <div class="fluffyThird" id="xpTA"></div>
+      <div class="fluffyThird" id="fluffyDamage"></div>
+      <div class="fluffyThird" id="fluffyHelium"></div>
+    </div>
+  </div>
+  <div id="error" style="display: none;">
+    <hr />
+
+  </div>
+  <div id="hidden" style="display: none;">
+    <hr />
+    <span id="hiddenText"></span>
+  </div>
+  <hr>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3" style="min-width:21em;max-width: 30em;">
+        <div>
+          <br />
+          <textarea placeholder="Import your save" id="Save" onpaste="handle_paste(event)" onfocus="this.value=''" type="text" style="width: 298px;"></textarea>
+          <table>
+            <tr id="showCapable" style="display: none;">
+              <td id="capableTooltip"></td>
+              <td>
+                <input id="capable" type="number" max="10" />
+              </td>
+            </tr>
+            <tr id="showCunning" style="display: none;">
+              <td id="cunningTooltip"></td>
+              <td>
+                <input id="cunning" type="number" min="0" />
+              </td>
+            </tr>
+            <tr id="showCurious" style="display: none;">
+              <td id="curiousTooltip"></td>
+              <td>
+                <input id="curious" type="number" min="0" />
+              </td>
+            </tr>
+            <tr>
+              <td id="zoneYPTooltop" title="The last zone you don't complete">Zone You Portal</td>
+              <td>
+                <input id="ZoneYP" type="number" min="302" />
+              </td>
+            </tr>
+            <tr>
+              <td title="Your daily helium modifier percentage">Daily Modifier %</td>
+              <td>
+                <input id="DailyModifier" type="number" />
+              </td>
+            </tr>
+            <tr>
+              <td title="Event bonus, leave at 1 if none">Event Bonus</td>
+              <td>
+                <input id="SpecialBonus" type="number" min="0" />
+              </td>
+            </tr>
+          </table>
+          <br />
+          <table>
+            <tr>
+              <td title="For AT users mainly (creates a useful table)">Minutes per run</td>
+              <td>
+                <input id="MPR" type="number" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span title="% of helium you want to spend on Fluffy perks">% to spend </span>
+              </td>
+              <td>
+                <input type="number" id="toSpend">
+              </td>
+
+            </tr>
+            <tr>
+              <td>
+                <button class="btn-default" id="calButton" style="display: block; text-align: center" onclick="fall()">Calculate</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-7" style="min-width:35em;max-width:58.33em;">
+        <div>
+          <table class="table table-bordered table-hover styleTable">
+            <thead class="thead-light">
+              <tr>
+                <th>Runs to E(X)L(X)</th>
+                <th class="e1">E(X)</th>
+                <th>Damage %</th>
+                <th class="e2">E(X)</th>
+                <th>Damage %</th>
+              </tr>
+            </thead>
+            <tbody id="RTable"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-2" style="min-width:10em;">
+        <table class="moreInfo">
+
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+  <div class="container">
+
+    <div>
+      <table class="table table-bordered table-hover styleTable" style="display: none;" title="Know if you level up this run and on what zone" id="showZoneYL">
+          <thead class="thead-light">
+            <tr>
+              <th>Zone</th>
+              <th>New Level</th>
+            </tr>
+          </thead>
+          <tbody id="zoneYL">
+
+          </tbody>
+      </table>
+    </div>
+    <div>
+      <table class="table table-bordered table-hover styleTable" id="showTime" style="display: none;">
+        <thead class="thead-light">
+          <tr>
+            <th>Time to E(X)L(X)</th>
+            <th class="e1"></th>
+            <th class="e2"></th>
+          </tr>
+        </thead>
+        <tbody id="TTable"></tbody>
+      </table>
+    </div>
+  </div>
+  <br />
+  <div class="container">
+    <div>
+      <table class="table table-bordered table-hover styleTable" id="showFHTable" style="display: none;">
+        <thead class="thead-light">
+          <tr>
+            <th>Fluffy/hr XP</th>
+            <th>Zone</th>
+            <th>Time</th>
+            <th>Cunning</th>
+            <th>Curious</th>
+          </tr>
+        </thead>
+        <tbody id="FHTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="lz-string.js"></script>
+<script src="trimps.js"></script>
+<script src="main.js?v=1"></script>
+<!-- <script src="chart.js"></script> -->
+
+<script>
+  $('input').keypress(function(e) {
+    if (e.which == 13) {
+      $('#calButton').click();
+      return false; //<---- Add this line
+    }
+  });
+</script>
+
+</html>
