@@ -155,6 +155,13 @@ function update() {
 
 }
 
+function graphNextLevel() {
+  game.global.world = 0;
+  dailyBonus = 1;
+  $("#DailyModifier").val("0");
+  fall();
+}
+
 //getTime
 function sformat(s) {
   var fm = [
@@ -354,7 +361,6 @@ function findBest(spend) {
   game.portal.Cunning.level = cunningLevel;
   game.portal.Curious.level = curiousLevel;
   $("#toSpend").val("");
-  fillOnce();
   update();
   charts();
 }

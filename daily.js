@@ -2,8 +2,11 @@ var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 var months = ["Spacer", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var mods = {
   "empower": "E",
+  "explosive": "e",
   "toxic": "T",
   "pressure": "P",
+  "plague": "p",
+  "bogged": "B",
 };
 
 var filterType = {
