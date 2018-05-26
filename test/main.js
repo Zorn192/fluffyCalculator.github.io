@@ -6,7 +6,7 @@ function handle_paste(ev) {
 
   $("#error").hide();
 
-  if (game.global.version > 4.72) $("#error").show().empty().append("This calculator is updated for Trimps 4.71, values might be inaccurate.");
+  if (game.global.version > 4.8) $("#error").show().empty().append("This calculator is updated for Trimps 4.71, values might be inaccurate.");
 
   fillOnce();
   update();
@@ -33,6 +33,7 @@ var growth = 4;
 var expGrowth = 1.015;
 var specialBonus = 1;
 var dailyBonus = 1;
+var heirloomBonus = 1;
 var zoneYP = 0;
 var plotX = [];
 var plotY = [];
@@ -68,7 +69,7 @@ function upgrade(e, l) {
 function ozoneXP(min, x) {
   var allGathered = 0;
   for (var z = min; z < (x); z++) {
-    var zoneGathered = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, z - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus;
+    var zoneGathered = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, z - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus;
     allGathered += zoneGathered;
   }
   return allGathered;
@@ -77,14 +78,14 @@ function ozoneXP(min, x) {
 function zoneXP(zone, middle) {
   if (middle) {
     var mcalc1 = (Math.pow(expGrowth, (zone - 301)) - 1) / (expGrowth - 1);
-    var mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth;
+    var mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus;
 
     return (mcalc1 * mcalc2) - zoneXP(game.global.world, false);
 
   }
   if (!middle) {
     var calc1 = (Math.pow(expGrowth, (zone - 301)) - 1) / (expGrowth - 1);
-    var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth;
+    var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus;
     // console.log("returning calc * calc2" + calc1 * calc2);
     return (calc1 * calc2);
   }
@@ -95,14 +96,19 @@ var currentExp;
 var neededExp;
 
 function fillOnce() {
+  heirloomBonus = getHeirloomValue();
+
   check = (!game.portal.Capable.locked) ? $("#showCapable").show() : $("#showCapable").hide();
   check = (!game.portal.Cunning.locked) ? $("#showCunning").show() : $("#showCunning").hide();
   check = (!game.portal.Curious.locked) ? $("#showCurious").show() : $("#showCurious").hide();
+  check = (heirloomBonus > 1) ? $("#showHeirloom").show() : $("#showHeirloom").hide();
+
 
   $("#SpecialBonus").val(1);
   $("#capable").val(game.portal.Capable.level);
   $("#cunning").val(game.portal.Cunning.level);
   $("#curious").val(game.portal.Curious.level);
+  $("#heirloom").val(((heirloomBonus)*100)-100);
   $("#ZoneYP").val(game.global.lastPortal);
   if (game.global.dailyChallenge.seed) $("#DailyModifier").val(Math.round(getDailyHeliumValue(countDailyWeight())));
   if (!game.global.dailyChallenge.seed) $("#DailyModifier").val('');
@@ -124,6 +130,7 @@ function update() {
   game.global.lastPortal = Number($("#ZoneYP").val());
   zoneYP = Number($("#ZoneYP").val());
   dailyBonus = Number(($("#DailyModifier").val() / 100) + 1);
+  heirloomBonus = Number(($("#heirloom").val() / 100) + 1);
   specialBonus = Number($("#SpecialBonus").val());
 
   check = (zoneYP > 301) ? ($("#ZoneYP").removeClass("has-error")) : ($("#ZoneYP").addClass("has-error"));
@@ -277,7 +284,7 @@ function scatterValues() {
   check = (zoneYP > 601) ? (toZone = zoneYP) : (toZone = 601);
   check = (game.global.world > 301) ? (zone = (game.global.world), middle = true) : (zone = 301, middle = false);
 
-  rekt : for (var t = zone; t < toZone; t++) {
+  rekt: for (var t = zone; t < toZone; t++) {
     if (zoneXP(t, middle) >= nextPrice) {
 
       do {
@@ -302,6 +309,15 @@ function scatterValues() {
   }
   check1 = (!result) ? ($("#showZoneYL").hide()) : ($("#showZoneYL").show());
   $("#zoneYL").html(result);
+}
+
+function getHeirloomValue() {
+  var b = (game.heirlooms.Staff.FluffyExp.currentBonus / 100) + 1;
+  if (b > 1) {
+    return b;
+  } else if (b == 1) {
+    return 1;
+  }
 }
 
 // Gets next optimal perk
