@@ -388,9 +388,11 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
           }
           modifierList.splice(selectedIndex, 1);
           if (modObj.incompatible) {
-            var incompatibleIndex = modifierList.indexOf(modObj.incompatible);
-            if (incompatibleIndex >= 0) {
-              modifierList.splice(incompatibleIndex, 1);
+            for (var x = 0; x < modObj.incompatible.length; x++) { //jshint ignore:line
+              var incompatibleIndex = modifierList.indexOf(modObj.incompatible[x]);
+              if (incompatibleIndex >= 0) {
+                modifierList.splice(incompatibleIndex, 1);
+              }
             }
           }
           break modLoop;
@@ -407,11 +409,13 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
   return returnText;
 }
 
-var bestDailyValue = 0;
-var bestDailyDate = 0;
-var bestDailyObj = {};
-
 function findBestDaily(days) {
+
+  var bestDailyValue = 0;
+  var bestDailyDate = 0;
+  var bestDailyObj = {};
+  var bestDailyText = {};
+
   for (var x = 0; x < days; x++) {
     var dailyDate = getDailyTimeString(x, true, false);
     var dailyValue = getDailyHeliumValue(countDailyWeight(getDailyChallenge(x, true, false)));
@@ -419,11 +423,13 @@ function findBestDaily(days) {
       bestDailyValue = dailyValue;
       bestDailyDate = dailyDate;
       bestDailyObj = getDailyChallenge(x, true, false);
+      bestDailyText = getDailyChallenge(x, false, true);
     }
   }
   console.log(bestDailyDate);
   console.log(bestDailyValue);
   console.log(bestDailyObj);
+  console.log(bestDailyText);
 }
 
 function avgDaily(days) {
@@ -434,6 +440,25 @@ function avgDaily(days) {
     dailyValues += getDailyHeliumValue(countDailyWeight(getDailyChallenge(x, true, false)));
   }
   return (dailyValues / dailyTimes);
+}
+
+function findMostMods(days) {
+  var bestLength = 0;
+  var bestNumber = 0;
+  for (var x = 0; x < days; x++) {
+    var challenge = getDailyChallenge(x, true, false);
+    var length = $.map(challenge, function(n, i) {
+      return i;
+    }).length;
+    length -= 1;
+    if (length > bestLength) {
+      bestNumber = x;
+      bestLength = length;
+    }
+  }
+  console.log(bestNumber + " \n " + bestLength);
+  console.log(getDailyChallenge(bestNumber, true, false));
+  console.log(getDailyChallenge(bestNumber, false, true));
 }
 
 function handle_paste(ev) {

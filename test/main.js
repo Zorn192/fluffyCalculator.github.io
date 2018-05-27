@@ -108,7 +108,7 @@ function fillOnce() {
   $("#capable").val(game.portal.Capable.level);
   $("#cunning").val(game.portal.Cunning.level);
   $("#curious").val(game.portal.Curious.level);
-  $("#heirloom").val(((heirloomBonus)*100)-100);
+  $("#heirloom").val(((heirloomBonus) * 100) - 100);
   $("#ZoneYP").val(game.global.lastPortal);
   if (game.global.dailyChallenge.seed) $("#DailyModifier").val(Math.round(getDailyHeliumValue(countDailyWeight())));
   if (!game.global.dailyChallenge.seed) $("#DailyModifier").val('');
@@ -158,8 +158,17 @@ function update() {
   $(".moreInfo").append("<tr><td>You have " + prettify((currentExp / neededExp) * 100) + "% <span title='% of xp to level' >of  level </span></td></tr>");
   $(".moreInfo").append("<tr><td>Current Zone: " + game.global.world + "</td></tr>");
   $(".moreInfo").append("<tr><td>Suggested next: " + suggested() + "</td></tr>");
+  $(".moreInfo").append("<tr><td>Bones to level up: " + bonestolevel() + "</td></tr>");
   if ($("#MPR").val()) $(".moreInfo").append("<tr><td>Fluffy/hr: " + numberWithCommas(Math.ceil(((zoneXP(zoneYP, false) / $("#MPR").val()) * 60))) + "</td></tr>");
 
+}
+
+function bonestolevel() {
+  if(game.global.bestFluffyExp == 0 ){
+    return "N/A";
+  }else {
+    return prettify(Math.ceil(((neededExp - currentExp) / game.global.bestFluffyExp)) * 100);
+  }
 }
 
 function graphNextLevel() {
