@@ -12,7 +12,10 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117103120-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
     gtag('js', new Date());
 
     gtag('config', 'UA-117103120-1');
@@ -24,7 +27,7 @@
   <div id="tipTitle">
     <span title="made by bhad">
     F<span class="noselect astext" onclick="stealth()">l</span>uffy Calculator
-    <a target="_blank" href="changelog.html" id="version">v1.38</a>
+    <a target="_blank" href="changelog.html" id="version">v1.39</a>
     <a style="font-size: xx-small" target="_blank" href="daily.html">Daily</a>
     </span>
   </div>
@@ -53,7 +56,7 @@
         <div>
           <br />
           <textarea placeholder="Import your save" id="Save" onpaste="handle_paste(event)" onfocus="this.value=''" type="text" style="width: 298px;"></textarea>
-          <table>
+          <table id="leftTable">
             <tr id="showCapable" style="display: none;">
               <td id="capableTooltip"></td>
               <td>
@@ -90,10 +93,16 @@
                 <input id="heirloom" type="number" />
               </td>
             </tr>
-            <tr>
+            <tr style="display:none;">
               <td title="Event bonus, leave at 1 if none">Event Bonus</td>
               <td>
                 <input id="SpecialBonus" type="number" min="0" />
+              </td>
+            </tr>
+            <tr id="showSpire">
+              <td title="Spire's that you always get C50 Bonus On (bonus is spire 3+), seperate with commas and use numbers">Spires Exp Bonus</td>
+              <td>
+                <input id="spireBonus" />
               </td>
             </tr>
           </table>
