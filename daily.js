@@ -7,6 +7,8 @@ var mods = {
   "pressure": "P",
   "plague": "p",
   "bogged": "B",
+  "trimpCritChanceUp": "+",
+  "trimpCritChanceDown": "-",
 };
 
 var filterType = {
@@ -42,6 +44,8 @@ var filter = {
   "pressure": true,
   "mirrored": true,
   "metallicThumb": true,
+  "trimpCritChanceUp": true,
+  "trimpCritChanceDown": true,
   "seed": true,
 };
 
@@ -244,26 +248,6 @@ function doFilter() {
   }
 }
 
-function redditFormat() {
-  var todayOfWeek = getDailyTimeString(0, false, true);
-
-  for (var z = 0; z < 8; z++) {
-    dayIndex = (todayOfWeek * -1) + z;
-    if (dayIndex > -1) {
-      dayIndex = (z - todayOfWeek) - 7;
-    }
-  }
-
-
-
-  for (var x = dayIndex; x < (dayIndex + 7); x++) {
-    var value = prettify(getDailyHeliumValue(countDailyWeight(getDailyChallenge(x, true, false))));
-    var returnText = getDailyChallenge(x, false, false, true);
-    returnText += "Grants an additional **" + value + "%** of all helium earned before finishing.";
-    console.log(returnText);
-  }
-}
-
 function formatDailySeedDate() {
   if (!game.global.dailyChallenge.seed) return "";
   var seed = String(game.global.dailyChallenge.seed);
@@ -326,7 +310,7 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
 
   var seedStr = getRandomIntSeeded(dateSeed + 2, 1, 1e9);
   //seedStr = getRandomIntSeeded(seedStr, 1, 1e9);
-  var weightTarget = getRandomIntSeeded(seedStr++, 20, 51) / 10;
+  var weightTarget = getRandomIntSeeded(seedStr++, 25, 51) / 10;
   //Build a list of all modifiers to choose from
   var modifierList = [];
   var totalChance = 0;
@@ -403,6 +387,14 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
             break mainLoop;
           }
           modifierList.splice(selectedIndex, 1);
+          if (modObj.incompatible) {
+            for (var x = 0; x < modObj.incompatible.length; x++) { //jshint ignore:line
+              var incompatibleIndex = modifierList.indexOf(modObj.incompatible[x]);
+              if (incompatibleIndex >= 0) {
+                modifierList.splice(incompatibleIndex, 1);
+              }
+            }
+          }
           break modLoop;
         }
 
@@ -417,11 +409,13 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
   return returnText;
 }
 
-var bestDailyValue = 0;
-var bestDailyDate = 0;
-var bestDailyObj = {};
-
 function findBestDaily(days) {
+
+  var bestDailyValue = 0;
+  var bestDailyDate = 0;
+  var bestDailyObj = {};
+  var bestDailyText = {};
+
   for (var x = 0; x < days; x++) {
     var dailyDate = getDailyTimeString(x, true, false);
     var dailyValue = getDailyHeliumValue(countDailyWeight(getDailyChallenge(x, true, false)));
@@ -429,11 +423,13 @@ function findBestDaily(days) {
       bestDailyValue = dailyValue;
       bestDailyDate = dailyDate;
       bestDailyObj = getDailyChallenge(x, true, false);
+      bestDailyText = getDailyChallenge(x, false, true);
     }
   }
   console.log(bestDailyDate);
   console.log(bestDailyValue);
   console.log(bestDailyObj);
+  console.log(bestDailyText);
 }
 
 function avgDaily(days) {
@@ -443,6 +439,26 @@ function avgDaily(days) {
     dailyTimes = x;
     dailyValues += getDailyHeliumValue(countDailyWeight(getDailyChallenge(x, true, false)));
   }
+  return (dailyValues / dailyTimes);
+}
+
+function findMostMods(days) {
+  var bestLength = 0;
+  var bestNumber = 0;
+  for (var x = 0; x < days; x++) {
+    var challenge = getDailyChallenge(x, true, false);
+    var length = $.map(challenge, function(n, i) {
+      return i;
+    }).length;
+    length -= 1;
+    if (length > bestLength) {
+      bestNumber = x;
+      bestLength = length;
+    }
+  }
+  console.log(bestNumber + " \n " + bestLength);
+  console.log(getDailyChallenge(bestNumber, true, false));
+  console.log(getDailyChallenge(bestNumber, false, true));
 }
 
 function handle_paste(ev) {

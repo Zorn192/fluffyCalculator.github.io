@@ -1,9 +1,9 @@
 //
 function countDailyWeight(daily) {
   var weight = 0;
-  if(!daily){
+  if (!daily) {
     dailyObj = game.global.dailyChallenge;
-  } else if(daily){
+  } else if (daily) {
     dailyObj = daily;
   }
   for (var item in dailyObj) {
@@ -118,9 +118,6 @@ var dailyModifiers = {
     description: function(str) {
       return "Trimp min damage reduced by " + prettify(this.getMult(str) * 100) + "% (additive).";
     },
-    redditdescription: function(str) {
-      return "Trimp min damage reduced by **" + prettify(this.getMult(str) * 100) + "%** (additive).";
-    },
     getMult: function(str) {
       return 0.1 + ((str - 1) * 0.01);
     },
@@ -133,9 +130,6 @@ var dailyModifiers = {
   maxDamage: {
     description: function(str) {
       return "Trimp max damage increased by " + prettify(this.getMult(str) * 100) + "% (additive).";
-    },
-    redditdescription: function(str) {
-      return "Trimp max damage increased by **" + prettify(this.getMult(str) * 100) + "%** (additive).";
     },
     getMult: function(str) {
       return str;
@@ -150,9 +144,6 @@ var dailyModifiers = {
     description: function(str) {
       return "Enemies stack a debuff with each attack, damaging Trimps for " + prettify(this.getMult(str, 1) * 100) + "% of total health per turn per stack, resets on Trimp death.";
     },
-    redditdescription: function(str) {
-      return "Enemies stack a debuff with each attack, damaging Trimps for **" + prettify(this.getMult(str, 1) * 100) + "%** of total health per turn per stack, resets on Trimp death.";
-    },
     getMult: function(str, stacks) {
       return 0.01 * str * stacks;
     },
@@ -163,6 +154,7 @@ var dailyModifiers = {
     minMaxStep: [1, 10, 1],
     chance: 0.6,
     icon: "*bug2",
+    incompatible: ["rampage", "weakness"],
     stackDesc: function(str, stacks) {
       return "Your Trimps are taking " + prettify(this.getMult(str, stacks) * 100) + "% damage after each attack.";
     }
@@ -170,9 +162,6 @@ var dailyModifiers = {
   weakness: {
     description: function(str) {
       return "Enemies stack a debuff with each attack, reducing Trimp attack by " + prettify(100 - this.getMult(str, 1) * 100) + "% per stack. Stacks cap at 9 and reset on Trimp death.";
-    },
-    redditdescription: function(str) {
-      return "Enemies stack a debuff with each attack, reducing Trimp attack by **" + prettify(100 - this.getMult(str, 1) * 100) + "%** per stack. Stacks cap at 9 and reset on Trimp death.";
     },
     getMult: function(str, stacks) {
       return 1 - (0.01 * str * stacks);
@@ -183,6 +172,7 @@ var dailyModifiers = {
     minMaxStep: [1, 10, 1],
     chance: 0.6,
     icon: "fire",
+    incompatible: ["bogged", "plague"],
     stackDesc: function(str, stacks) {
       return "Your Trimps have " + prettify(100 - this.getMult(str, stacks) * 100) + "% less attack.";
     }
@@ -190,9 +180,6 @@ var dailyModifiers = {
   large: {
     description: function(str) {
       return "All housing can store " + prettify(100 - this.getMult(str) * 100) + "% fewer Trimps";
-    },
-    redditdescription: function(str) {
-      return "All housing can store **" + prettify(100 - this.getMult(str) * 100) + "%** fewer Trimps";
     },
     getMult: function(str) {
       return 1 - (0.01 * str);
@@ -213,15 +200,13 @@ var dailyModifiers = {
     description: function(str) {
       return "Gain " + prettify((this.getMult(str) * 100) - 100) + "% more resources from gathering";
     },
-    redditdescription: function(str) {
-      return "Gain **" + prettify((this.getMult(str) * 100) - 100) + "%** more resources from gathering";
-    },
     getMult: function(str) {
       return 1 + (0.1 * str);
     },
     getWeight: function(str) {
       return 0.075 * str * -1;
     },
+    incompatible: ["famine"],
     minMaxStep: [5, 40, 1],
     chance: 0.75
   },
@@ -229,24 +214,19 @@ var dailyModifiers = {
     description: function(str) {
       return "Gain " + prettify(100 - (this.getMult(str) * 100)) + "% less Metal, Food, Wood, and Gems from all sources";
     },
-    redditdescription: function(str) {
-      return "Gain **" + prettify(100 - (this.getMult(str) * 100)) + "%** less Metal, Food, Wood, and Gems from all sources";
-    },
     getMult: function(str) {
       return 1 - (0.01 * str);
     },
     getWeight: function(str) {
       return (1 / this.getMult(str) - 1) / 2;
     },
+    incompatible: ["dedication"],
     minMaxStep: [40, 80, 1],
     chance: 2
   },
   badStrength: {
     description: function(str) {
       return "Enemy attack increased by " + prettify((this.getMult(str) * 100) - 100) + "%.";
-    },
-    redditdescription: function(str) {
-      return "Enemy attack increased by **" + prettify((this.getMult(str) * 100) - 100) + "%**.";
     },
     getMult: function(str) {
       return 1 + (0.2 * str);
@@ -261,9 +241,6 @@ var dailyModifiers = {
     description: function(str) {
       return "Enemy health increased by " + prettify((this.getMult(str) * 100) - 100) + "%.";
     },
-    redditdescription: function(str) {
-      return "Enemy health increased by **" + prettify((this.getMult(str) * 100) - 100) + "%**.";
-    },
     getMult: function(str) {
       return 1 + (0.2 * str);
     },
@@ -276,9 +253,6 @@ var dailyModifiers = {
   badMapStrength: {
     description: function(str) {
       return "Enemy attack in maps increased by " + prettify((this.getMult(str) * 100) - 100) + "%.";
-    },
-    redditdescription: function(str) {
-      return "Enemy attack in maps increased by **" + prettify((this.getMult(str) * 100) - 100) + "%**.";
     },
     getMult: function(str) {
       return 1 + (0.3 * str);
@@ -293,9 +267,6 @@ var dailyModifiers = {
     description: function(str) {
       return "Enemy health in maps increased by " + prettify((this.getMult(str) * 100) - 100) + "%.";
     },
-    redditdescription: function(str) {
-      return "Enemy health in maps increased by **" + prettify((this.getMult(str) * 100) - 100) + "%**.";
-    },
     getMult: function(str) {
       return 1 + (0.3 * str);
     },
@@ -307,10 +278,7 @@ var dailyModifiers = {
   },
   crits: {
     description: function(str) {
-      return "Enemies have a 25% chance to crit for " + prettify(this.getMult(str) * 100) + "% of normal damage";
-    },
-    redditdescription: function(str) {
-      return "Enemies have a 25% chance to crit for **" + prettify(this.getMult(str) * 100) + "%** of normal damage";
+      return "Enemies have a 25% chance to crit for " + prettify(this.getMult(str) * 100) + "% of normal damage.";
     },
     getMult: function(str) {
       return 1 + (0.5 * str);
@@ -321,12 +289,37 @@ var dailyModifiers = {
     minMaxStep: [1, 24, 1],
     chance: 0.75
   },
+  trimpCritChanceUp: {
+    description: function(str) {
+      return "Your Trimps have +" + prettify(this.getMult(str) * 100) + "% Crit Chance.";
+    },
+    getMult: function(str) {
+      return str / 10;
+    },
+    getWeight: function(str) {
+      return 0.25 * str * -1;
+    },
+    minMaxStep: [5, 10, 1],
+    incompatible: ["trimpCritChanceDown"],
+    chance: 1.25
+  },
+  trimpCritChanceDown: {
+    description: function(str) {
+      return "Your Trimps have -" + prettify(this.getMult(str) * 100) + "% Crit Chance.";
+    },
+    getMult: function(str) {
+      return str / 10;
+    },
+    getWeight: function(str) {
+      return (str / 4.5);
+    },
+    minMaxStep: [2, 7, 1],
+    incompatible: ["trimpCritChanceUp"],
+    chance: 0.75
+  },
   bogged: {
     description: function(str) {
       return "Your Trimps lose " + prettify(this.getMult(str) * 100) + "% of their max health after each attack.";
-    },
-    redditdescription: function(str) {
-      return "Your Trimps lose **" + prettify(this.getMult(str) * 100) + "%** of their max health after each attack.";
     },
     getMult: function(str) {
       return 0.01 * str;
@@ -335,15 +328,13 @@ var dailyModifiers = {
       var count = Math.ceil(1 / this.getMult(str));
       return (6 - ((0.2 * (count > 60 ? 60 : count) / 2)) + ((((500 * count + 400) / count) / 500) - 1)) / 1.5;
     },
+    incompatible: ["rampage", "weakness"],
     minMaxStep: [1, 5, 1],
     chance: 0.75
   },
   dysfunctional: {
     description: function(str) {
       return "Your Trimps breed " + prettify(100 - (this.getMult(str) * 100)) + "% slower";
-    },
-    redditdescription: function(str) {
-      return "Your Trimps breed **" + prettify(100 - (this.getMult(str) * 100)) + "%** slower";
     },
     getMult: function(str) {
       return 1 - (str * 0.05);
@@ -358,9 +349,6 @@ var dailyModifiers = {
     description: function(str) {
       return "Trimps have " + prettify(100 - (this.getMult(str) * 100)) + "% less attack on odd numbered zones";
     },
-    redditdescription: function(str) {
-      return "Trimps have **" + prettify(100 - (this.getMult(str) * 100)) + "%** less attack on odd numbered zones";
-    },
     getMult: function(str) {
       return 1 - (str * 0.02);
     },
@@ -374,9 +362,6 @@ var dailyModifiers = {
     description: function(str) {
       return "Trimps have " + prettify((this.getMult(str) * 100) - 100) + "% more attack on even numbered zones";
     },
-    redditdescription: function(str) {
-      return "Trimps have **" + prettify((this.getMult(str) * 100) - 100) + "%** more attack on even numbered zones";
-    },
     getMult: function(str) {
       return 1 + (str * 0.2);
     },
@@ -389,9 +374,6 @@ var dailyModifiers = {
   karma: {
     description: function(str) {
       return 'Gain a stack after killing an enemy, increasing all non Helium loot by ' + prettify((this.getMult(str, 1) * 100) - 100) + '%. Stacks cap at ' + this.getMaxStacks(str) + ', and reset after clearing a zone.';
-    },
-    redditdescription: function(str) {
-      return 'Gain a stack after killing an enemy, increasing all non Helium loot by **' + prettify((this.getMult(str, 1) * 100) - 100) + '%**. Stacks cap at **' + this.getMaxStacks(str) + '**, and reset after clearing a zone.';
     },
     stackDesc: function(str, stacks) {
       return "Your Trimps are finding " + prettify((this.getMult(str, stacks) * 100) - 100) + "% more loot!";
@@ -414,9 +396,6 @@ var dailyModifiers = {
     description: function(str) {
       return "Gain a stack after killing an enemy, reducing breed speed by " + prettify(100 - (this.getMult(str, 1) * 100)) + '% (compounding). Stacks cap at ' + this.getMaxStacks(str) + ', and reset after clearing a zone.';
     },
-    redditdescription: function(str) {
-      return "Gain a stack after killing an enemy, reducing breed speed by **" + prettify(100 - (this.getMult(str, 1) * 100)) + '%** (compounding). Stacks cap at **' + this.getMaxStacks(str) + '**, and reset after clearing a zone.';
-    },
     stackDesc: function(str, stacks) {
       return "Your Trimps are breeding " + prettify(100 - (this.getMult(str, stacks) * 100)) + "% slower.";
     },
@@ -437,9 +416,6 @@ var dailyModifiers = {
   bloodthirst: {
     description: function(str) {
       return "Enemies gain a stack of Bloodthirst whenever Trimps die. Every " + this.getFreq(str) + " stacks, enemies will heal to full and gain an additive 50% attack. Stacks cap at " + this.getMaxStacks(str) + " and reset after killing an enemy.";
-    },
-    redditdescription: function(str) {
-      return "Enemies gain a stack of Bloodthirst whenever Trimps die. Every **" + this.getFreq(str) + "** stacks, enemies will heal to full and gain an additive 50% attack. Stacks cap at **" + this.getMaxStacks(str) + "** and reset after killing an enemy.";
     },
     stackDesc: function(str, stacks) {
       var freq = this.getFreq(str);
@@ -483,14 +459,6 @@ var dailyModifiers = {
       text += ".";
       return text;
     },
-    redditdescription: function(str) {
-      var text = "Enemies instantly deal **" + prettify(this.getMult(str) * 100) + "%** of their attack damage when killed";
-      if (str > 15) {
-        text += " unless your block is as high as your maximum health";
-      }
-      text += ".";
-      return text;
-    },
     getMult: function(str) {
       return str;
     },
@@ -509,9 +477,6 @@ var dailyModifiers = {
     description: function(str) {
       return "Enemies have a " + prettify(this.getMult(str) * 100) + "% chance to dodge your attacks on " + ((str <= 15) ? "odd" : "even") + " zones.";
     },
-    redditdescription: function(str) {
-      return "Enemies have a **" + prettify(this.getMult(str) * 100) + "%** chance to dodge your attacks on **" + ((str <= 15) ? "odd" : "even") + "** zones.";
-    },
     getMult: function(str) {
       if (str > 15) str -= 15;
       return 0.02 * str;
@@ -525,9 +490,6 @@ var dailyModifiers = {
   rampage: {
     description: function(str) {
       return "Gain a stack after killing an enemy, increasing Trimp attack by " + prettify((this.getMult(str, 1) * 100) - 100) + '% (additive). Stacks cap at ' + this.getMaxStacks(str) + ', and reset when your Trimps die.';
-    },
-    redditdescription: function(str) {
-      return "Gain a stack after killing an enemy, increasing Trimp attack by **" + prettify((this.getMult(str, 1) * 100) - 100) + '%** (additive). Stacks cap at **' + this.getMaxStacks(str) + '**, and reset when your Trimps die.';
     },
     stackDesc: function(str, stacks) {
       return "Your Trimps are dealing " + prettify((this.getMult(str, stacks) * 100) - 100) + "% more damage.";
@@ -543,6 +505,7 @@ var dailyModifiers = {
       return (1 - this.getMult(str, 1)) * this.getMaxStacks(str);
     },
     icon: "*fire",
+    incompatible: ["plague", "bogged"],
     minMaxStep: [1, 40, 1],
     chance: 1
   },
@@ -554,14 +517,6 @@ var dailyModifiers = {
 
       var name = (str < 4) ? "Mutimps" : "Hulking Mutimps";
       return "40% of bad guys in " + size + " the World will be mutated into " + name + ".";
-    },
-    redditdescription: function(str) {
-      var size = str % 5;
-      if (size == 0) size = "";
-      else size = "the first **" + prettify(size * 2) + "** rows of";
-
-      var name = (str < 4) ? "Mutimps" : "Hulking Mutimps";
-      return "40% of bad guys in **" + size + "** the World will be mutated into **" + name + "**.";
     },
     getWeight: function(str) {
       return (str / 10) * 1.5;
@@ -579,10 +534,6 @@ var dailyModifiers = {
     description: function(str) {
       var s = (str == 1) ? "" : "s";
       return "All enemies gain " + str + " stack" + s + " of Empower whenever your Trimps die in the World. Empower increases the attack and health of bad guys in the World by 0.2% per stack, can stack to 9999, and never resets.";
-    },
-    redditdescription: function(str) {
-      var s = (str == 1) ? "" : "s";
-      return "All enemies gain **" + str + "** stack **" + s + "** of Empower whenever your Trimps die in the World. Empower increases the attack and health of bad guys in the World by 0.2% per stack, can stack to 9999, and never resets.";
     },
     getWeight: function(str) {
       return (str / 6) * 2;
@@ -608,9 +559,6 @@ var dailyModifiers = {
   pressure: {
     description: function(str) {
       return "Trimps gain a stack of Pressure every " + Math.round(this.timePerStack(str)) + " seconds. Each stack of pressure reduces Trimp health by 1%. Max of " + Math.round(this.getMaxStacks(str)) + " stacks, stacks reset after clearing a zone.";
-    },
-    redditdescription: function(str) {
-      return "Trimps gain a stack of Pressure every **" + Math.round(this.timePerStack(str)) + "** seconds. Each stack of pressure reduces Trimp health by 1%. Max of **" + Math.round(this.getMaxStacks(str)) + "** stacks, stacks reset after clearing a zone.";
     },
     getWeight: function(str) {
       var time = (105 - this.timePerStack(str));
@@ -670,10 +618,6 @@ var dailyModifiers = {
       var reflectChance = this.getReflectChance(str);
       return "Enemies have a" + (reflectChance.toString()[0] == '8' ? 'n' : '') + " " + prettify(reflectChance) + "% chance to reflect an attack, dealing " + prettify(this.getMult(str) * 100) + "% of damage taken back to your Trimps.";
     },
-    redditdescription: function(str) {
-      var reflectChance = this.getReflectChance(str);
-      return "Enemies have a **" + (reflectChance.toString()[0] == '8' ? 'n' : '') + " " + prettify(reflectChance) + "%** chance to reflect an attack, dealing **" + prettify(this.getMult(str) * 100) + "%** of damage taken back to your Trimps.";
-    },
     getReflectChance: function(str) {
       return (Math.ceil(str / 10)) * 10;
     },
@@ -697,6 +641,7 @@ var dailyModifiers = {
           max = result;
         results.push(result);
       }
+      console.log(results);
       return "Min: " + min + ", Max: " + max;
     },
     reflectDamage: function(str, attack) {
@@ -710,9 +655,6 @@ var dailyModifiers = {
   metallicThumb: {
     description: function(str) {
       return "Equipment is " + prettify((1 - this.getMult(str)) * 100) + "% cheaper.";
-    },
-    redditdescription: function(str) {
-      return "Equipment is **" + prettify((1 - this.getMult(str)) * 100) + "%** cheaper.";
     },
     getWeight: function(str) {
       return ((str + 3) / 26);

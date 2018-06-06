@@ -98,7 +98,7 @@ td, th {
 :root {
   --daily-width: 4.615vw;
   --daily-margin: 0.2vw;
-  --filter-width: 7vw;
+  --filter-width: 8vw;
   --filter-height: 1.6vw;
   --filter-margin: 0.1vw;
 }
@@ -120,7 +120,7 @@ td, th {
   border: 2px solid gray;
   cursor: pointer;
   position: relative;
-  width:  var(--filter-width);
+  width: var(--filter-width);
   height: var(--filter-height);
   margin: var(--filter-margin);
   text-align: center;
@@ -178,5 +178,5 @@ td, th {
 }
 
 div.ui-tooltip {
-    max-width: 100%;
+  max-width: 100%;
 }

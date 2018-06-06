@@ -6,7 +6,7 @@ function handle_paste(ev) {
 
   $("#error").hide();
 
-  if (game.global.version > 4.72) $("#error").show().empty().append("This calculator is updated for Trimps 4.71, values might be inaccurate.");
+  if (game.global.version > 4.8) $("#error").show().empty().append("This calculator is updated for Trimps 4.71, values might be inaccurate.");
 
   fillOnce();
   update();
@@ -33,9 +33,11 @@ var growth = 4;
 var expGrowth = 1.015;
 var specialBonus = 1;
 var dailyBonus = 1;
+var heirloomBonus = 1;
 var zoneYP = 0;
 var plotX = [];
 var plotY = [];
+var maxEvolution = 5;
 
 //Get fluffy level
 function calculateLevel() {
@@ -68,25 +70,36 @@ function upgrade(e, l) {
 function ozoneXP(min, x) {
   var allGathered = 0;
   for (var z = min; z < (x); z++) {
-    var zoneGathered = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, z - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus;
+    var zoneGathered = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, z - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus;
     allGathered += zoneGathered;
   }
   return allGathered;
 }
 
 function zoneXP(zone, middle) {
+  addcalc = 0;
   if (middle) {
     var mcalc1 = (Math.pow(expGrowth, (zone - 301)) - 1) / (expGrowth - 1);
-    var mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth;
+    var mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus;
 
     return (mcalc1 * mcalc2) - zoneXP(game.global.world, false);
 
   }
   if (!middle) {
     var calc1 = (Math.pow(expGrowth, (zone - 301)) - 1) / (expGrowth - 1);
-    var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth;
-    // console.log("returning calc * calc2" + calc1 * calc2);
-    return (calc1 * calc2);
+    var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus;
+
+    if (zone > 300) {
+      for (var x in spireBonus) {
+        var spirezone = (spireBonus[x] * 100 + 100);
+        if (spirezone > ZoneYP) {
+          return;
+        } else {
+          addcalc += ((50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, (spirezone) - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus) * 2;
+        }
+      }
+    }
+    return ((calc1 * calc2) + addcalc);
   }
 }
 
@@ -95,22 +108,32 @@ var currentExp;
 var neededExp;
 
 function fillOnce() {
+
+  getLocalStorage();
+
+  heirloomBonus = getHeirloomValue();
+
   check = (!game.portal.Capable.locked) ? $("#showCapable").show() : $("#showCapable").hide();
   check = (!game.portal.Cunning.locked) ? $("#showCunning").show() : $("#showCunning").hide();
   check = (!game.portal.Curious.locked) ? $("#showCurious").show() : $("#showCurious").hide();
+  check = (heirloomBonus > 1) ? $("#showHeirloom").show() : $("#showHeirloom").hide();
 
   $("#SpecialBonus").val(1);
   $("#capable").val(game.portal.Capable.level);
   $("#cunning").val(game.portal.Cunning.level);
   $("#curious").val(game.portal.Curious.level);
+  $("#heirloom").val(((heirloomBonus) * 100) - 100);
   $("#ZoneYP").val(game.global.lastPortal);
   if (game.global.dailyChallenge.seed) $("#DailyModifier").val(Math.round(getDailyHeliumValue(countDailyWeight())));
   if (!game.global.dailyChallenge.seed) $("#DailyModifier").val('');
   currentExp = Math.ceil(game.global.fluffyExp - removeExp(game.global.fluffyPrestige, calculateLevel()));
   neededExp = upgrade(game.global.fluffyPrestige, calculateLevel());
+
 }
 
 function update() {
+
+  spireBonus = $("#spireBonus").val().split(",");
 
   // mins per run
   if ($("#MPR").val()) $("#showTime").show();
@@ -124,6 +147,7 @@ function update() {
   game.global.lastPortal = Number($("#ZoneYP").val());
   zoneYP = Number($("#ZoneYP").val());
   dailyBonus = Number(($("#DailyModifier").val() / 100) + 1);
+  heirloomBonus = Number(($("#heirloom").val() / 100) + 1);
   specialBonus = Number($("#SpecialBonus").val());
 
   check = (zoneYP > 301) ? ($("#ZoneYP").removeClass("has-error")) : ($("#ZoneYP").addClass("has-error"));
@@ -151,8 +175,19 @@ function update() {
   $(".moreInfo").append("<tr><td>You have " + prettify((currentExp / neededExp) * 100) + "% <span title='% of xp to level' >of  level </span></td></tr>");
   $(".moreInfo").append("<tr><td>Current Zone: " + game.global.world + "</td></tr>");
   $(".moreInfo").append("<tr><td>Suggested next: " + suggested() + "</td></tr>");
+  $(".moreInfo").append("<tr><td>Bones to level up: " + bonestolevel() + "</td></tr>");
   if ($("#MPR").val()) $(".moreInfo").append("<tr><td>Fluffy/hr: " + numberWithCommas(Math.ceil(((zoneXP(zoneYP, false) / $("#MPR").val()) * 60))) + "</td></tr>");
 
+  saveLocalStorage();
+
+}
+
+function bonestolevel() {
+  if (game.global.bestFluffyExp == 0) {
+    return "N/A";
+  } else {
+    return prettify(Math.ceil(((neededExp - currentExp) / game.global.bestFluffyExp)) * 100);
+  }
 }
 
 function graphNextLevel() {
@@ -231,7 +266,7 @@ function tableValues() {
         $("#R" + l).append(Number((runsNeeded).toFixed(2)));
         $("#D" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
         $("#Rt" + l).append(sformat(runsNeeded * seconds));
-      } else if (e + 1 >= 6) {
+      } else if (e > maxEvolution) {
         $("#ER" + l).add("#ED" + l).append("");
       } else {
         secondRun = upgrade(e, l) / zoneXP(Number(zoneYP), false);
@@ -277,7 +312,7 @@ function scatterValues() {
   check = (zoneYP > 601) ? (toZone = zoneYP) : (toZone = 601);
   check = (game.global.world > 301) ? (zone = (game.global.world), middle = true) : (zone = 301, middle = false);
 
-  rekt : for (var t = zone; t < toZone; t++) {
+  rekt: for (var t = zone; t < toZone; t++) {
     if (zoneXP(t, middle) >= nextPrice) {
 
       do {
@@ -293,7 +328,7 @@ function scatterValues() {
           pluslevel = 0;
           continue rekt;
         }
-        if (evolution > 4) {
+        if (evolution > maxEvolution) {
           break;
         }
         nextPrice += upgrade(evolution, (level + pluslevel));
@@ -302,6 +337,15 @@ function scatterValues() {
   }
   check1 = (!result) ? ($("#showZoneYL").hide()) : ($("#showZoneYL").show());
   $("#zoneYL").html(result);
+}
+
+function getHeirloomValue() {
+  var b = (game.heirlooms.Staff.FluffyExp.currentBonus / 100) + 1;
+  if (b > 1) {
+    return b;
+  } else if (b == 1) {
+    return 1;
+  }
 }
 
 // Gets next optimal perk
@@ -589,4 +633,18 @@ function testSaves(input) {
   if (!value) {
     // console.log("didNothing");
   }
+}
+
+
+function getLocalStorage() {
+  if (localStorage.getItem("fluffyCalculator") == null) {
+    localStorage.setItem("fluffyCalculator", "");
+  } else {
+    $("#spireBonus").val(localStorage.getItem("fluffyCalculator"));
+  }
+
+}
+
+function saveLocalStorage() {
+  localStorage.setItem("fluffyCalculator", spireBonus);
 }
