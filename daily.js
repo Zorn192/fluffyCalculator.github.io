@@ -9,6 +9,12 @@ var mods = {
   "bogged": "B",
   "trimpCritChanceUp": "+",
   "trimpCritChanceDown": "-",
+  "weakness": "W",
+  "minDamage": "m",
+  "maxDamage": "M",
+  "badHealth": "H",
+  "rampage": "D",
+  "karma": "K",
 };
 
 var filterType = {
