@@ -6,7 +6,7 @@ function handle_paste(ev) {
 
   $("#error").hide();
 
-  if (game.global.version > 4.8) $("#error").show().empty().append("This calculator is updated for Trimps 4.71, values might be inaccurate.");
+  if (game.global.version > 4.801) $("#error").show().empty().append("This calculator is updated for Trimps 4.801, values might be inaccurate.");
 
   fillOnce();
   update();
