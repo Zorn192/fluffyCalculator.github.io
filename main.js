@@ -183,10 +183,10 @@ function update() {
 }
 
 function bonestolevel() {
-  if (game.global.bestFluffyExp == 0) {
+  if (game.stats.bestFluffyExp.valueTotal == 0) {
     return "N/A";
   } else {
-    return prettify(Math.ceil(((neededExp - currentExp) / game.global.bestFluffyExp)) * 100);
+    return prettify(Math.ceil(((neededExp - currentExp) / game.stats.bestFluffyExp.valueTotal)) * 100);
   }
 }
 
