@@ -516,9 +516,8 @@ function getneededPercent() {
   var days = 0;
   var tod = "days";
 
-  var calc1 = (Math.pow(expGrowth, (zoneYP - 301)) - 1) / (expGrowth - 1);
-  var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * ((0 / 100) + 1) * specialBonus * expGrowth;
-  xpgain = calc1 * calc2;
+  xpgain = zoneXP(zoneYP,false) / (dailyBonus);
+
   dailyNeeded = (Math.ceil((needed / xpgain) * 100) - 100);
 
   do {
