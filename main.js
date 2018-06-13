@@ -6,13 +6,15 @@ function handle_paste(ev) {
 
   $("#error").hide();
 
-  if (game.global.version > 4.801) $("#error").show().empty().append("This calculator is updated for Trimps 4.801, values might be inaccurate.");
+  if (game.global.version > latestVersion) $("#error").show().empty().append("This calculator is updated for Trimps " + latestVersion + ", values might be inaccurate.");
 
   fillOnce();
   update();
   charts();
   if ($("#hiddenText").is(":visible")) stealth(true);
 }
+
+var latestVersion = 4.802;
 
 // Runs all functions (try to stay in order)
 function fall() {
@@ -516,7 +518,7 @@ function getneededPercent() {
   var days = 0;
   var tod = "days";
 
-  xpgain = zoneXP(zoneYP,false) / (dailyBonus);
+  xpgain = zoneXP(zoneYP, false) / (dailyBonus);
 
   dailyNeeded = (Math.ceil((needed / xpgain) * 100) - 100);
 
