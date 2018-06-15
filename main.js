@@ -14,7 +14,7 @@ function handle_paste(ev) {
   if ($("#hiddenText").is(":visible")) stealth(true);
 }
 
-var latestVersion = 4.802;
+var latestVersion = 4.803;
 
 // Runs all functions (try to stay in order)
 function fall() {
