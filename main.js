@@ -6,7 +6,6 @@ function handle_paste(ev) {
 
   $("#error").hide();
 
-  if (game.global.version > latestVersion) $("#error").show().empty().append("This calculator is updated for Trimps " + latestVersion + ", values might be inaccurate.");
 
   fillOnce();
   update();
@@ -124,7 +123,7 @@ function fillOnce() {
   $("#capable").val(game.portal.Capable.level);
   $("#cunning").val(game.portal.Cunning.level);
   $("#curious").val(game.portal.Curious.level);
-  $("#heirloom").val(((heirloomBonus) * 100) - 100);
+  $("#heirloom").val(prettify(((heirloomBonus) * 100) - 100));
   $("#ZoneYP").val(game.global.lastPortal);
   if (game.global.dailyChallenge.seed) $("#DailyModifier").val(Math.round(getDailyHeliumValue(countDailyWeight())));
   if (!game.global.dailyChallenge.seed) $("#DailyModifier").val('');
