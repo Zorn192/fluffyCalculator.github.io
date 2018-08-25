@@ -38,7 +38,7 @@ var heirloomBonus = 1;
 var zoneYP = 0;
 var plotX = [];
 var plotY = [];
-var maxEvolution = 5;
+var maxEvolution = 7;
 
 //Get fluffy level
 function calculateLevel() {
