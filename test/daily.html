@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<meta charset="utf-8" />
+<html>
+
+<head>
+  <title>Daily Seeker</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117103120-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-117103120-1');
+  </script>
+
+</head>
+
+<body>
+  <div id="tipTitle" title="made by bhad">
+   <span title="made by bhad">
+    Daily Seeker
+    <a target="_blank" href="changelog.html" id="version">v1.39</a>
+    <span style="width: 20px;"></span>
+    <a style="font-size: xx-small" target="_blank" href="index.html">Fluffy</a>
+  </span>
+  </div>
+  <div id="error" style="display: none;">
+    <hr />
+  </div>
+  <hr>
+  <div style="text-align: center; margin: auto">
+    <br />
+    <label><input type="checkbox" id="100Daily" onclick="makeDaily(this.value)"> +100% Daily </label>
+    <br />
+    <button onclick="showFilter()">Filter</button>
+  </div>
+  <div class="containerFilter">
+    <div class="containerFilterInventory" id="filter"></div>
+  </div>
+  <hr />
+  <div class="containerInventory">
+    <div class="containerInventoryWeapon" id="dates">
+    </div>
+  </div>
+
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="lz-string.js"></script>
+<script src="trimps.js?v=1"></script>
+<script src="daily.js?v=1"></script>
+<script>
+  $(document).ready(function() {
+    makeDaily();
+  })
+</script>
+
+<script>
+  $('input').keypress(function(e) {
+    if (e.which == 13) {
+      $('#calButton').click();
+      return false; //<---- Add this line
+    }
+  });
+</script>
+
+</html>
