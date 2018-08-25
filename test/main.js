@@ -70,14 +70,14 @@ function upgrade(e, l) {
 
 // Gets XP earned from all your zones based on ZoneYP
 
-function ozoneXP(min, x) {
-  var allGathered = 0;
-  for (var z = min; z < (x); z++) {
-    var zoneGathered = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, z - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus;
-    allGathered += zoneGathered;
-  }
-  return allGathered;
-}
+// function ozoneXP(min, x) {
+//   var allGathered = 0;
+//   for (var z = min; z < (x); z++) {
+//     var zoneGathered = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, z - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus;
+//     allGathered += zoneGathered;
+//   }
+//   return allGathered;
+// }
 
 function zoneXP(zone, middle) {
 
@@ -91,7 +91,7 @@ function zoneXP(zone, middle) {
   }
   if (!middle) {
     var calc1 = (Math.pow(expGrowth, (zone - startToEarn)) - 1) / (expGrowth - 1);
-    var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus;
+    var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus * evolutionXP;
 
     if (zone > 300) {
       for (var x in spireBonus) {
@@ -99,7 +99,7 @@ function zoneXP(zone, middle) {
         if (spirezone > ZoneYP) {
           return;
         } else {
-          addcalc += ((50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, (spirezone) - startToEarn) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus) * 2;
+          addcalc += ((50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, (spirezone) - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus) * 2;
         }
       }
     }
