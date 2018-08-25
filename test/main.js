@@ -99,7 +99,7 @@ function zoneXP(zone, middle) {
         if (spirezone > ZoneYP) {
           return;
         } else {
-          addcalc += ((50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, (spirezone) - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus) * 2;
+          addcalc += ((50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, (spirezone) - (startToEarn - 1)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus * evolutionXP) * 2;
         }
       }
     }
