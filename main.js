@@ -13,7 +13,6 @@ function handle_paste(ev) {
   if ($("#hiddenText").is(":visible")) stealth(true);
 }
 
-var latestVersion = 4.803;
 
 // Runs all functions (try to stay in order)
 function fall() {
@@ -39,6 +38,8 @@ var zoneYP = 0;
 var plotX = [];
 var plotY = [];
 var maxEvolution = 7;
+var evolutionXP = 1;
+var startToEarn = 300;
 
 //Get fluffy level
 function calculateLevel() {
@@ -68,27 +69,28 @@ function upgrade(e, l) {
 
 // Gets XP earned from all your zones based on ZoneYP
 
-function ozoneXP(min, x) {
-  var allGathered = 0;
-  for (var z = min; z < (x); z++) {
-    var zoneGathered = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, z - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus;
-    allGathered += zoneGathered;
-  }
-  return allGathered;
-}
+// function ozoneXP(min, x) {
+//   var allGathered = 0;
+//   for (var z = min; z < (x); z++) {
+//     var zoneGathered = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, z - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus;
+//     allGathered += zoneGathered;
+//   }
+//   return allGathered;
+// }
 
 function zoneXP(zone, middle) {
+
   addcalc = 0;
   if (middle) {
-    var mcalc1 = (Math.pow(expGrowth, (zone - 301)) - 1) / (expGrowth - 1);
-    var mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus;
+    var mcalc1 = (Math.pow(expGrowth, (zone - startToEarn)) - 1) / (expGrowth - 1);
+    var mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus * evolutionXP;
 
     return (mcalc1 * mcalc2) - zoneXP(game.global.world, false);
 
   }
   if (!middle) {
-    var calc1 = (Math.pow(expGrowth, (zone - 301)) - 1) / (expGrowth - 1);
-    var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus;
+    var calc1 = (Math.pow(expGrowth, (zone - startToEarn)) - 1) / (expGrowth - 1);
+    var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus * evolutionXP;
 
     if (zone > 300) {
       for (var x in spireBonus) {
@@ -96,7 +98,7 @@ function zoneXP(zone, middle) {
         if (spirezone > ZoneYP) {
           return;
         } else {
-          addcalc += ((50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, (spirezone) - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus) * 2;
+          addcalc += ((50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, (spirezone) - (startToEarn - 1)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus * evolutionXP) * 2;
         }
       }
     }
@@ -117,12 +119,14 @@ function fillOnce() {
   check = (!game.portal.Capable.locked) ? $("#showCapable").show() : $("#showCapable").hide();
   check = (!game.portal.Cunning.locked) ? $("#showCunning").show() : $("#showCunning").hide();
   check = (!game.portal.Curious.locked) ? $("#showCurious").show() : $("#showCurious").hide();
+  check = (!game.portal.Classy.locked) ? $("#showClassy").show() : $("#showClassy").hide();
   check = (heirloomBonus > 1) ? $("#showHeirloom").show() : $("#showHeirloom").hide();
 
   $("#SpecialBonus").val(1);
   $("#capable").val(game.portal.Capable.level);
   $("#cunning").val(game.portal.Cunning.level);
   $("#curious").val(game.portal.Curious.level);
+  $("#classy").val(game.portal.Classy.level);
   $("#heirloom").val(prettify(((heirloomBonus) * 100) - 100));
   $("#ZoneYP").val(game.global.lastPortal);
   if (game.global.dailyChallenge.seed) $("#DailyModifier").val(Math.round(getDailyHeliumValue(countDailyWeight())));
@@ -134,33 +138,45 @@ function fillOnce() {
 
 function update() {
 
+  if(game.talents.fluffyExp.purchased){
+    evolutionXP = 1 + (0.25 * game.global.fluffyPrestige);
+  } else {
+    evolutionXP = 1;
+  }
+
+  if(game.portal.Classy.level > 0){
+    startToEarn = 301 - (game.portal.Classy.level * 2);
+  }
+
+
   spireBonus = $("#spireBonus").val().split(",");
 
   // mins per run
   if ($("#MPR").val()) $("#showTime").show();
   if (!$("#MPR").val() || $("#MPR").val() <= 0) $("#showTime").hide();
-  if ($("#toSpend").val()) findBest($("#toSpend").val());
 
   // updates values based on input
   game.portal.Capable.level = Number($("#capable").val());
   game.portal.Cunning.level = Number($("#cunning").val());
   game.portal.Curious.level = Number($("#curious").val());
+  game.portal.Classy.level = Number($("#classy").val());
   game.global.lastPortal = Number($("#ZoneYP").val());
   zoneYP = Number($("#ZoneYP").val());
   dailyBonus = Number(($("#DailyModifier").val() / 100) + 1);
   heirloomBonus = Number(($("#heirloom").val() / 100) + 1);
   specialBonus = Number($("#SpecialBonus").val());
 
-  check = (zoneYP > 301) ? ($("#ZoneYP").removeClass("has-error")) : ($("#ZoneYP").addClass("has-error"));
+  check = (zoneYP > startToEarn) ? ($("#ZoneYP").removeClass("has-error")) : ($("#ZoneYP").addClass("has-error"));
 
   // left column tooltips
   $("#capableTooltip").html("<td title = 'Helium Spent " + countSpent(1) + "'> Capable Level" + "</td>");
   $("#cunningTooltip").html("<td title = 'Helium Spent " + countSpent(2) + "'> Cunning Level" + "</td>");
   $("#curiousTooltip").html("<td title = 'Helium Spent " + countSpent(3) + "'> Curious Level" + "</td>");
+  $("#classyTooltip").html("<td title = 'Helium Spent " + countSpent(4) + "'> Classy Level" + "</td>");
   $("#zoneYPTooltop").attr("title", ("The last zone you don't complete \n Xp per run " + prettify(zoneXP(zoneYP, false))));
 
   // top title bar
-  $("#fluffyHelium").html("<span title ='% of helium spent on fluffy \n " + countSpent(5) + "'>" + countSpent(4) + "  <span  class ='noselect astext' onclick='stealth(false)'>%</span> spent" + "</span>");
+  $("#fluffyHelium").html("<span title ='% of helium spent on fluffy \n " + countSpent(6) + "'>" + countSpent(5) + "  <span  class ='noselect astext' onclick='stealth(false)'>%</span> spent" + "</span>");
   $("#fluffyLevel").html("<span title='This is your current fluffy evolution and level'> E<span contenteditable id='inputE'>" + game.global.fluffyPrestige + "</span>L<span contenteditable id='inputL'>" + calculateLevel() + "</span>");
   $("#xpTA").html("<span id='inputXP' title = " + numberWithCommas(currentExp) + ">" + prettify(currentExp) + "</span> <span title = 'Need " + numberWithCommas(neededExp - currentExp) + " Exp'" + "> / </span> <span title =" + numberWithCommas(neededExp) + ">" + prettify(upgrade(game.global.fluffyPrestige, calculateLevel())) + " exp</span");
   $("#fluffyDamage").html("<span title='This is your current damage %'> +" + prettify(((getDamageModifier(calculateLevel(), currentExp, neededExp, game.global.fluffyPrestige)) - 1) * 100) + "% damage" + "</span>");
@@ -175,7 +191,6 @@ function update() {
   $(".moreInfo").append("<tr><td><span title='To level up' > Needed daily: </span>" + getneededPercent() + "</td></tr>");
   $(".moreInfo").append("<tr><td>You have " + prettify((currentExp / neededExp) * 100) + "% <span title='% of xp to level' >of  level </span></td></tr>");
   $(".moreInfo").append("<tr><td>Current Zone: " + game.global.world + "</td></tr>");
-  $(".moreInfo").append("<tr><td>Suggested next: " + suggested() + "</td></tr>");
   $(".moreInfo").append("<tr><td>Bones to level up: " + bonestolevel() + "</td></tr>");
   if ($("#MPR").val()) $(".moreInfo").append("<tr><td>Fluffy/hr: " + numberWithCommas(Math.ceil(((zoneXP(zoneYP, false) / $("#MPR").val()) * 60))) + "</td></tr>");
 
@@ -216,19 +231,23 @@ function countSpent(type) {
   var cap = capableCost(game.portal.Capable.level);
   var cun = cunningCost(game.portal.Cunning.level);
   var cur = curiousCost(game.portal.Curious.level);
+  var cla = classyCost(game.portal.Classy.level);
   var all = cap + cun + cur;
   if (type == 1) return prettify(cap);
   if (type == 2) return prettify(cun);
   if (type == 3) return prettify(cur);
-  if (type == 4) return prettify((all / game.global.totalHeliumEarned) * 100);
-  if (type == 5) {
+  if (type == 4) return prettify(cla);
+  if (type == 5) return prettify((all / game.global.totalHeliumEarned) * 100);
+  if (type == 6) {
     var capp = "";
     var cunn = "";
     var curr = "";
+    var clas = "";
     if (!game.portal.Capable.locked) capp = "Capable: " + prettify((cap / game.global.totalHeliumEarned) * 100) + "%";
     if (!game.portal.Cunning.locked) cunn = "\n Cunning: " + prettify((cun / game.global.totalHeliumEarned) * 100) + "%";
     if (!game.portal.Curious.locked) curr = "\n Curious: " + prettify((cur / game.global.totalHeliumEarned) * 100) + "%";
-    return capp + cunn + curr;
+    if (!game.portal.Classy.locked) curr = "\n Classy: " + prettify((cla / game.global.totalHeliumEarned) * 100) + "%";
+    return capp + cunn + curr + clas;
   }
 }
 
@@ -248,12 +267,19 @@ function tableValues() {
   var minutesPerRun = Number($("#MPR").val());
   var seconds = (minutesPerRun * 60);
 
+  if(zoneXP(Number(zoneYP), false) < 1){
+    return;
+  }
+
   for (var i = 0; i < 10; i++) {
     $("#RTable").append("<tr> <td> Runs to L" + (i + 1) + "</td><td id='R" + i + "'></td> <td id='D" + i + "'</td> <td id='ER" + i + "' </td> <td id='ED" + i + "' </td> </tr> ");
     $("#TTable").append("<tr> <td> Time to L" + (i + 1) + "</td><td id='Rt" + i + "'></td> <td id='Et" + i + "' </td></tr> ");
   }
 
   for (var e = game.global.fluffyPrestige; e < emax; e++) {
+    if(zoneXP(Number(zoneYP), false) < 1){
+      return;
+    }
     for (var l = 0; l < 10; l++) {
       if (e == game.global.fluffyPrestige) $(".e1").html("E" + e);
       if (e > game.global.fluffyPrestige) $(".e2").html("E" + e);
@@ -311,7 +337,7 @@ function scatterValues() {
   var result;
 
   check = (zoneYP > 601) ? (toZone = zoneYP) : (toZone = 601);
-  check = (game.global.world > 301) ? (zone = (game.global.world), middle = true) : (zone = 301, middle = false);
+  check = (game.global.world > startToEarn) ? (zone = (game.global.world), middle = true) : (zone = startToEarn, middle = false);
 
   rekt: for (var t = zone; t < toZone; t++) {
     if (zoneXP(t, middle) >= nextPrice) {
@@ -349,68 +375,6 @@ function getHeirloomValue() {
   }
 }
 
-// Gets next optimal perk
-function suggested() {
-
-  var capableLevel = game.portal.Capable.level;
-  var cunningLevel = game.portal.Cunning.level;
-  var curiousLevel = game.portal.Curious.level;
-  var curiousWorth = ((50 + ((curiousLevel + 1) * 30)) * (1 + ((cunningLevel) * 0.25))) / curiousCost(curiousLevel + 1);
-  var cunningWorth = ((50 + ((curiousLevel) * 30)) * (1 + ((cunningLevel + 1) * 0.25))) / cunningCost(cunningLevel + 1);
-
-  // console.log(cunningWorth);
-  // console.log(curiousWorth);
-  if (game.portal.Cunning.locked && game.portal.Curious.locked) return "Capable";
-  if (!game.portal.Cunning.locked && curiousWorth < cunningWorth || game.portal.Curious.locked) return "Cunning";
-  if (!game.portal.Curious.locked && curiousWorth > cunningWorth) return "Curious";
-}
-
-// Finds the best ratio for fluffy perks
-function findBest(spend) {
-
-  var capableLevel = game.portal.Capable.level;
-
-  var cunningLevel = 0;
-  var cunningWorth = 0;
-  var curiousLevel = 0;
-  var curiousWorth = 0;
-
-  var willing = game.global.totalHeliumEarned * (spend / 100);
-  willing -= capableCost(capableLevel);
-
-  while (true) {
-    curiousWorth = ((50 + 30 * (curiousLevel + 1)) / (50 + 30 * curiousLevel) - 1) / curiousCost(curiousLevel + 1);
-    cunningWorth = ((1 + 0.25 * (cunningLevel + 1)) / (1 + 0.25 * cunningLevel) - 1) / cunningCost(cunningLevel + 1);
-
-    if (!game.portal.Curious.locked && (curiousCost(curiousLevel + 1) + cunningCost(cunningLevel)) <= willing && curiousWorth >= cunningWorth) {
-      curiousLevel++;
-    } else if (!game.portal.Cunning.locked && (cunningCost(cunningLevel + 1) + curiousCost(curiousLevel)) <= willing) {
-      cunningLevel++;
-    } else {
-      break;
-    }
-  }
-
-  var tempCurious = curiousLevel;
-  var tempCunning = cunningLevel;
-
-  tempCurious -= 1;
-  while ((cunningCost(cunningLevel + 1) + curiousCost(curiousLevel)) <= willing) {
-    tempCunning++;
-  }
-  if (((50 + ((tempCurious) * 30)) * (1 + ((tempCunning) * 0.25))) > ((50 + ((curiousLevel) * 30)) * (1 + ((cunningLevel) * 0.25)))) {
-    curiousLevel = tempCurious;
-    cunningLevel = tempCunning;
-  }
-
-  // game.portal.Capable.level = capableLevel;
-  game.portal.Cunning.level = cunningLevel;
-  game.portal.Curious.level = curiousLevel;
-  $("#toSpend").val("");
-  update();
-  charts();
-}
-
 function capableCost(capableLevel) {
   return 100000000 * (1 - Math.pow(10, capableLevel)) / (1 - 10);
 }
@@ -421,6 +385,10 @@ function cunningCost(cunningLevel) {
 
 function curiousCost(curiousLevel) {
   return 100000000000000 * (1 - (Math.pow(1.3, curiousLevel))) / (1 - 1.3);
+}
+
+function classyCost(curiousLevel) {
+  return 100000000000000000 * (1 - (Math.pow(1.3, curiousLevel))) / (1 - 1.3);
 }
 
 // hidden menu

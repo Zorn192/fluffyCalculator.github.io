@@ -29,7 +29,6 @@
     F<span class="noselect astext" onclick="stealth()">l</span>uffy Calculator
     <a target="_blank" href="changelog.html" id="version">v1.39</a>
     <a style="font-size: xx-small" target="_blank" href="daily">Daily</a>
-    <a style="font-size: xx-small" target="_blank" href="test">Test Server</a>
     </span>
   </div>
   <hr>
@@ -76,10 +75,16 @@
                 <input id="curious" type="number" min="0" />
               </td>
             </tr>
+            <tr id="showClassy" style="display: none;">
+              <td id="classyTooltip"></td>
+              <td>
+                <input id="classy" type="number" min="0" />
+              </td>
+            </tr>
             <tr>
               <td id="zoneYPTooltop" title="The last zone you don't complete">Zone You Portal</td>
               <td>
-                <input id="ZoneYP" type="number" min="302" />
+                <input id="ZoneYP" type="number" />
               </td>
             </tr>
             <tr>
@@ -114,15 +119,6 @@
               <td>
                 <input id="MPR" type="number" />
               </td>
-            </tr>
-            <tr>
-              <td>
-                <span title="% of helium you want to spend on Fluffy perks">% to spend </span>
-              </td>
-              <td>
-                <input type="number" id="toSpend">
-              </td>
-
             </tr>
             <tr>
               <td>
