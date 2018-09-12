@@ -433,9 +433,9 @@ function findBestDaily(days) {
     }
   }
   console.log(bestDailyDate);
-  console.log(bestDailyValue);
   console.log(bestDailyObj);
   console.log(bestDailyText);
+  console.log("Daily bonus would be: " + bestDailyValue);
 }
 
 function avgDaily(days) {
