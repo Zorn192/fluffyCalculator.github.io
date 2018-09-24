@@ -387,8 +387,8 @@ function curiousCost(curiousLevel) {
   return 100000000000000 * (1 - (Math.pow(1.3, curiousLevel))) / (1 - 1.3);
 }
 
-function classyCost(curiousLevel) {
-  return 100000000000000000 * (1 - (Math.pow(1.3, curiousLevel))) / (1 - 1.3);
+function classyCost(classyLevel) {
+  return 100000000000000000 * (1 - (Math.pow(1.3, classyLevel))) / (1 - 1.3);
 }
 
 // hidden menu
