@@ -6,13 +6,11 @@ function handle_paste(ev) {
 
   $("#error").hide();
 
-
   fillOnce();
   update();
   charts();
   if ($("#hiddenText").is(":visible")) stealth(true);
 }
-
 
 // Runs all functions (try to stay in order)
 function fall() {
@@ -22,8 +20,8 @@ function fall() {
 
 // Makes charts
 function charts() {
-  tableValues();
-  scatterValues();
+  getRunsToLevelUp();
+  getZoneToLevelUp();
 }
 
 //Vars
@@ -67,42 +65,36 @@ function upgrade(e, l) {
   return Math.floor(firstLevel * Math.pow(prestigeEM, e) * ((Math.pow(growth, l + 1) - 1) / (growth - 1)) - removeExp(e, l));
 }
 
-// Gets XP earned from all your zones based on ZoneYP
+function zoneXP(start, end) {
 
-// function ozoneXP(min, x) {
-//   var allGathered = 0;
-//   for (var z = min; z < (x); z++) {
-//     var zoneGathered = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, z - 300) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus;
-//     allGathered += zoneGathered;
-//   }
-//   return allGathered;
-// }
-
-function zoneXP(zone, middle) {
-
-  addcalc = 0;
-  if (middle) {
-    var mcalc1 = (Math.pow(expGrowth, (zone - startToEarn)) - 1) / (expGrowth - 1);
-    var mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus * evolutionXP;
-
-    return (mcalc1 * mcalc2) - zoneXP(game.global.world, false);
-
+  // So if you start at zone 0, it wouldn't count you're gaining xp at there.
+  if (start < startToEarn) {
+    start = startToEarn;
   }
-  if (!middle) {
-    var calc1 = (Math.pow(expGrowth, (zone - startToEarn)) - 1) / (expGrowth - 1);
-    var calc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus * evolutionXP;
 
-    if (zone > 300) {
-      for (var x in spireBonus) {
-        var spirezone = (spireBonus[x] * 100 + 100);
-        if (spirezone > ZoneYP) {
-          return;
-        } else {
-          addcalc += ((50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, (spirezone) - (startToEarn - 1)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * heirloomBonus * evolutionXP) * 2;
-        }
+  var mcalc1 = (Math.pow(expGrowth, (end - startToEarn)) - 1) / (expGrowth - 1);
+  var mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * dailyBonus * specialBonus * expGrowth * heirloomBonus * evolutionXP;
+
+  // Starting spire bonus information
+  zones = [];
+  addSpireBonus = 0;
+  if (spireBonus != "") {
+    var spires = spireBonus.split(",");
+    for (var s in spires) {
+      zones[s] = (parseInt(spires[s]) + 1) * 100;
+    }
+
+    for (var z in zones) {
+      if (start < zones[z] && zones[z] < end) {
+        addSpireBonus += zoneXP(zones[z], zones[z] + 1) * 2;
       }
     }
-    return ((calc1 * calc2) + addcalc);
+  }
+
+  if (start > startToEarn) {
+    return (((mcalc1 * mcalc2) + addSpireBonus) - zoneXP(0, (start)));
+  } else {
+    return ((mcalc1 * mcalc2) + addSpireBonus);
   }
 }
 
@@ -138,18 +130,15 @@ function fillOnce() {
 
 function update() {
 
-  if(game.talents.fluffyExp.purchased){
+  if (game.talents.fluffyExp.purchased) {
     evolutionXP = 1 + (0.25 * game.global.fluffyPrestige);
   } else {
     evolutionXP = 1;
   }
 
-  if(game.portal.Classy.level > 0){
+  if (game.portal.Classy.level > 0) {
     startToEarn = 301 - (game.portal.Classy.level * 2);
   }
-
-
-  spireBonus = $("#spireBonus").val().split(",");
 
   // mins per run
   if ($("#MPR").val()) $("#showTime").show();
@@ -169,14 +158,14 @@ function update() {
   check = (zoneYP > startToEarn) ? ($("#ZoneYP").removeClass("has-error")) : ($("#ZoneYP").addClass("has-error"));
 
   // left column tooltips
-  $("#capableTooltip").html("<td title = 'Helium Spent " + countSpent(1) + "'> Capable Level" + "</td>");
-  $("#cunningTooltip").html("<td title = 'Helium Spent " + countSpent(2) + "'> Cunning Level" + "</td>");
-  $("#curiousTooltip").html("<td title = 'Helium Spent " + countSpent(3) + "'> Curious Level" + "</td>");
-  $("#classyTooltip").html("<td title = 'Helium Spent " + countSpent(4) + "'> Classy Level" + "</td>");
-  $("#zoneYPTooltop").attr("title", ("The last zone you don't complete \n Xp per run " + prettify(zoneXP(zoneYP, false))));
+  $("#capableTooltip").html("Capable Level");
+  $("#cunningTooltip").html("Cunning Level");
+  $("#curiousTooltip").html("Curious Level");
+  $("#classyTooltip").html("Classy Level");
+  $("#zoneYPTooltop").attr("title", ("The last zone you don't complete \n Xp per run " + prettify(zoneXP(0, zoneYP))));
 
   // top title bar
-  $("#fluffyHelium").html("<span title ='% of helium spent on fluffy \n " + countSpent(6) + "'>" + countSpent(5) + "  <span  class ='noselect astext' onclick='stealth(false)'>%</span> spent" + "</span>");
+  $("#fluffyHelium").html("<span title ='% of helium spent on fluffy \n " + countHelium("title") + "'>" + countHelium("percent") + "  <span  class ='noselect astext' onclick='stealth(false)'>%</span> spent" + "</span>");
   $("#fluffyLevel").html("<span title='This is your current fluffy evolution and level'> E<span contenteditable id='inputE'>" + game.global.fluffyPrestige + "</span>L<span contenteditable id='inputL'>" + calculateLevel() + "</span>");
   $("#xpTA").html("<span id='inputXP' title = " + numberWithCommas(currentExp) + ">" + prettify(currentExp) + "</span> <span title = 'Need " + numberWithCommas(neededExp - currentExp) + " Exp'" + "> / </span> <span title =" + numberWithCommas(neededExp) + ">" + prettify(upgrade(game.global.fluffyPrestige, calculateLevel())) + " exp</span");
   $("#fluffyDamage").html("<span title='This is your current damage %'> +" + prettify(((getDamageModifier(calculateLevel(), currentExp, neededExp, game.global.fluffyPrestige)) - 1) * 100) + "% damage" + "</span>");
@@ -187,12 +176,12 @@ function update() {
   $(".moreInfo").empty();
 
   $(".moreInfo").append("<tr><td><span title='Your helium' > Helium: </span>" + prettify(game.global.totalHeliumEarned) + "</td></tr>");
-  $(".moreInfo").append("<tr><td>Xp per run: " + numberWithCommas(Math.ceil(zoneXP(zoneYP, false))) + "</td></tr>");
+  $(".moreInfo").append("<tr><td>Xp per run: " + numberWithCommas(Math.ceil(zoneXP(0, zoneYP))) + "</td></tr>");
   $(".moreInfo").append("<tr><td><span title='To level up' > Needed daily: </span>" + getneededPercent() + "</td></tr>");
   $(".moreInfo").append("<tr><td>You have " + prettify((currentExp / neededExp) * 100) + "% <span title='% of xp to level' >of  level </span></td></tr>");
   $(".moreInfo").append("<tr><td>Current Zone: " + game.global.world + "</td></tr>");
   $(".moreInfo").append("<tr><td>Bones to level up: " + bonestolevel() + "</td></tr>");
-  if ($("#MPR").val()) $(".moreInfo").append("<tr><td>Fluffy/hr: " + numberWithCommas(Math.ceil(((zoneXP(zoneYP, false) / $("#MPR").val()) * 60))) + "</td></tr>");
+  if ($("#MPR").val()) $(".moreInfo").append("<tr><td>Fluffy/hr: " + numberWithCommas(Math.ceil(((zoneXP(0, zoneYP) / $("#MPR").val()) * 60))) + "</td></tr>");
 
   saveLocalStorage();
 
@@ -227,28 +216,23 @@ function sformat(s) {
 }
 
 // Count fluffy spent
-function countSpent(type) {
-  var cap = capableCost(game.portal.Capable.level);
-  var cun = cunningCost(game.portal.Cunning.level);
-  var cur = curiousCost(game.portal.Curious.level);
-  var cla = classyCost(game.portal.Classy.level);
-  var all = cap + cun + cur;
-  if (type == 1) return prettify(cap);
-  if (type == 2) return prettify(cun);
-  if (type == 3) return prettify(cur);
-  if (type == 4) return prettify(cla);
-  if (type == 5) return prettify((all / game.global.totalHeliumEarned) * 100);
-  if (type == 6) {
-    var capp = "";
-    var cunn = "";
-    var curr = "";
-    var clas = "";
-    if (!game.portal.Capable.locked) capp = "Capable: " + prettify((cap / game.global.totalHeliumEarned) * 100) + "%";
-    if (!game.portal.Cunning.locked) cunn = "\n Cunning: " + prettify((cun / game.global.totalHeliumEarned) * 100) + "%";
-    if (!game.portal.Curious.locked) curr = "\n Curious: " + prettify((cur / game.global.totalHeliumEarned) * 100) + "%";
-    if (!game.portal.Classy.locked) curr = "\n Classy: " + prettify((cla / game.global.totalHeliumEarned) * 100) + "%";
-    return capp + cunn + curr + clas;
+function countHelium(type) {
+  var output = "";
+  allHelium = game.global.totalHeliumEarned;
+  var capableCost = game.portal.Capable.heliumSpent;
+  var cunningCost = game.portal.Cunning.heliumSpent;
+  var curiousCost = game.portal.Curious.heliumSpent;
+  var classyCost = game.portal.Classy.heliumSpent;
+  if (type == "title") {
+    output += "Capable: " + prettify(capableCost / allHelium * 100) + "%";
+    output += "\n Cunning: " + prettify(cunningCost / allHelium * 100) + "%";
+    output += "\n Curious: " + prettify(curiousCost / allHelium * 100) + "%";
+    output += "\n Classy: " + prettify(classyCost / allHelium * 100) + "%";
   }
+  if (type == "percent") {
+    output += prettify((capableCost + cunningCost + curiousCost + classyCost) / allHelium * 100);
+  }
+  return output;
 }
 
 //number with commas do numberWithCommas(number) and make numbers look good
@@ -257,59 +241,69 @@ const numberWithCommas = (x) => {
 };
 
 // Makes both tables
-function tableValues() {
-  $("#RTable").empty();
-  $("#TTable").empty();
+function getRunsToLevelUp() {
 
-  level = calculateLevel();
-  var emax = Number(game.global.fluffyPrestige) + 2;
-  var runsNeeded = 0;
+  $("#levelUpTable").empty();
+  $("#timeLevelUpTable").empty();
+
+  $("#levelUpHeader1").html("E" + game.global.fluffyPrestige);
+  $("#levelUpHeader2").html("E" + (game.global.fluffyPrestige + 1));
+
+  var xpToLevel = neededExp - currentExp;
+  var thenLevel = calculateLevel();
+  var thenEvolution = game.global.fluffyPrestige;
+  var xpPerRun = zoneXP(0, zoneYP);
+  var timesToLoop = 20 - thenLevel;
+
   var minutesPerRun = Number($("#MPR").val());
   var seconds = (minutesPerRun * 60);
 
-  if(zoneXP(Number(zoneYP), false) < 1){
-    return;
-  }
+  runs = 0;
+
+  levelUpData = "";
+  timeToLevelData = "";
 
   for (var i = 0; i < 10; i++) {
-    $("#RTable").append("<tr> <td> Runs to L" + (i + 1) + "</td><td id='R" + i + "'></td> <td id='D" + i + "'</td> <td id='ER" + i + "' </td> <td id='ED" + i + "' </td> </tr> ");
-    $("#TTable").append("<tr> <td> Time to L" + (i + 1) + "</td><td id='Rt" + i + "'></td> <td id='Et" + i + "' </td></tr> ");
+    $("#levelUpTable").append("<tr> <td> Runs to L" + (i + 1) + "</td><td id='R" + i + "'></td> <td id='D" + i + "'</td> <td id='ER" + i + "' </td> <td id='ED" + i + "' </td> </tr> ");
+    $("#timeLevelUpTable").append("<tr> <td> Time to L" + (i + 1) + "</td><td id='Rt" + i + "'></td> <td id='Et" + i + "' </td></tr> ");
   }
 
-  for (var e = game.global.fluffyPrestige; e < emax; e++) {
-    if(zoneXP(Number(zoneYP), false) < 1){
-      return;
+  for (var x = 0; 20 >= x; x++) {
+
+    if (x <= 10) {
+      l = x - 1;
+      e = thenEvolution;
+
     }
-    for (var l = 0; l < 10; l++) {
-      if (e == game.global.fluffyPrestige) $(".e1").html("E" + e);
-      if (e > game.global.fluffyPrestige) $(".e2").html("E" + e);
-      if (l <= level - 1 && e == game.global.fluffyPrestige) {
-        // $("#R" + l).add("#Rt" + l).append("Already E" + e + "L" + (l + 1));
-        $("#R" + l).add("#Rt" + l).append("");
-        $("#D" + l).append("");
-      } else if (l == level && e == game.global.fluffyPrestige) {
-        firstRun = (upgrade(e, l) - currentExp) / zoneXP(Number(zoneYP), false);
-        runsNeeded += firstRun;
-        $("#R" + l).append(Number((runsNeeded).toFixed(2)));
-        $("#D" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
-        $("#Rt" + l).append(sformat(runsNeeded * seconds));
-      } else if (e > maxEvolution) {
-        $("#ER" + l).add("#ED" + l).append("");
-      } else {
-        secondRun = upgrade(e, l) / zoneXP(Number(zoneYP), false);
-        runsNeeded += secondRun;
-        if (e == game.global.fluffyPrestige) {
-          $("#R" + l).append(Number((runsNeeded).toFixed(2)));
-          $("#D" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
-          $("#Rt" + l).append(sformat(runsNeeded * seconds));
-        }
-        if (e > game.global.fluffyPrestige) {
-          $("#ER" + l).append(Number((runsNeeded).toFixed(2)));
-          $("#ED" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
-          $("#Et" + l).append(sformat(runsNeeded * seconds));
-        }
-      }
+    if (x > 10) {
+      l = (x == 20) ? 9 : (x % 10) - 1; // x == 20 because  20 % 10 = 0 :P
+      e = thenEvolution + 1;
     }
+
+    xpToLevel = upgrade(e, l);
+
+    if (l <= thenLevel - 1 && e == thenEvolution) { // if level is lower then the one "l" just put blank
+      $("#R" + l).add("#Rt" + l).append("");
+      // $("#D" + l).append("");
+
+    } else if (l == thenLevel && e == thenEvolution) { // if level is the same as the one you are trying to upgrade from, calcualte from - currentXP
+      runs += (xpToLevel - currentExp) / xpPerRun;
+      $("#R" + l).append(Number((runs).toFixed(2)));
+      $("#Rt" + l).append(sformat(runs * seconds));
+    } else if (e > maxEvolution) { // If evolution is above the max, put nothing for everything on the last column.
+      $("#ER" + l).add("#ED" + l).append("");
+    } else if (e == thenEvolution) { // If you are calculating the rest of your evolution, put data on the first columns
+      runs += xpToLevel / xpPerRun;
+      $("#R" + l).append(Number((runs).toFixed(2)));
+      $("#D" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
+      $("#Rt" + l).append(sformat(runs * seconds));
+    } else if (e > thenEvolution || (e > thenEvolution && l == thenLevel)) { // If you are above the evolution, new data goes to the last columns
+      runs += xpToLevel / xpPerRun;
+      $("#ER" + l).append(Number((runs).toFixed(2)));
+      $("#ED" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
+      $("#Et" + l).append(sformat(runs * seconds));
+    }
+
   }
 }
 
@@ -326,44 +320,51 @@ function getDamageModifier(level, current, total, e) {
 }
 
 // Makes scatter plot
-function scatterValues() {
+var zoneToLevelData = "";
 
-  var evolution = game.global.fluffyPrestige;
-  var level = Number(calculateLevel());
-  var leveled = 0;
-  var nextPrice = upgrade(evolution, level) - currentExp;
-  var evolved = 0;
-  var pluslevel = 0;
-  var result;
+function getZoneToLevelUp() {
 
-  check = (zoneYP > 601) ? (toZone = zoneYP) : (toZone = 601);
-  check = (game.global.world > startToEarn) ? (zone = (game.global.world), middle = true) : (zone = startToEarn, middle = false);
+  // Might be able to do 50 above your HZE? if not then oh well :P
+  var maxZone = game.global.highestLevelCleared + 50;
 
-  rekt: for (var t = zone; t < toZone; t++) {
-    if (zoneXP(t, middle) >= nextPrice) {
+  var nowZone = game.global.world;
+  var thenZone = game.global.world;
+  var thenLevel = calculateLevel();
+  var thenEvolution = game.global.fluffyPrestige;
+  var xpToLevel = (neededExp - currentExp);
+  var lastLeveled = nowZone;
+  zoneToLevelData = "";
 
+  rekt: for (var x = nowZone; x < maxZone; x++) {
+    if (zoneXP(lastLeveled, x) >= xpToLevel) {
       do {
-        // console.log("in do loop");
-        leveled++;
-        pluslevel++;
-        plotY.push(leveled);
-        plotX.push(t);
-        result += "<tr><td>" + t + "</td><td>E" + evolution + "L" + (level + pluslevel) + "</td></tr>";
-        if (level + pluslevel > 9) {
-          evolution++;
-          level = 0;
-          pluslevel = 0;
-          continue rekt;
+        zoneToLevelData += "<tr> <td>" + x + "</td>";
+        zoneToLevelData += "<td> E" + thenEvolution + "L" + (thenLevel + 1) + "</td> </tr>";
+
+        if (thenLevel == 9) {
+          thenEvolution++;
+          thenLevel = 0;
+        } else {
+          thenLevel++;
         }
-        if (evolution > maxEvolution) {
+        if (thenEvolution > maxEvolution) {
           break;
         }
-        nextPrice += upgrade(evolution, (level + pluslevel));
-      } while (zoneXP(t, middle) >= nextPrice);
+
+        xpToLevel = upgrade(thenEvolution, (thenLevel));
+        lastLeveled = x;
+
+      } while (zoneXP(lastLeveled, x) >= xpToLevel);
     }
   }
-  check1 = (!result) ? ($("#showZoneYL").hide()) : ($("#showZoneYL").show());
-  $("#zoneYL").html(result);
+  if (zoneToLevelData != "") {
+    $("#showZoneYL").show();
+    $("#zoneYL").html(zoneToLevelData);
+  } else {
+    $("#showZoneYL").hide();
+
+  }
+
 }
 
 function getHeirloomValue() {
@@ -374,23 +375,6 @@ function getHeirloomValue() {
     return 1;
   }
 }
-
-function capableCost(capableLevel) {
-  return 100000000 * (1 - Math.pow(10, capableLevel)) / (1 - 10);
-}
-
-function cunningCost(cunningLevel) {
-  return 100000000000 * (1 - (Math.pow(1.3, cunningLevel))) / (1 - 1.3);
-}
-
-function curiousCost(curiousLevel) {
-  return 100000000000000 * (1 - (Math.pow(1.3, curiousLevel))) / (1 - 1.3);
-}
-
-function classyCost(classyLevel) {
-  return 100000000000000000 * (1 - (Math.pow(1.3, classyLevel))) / (1 - 1.3);
-}
-
 // hidden menu
 function stealth(update) {
   if (!update) $("#hidden").toggle();
@@ -400,55 +384,10 @@ function stealth(update) {
   $("#hiddenText").append("<button class='hiddenPadding' onclick='changeXP()'>Change Vars</button>");
   $("#hiddenText").append("<button class='hiddenPadding' onclick='stealth(true)'>Update this</button>");
   $("#hiddenText").append("<button class='hiddenPadding' onclick='stealthUnlock()'>Unlock Spire Perks</button>");
-  $("#hiddenText").append("<select class='hiddenPadding' id='selectSave'>" +
-    "<option value=one>E0L0 0 XP</option>" +
-    "<option value=two>E0L3 208 XP</option>" +
-    "<option value=three>E0L9 260M XP</option>" +
-    "<option value=four>E2L8 1.07B XP</option>" +
-    "<option value=five>E3L9 32.7B XP</option>" +
-    "<option value=six>E4L0 0 XP</option>" +
-    // "<option value=test1>Before</option>" +
-    // "<option value=test2>After</option>" +
-    "</select>" + "<button class='hiddenPadding' onclick='testSaves()')>Load Test Save</button>");
-  $("#hiddenText").append("<button class='hiddenPadding' onclick=fluffyhrf('save')>Save Fluffy/hr</button>");
-  $("#hiddenText").append("<button class='hiddenPadding' onclick=fluffyhrf('clear')>Clear Fluffy/hr</button>");
-  $("#hiddenText").append("<button class='hiddenPadding' onclick=fluffyhrf('compare')>Show Graph</button>");
 }
 
 var fluffyhr = [];
 var result;
-
-function fluffyhrf(what) {
-
-  if (what === "save") {
-    fluffyhr.push({
-      xp: numberWithCommas(Math.ceil(((zoneXP(zoneYP, false) / $("#MPR").val()) * 60))),
-      zone: zoneYP,
-      time: Number($("#MPR").val()),
-      cunning: game.portal.Cunning.level,
-      curious: game.portal.Curious.level
-    });
-  }
-  if (what === "clear") {
-    $("#showFHTable").hide();
-    result = "";
-    fluffyhr = [];
-  }
-  if (what === "compare") {
-    $("#showFHTable").show();
-    result = "";
-    for (var i in fluffyhr) {
-      result += "<tr><td>" + fluffyhr[i].xp + "</td>";
-      result += "<td>" + fluffyhr[i].zone + "</td>";
-      result += "<td>" + fluffyhr[i].time + "</td>";
-      result += "<td>" + fluffyhr[i].cunning + "</td>";
-      result += "<td>" + fluffyhr[i].curious + "</td></tr>";
-
-    }
-    console.log(result);
-    $("#FHTable").html(result);
-  }
-}
 
 function changeXP() {
   if (($('#changeExp').val().replace(/,/g, '') != currentExp)) {
@@ -480,12 +419,12 @@ function stealthCall() {
 function getneededPercent() {
 
   var needed = (neededExp - currentExp);
-  var xpgain = (zoneXP(zoneYP, false));
+  var xpgain = (zoneXP(0, zoneYP));
   var percentFromDays = 0;
   var days = 0;
   var tod = "days";
 
-  xpgain = zoneXP(zoneYP, false) / (dailyBonus);
+  xpgain = zoneXP(0, zoneYP) / (dailyBonus);
 
   dailyNeeded = (Math.ceil((needed / xpgain) * 100) - 100);
 
@@ -501,118 +440,18 @@ function getneededPercent() {
   return (dailyNeeded + "% | <span title ='How many days until you get this cumulative %'> " + days + " " + tod + "</span>");
 }
 
-// Different saves for testing
-function testSaves(input) {
-  var value = $("#selectSave").val();
-  if (value == "one") {
-    game.global.fluffyExp = 0;
-    game.global.fluffyPrestige = 0;
-    game.portal.Capable.level = 0;
-    game.portal.Cunning.level = 0;
-    game.portal.Cunning.locked = true;
-    game.portal.Curious.level = 0;
-    game.portal.Curious.locked = true;
-    game.global.lastPortal = 335;
-    game.global.totalHeliumEarned = 292667659304;
-  }
-  if (value == "two") {
-    game.global.fluffyExp = 21207.818305244513;
-    game.global.fluffyPrestige = 0;
-    game.portal.Capable.level = 3;
-    game.portal.Cunning.level = 0;
-    game.portal.Cunning.locked = true;
-    game.portal.Curious.level = 0;
-    game.portal.Curious.locked = true;
-    game.global.lastPortal = 338;
-    game.global.totalHeliumEarned = 298620603801;
-  }
-  if (value == "three") {
-    game.global.fluffyExp = 347381000;
-    game.global.fluffyPrestige = 0;
-    game.portal.Capable.level = 10;
-    game.portal.Cunning.level = 68;
-    game.portal.Cunning.locked = false;
-    game.portal.Curious.level = 38;
-    game.portal.Curious.locked = false;
-    game.global.lastPortal = 700;
-    game.global.totalHeliumEarned = 31720963611541640000;
-  }
-  if (value == "four") {
-    game.global.fluffyExp = 1620652137.9627433;
-    game.global.fluffyPrestige = 2;
-    game.portal.Capable.level = 10;
-    game.portal.Cunning.level = 68;
-    game.portal.Cunning.locked = false;
-    game.portal.Curious.level = 38;
-    game.portal.Curious.locked = false;
-    game.global.lastPortal = 486;
-    game.global.totalHeliumEarned = 31720963611541640000;
-  }
-  if (value == "five") {
-    game.global.fluffyExp = 43647978697.894;
-    game.global.fluffyPrestige = 3;
-    game.portal.Capable.level = 10;
-    game.portal.Cunning.level = 68;
-    game.portal.Cunning.locked = false;
-    game.portal.Curious.level = 38;
-    game.portal.Curious.locked = false;
-    game.global.lastPortal = 486;
-    game.global.totalHeliumEarned = 31721217442851980000;
-  }
-  if (value == "six") {
-    game.global.fluffyExp = 0;
-    game.global.fluffyPrestige = 4;
-    game.portal.Capable.level = 10;
-    game.portal.Cunning.level = 68;
-    game.portal.Cunning.locked = false;
-    game.portal.Curious.level = 38;
-    game.portal.Curious.locked = false;
-    game.global.lastPortal = 469;
-    game.global.totalHeliumEarned = 31721217442851980000;
-  }
-  // if (value == "test1") {
-  //   game.global.fluffyExp = 0;
-  //   game.global.fluffyPrestige = 0;
-  //   game.portal.Capable.level = 7;
-  //   game.portal.Cunning.level = 17;
-  //   game.portal.Cunning.locked = false;
-  //   game.portal.Curious.level = 0;
-  //   game.portal.Curious.locked = true;
-  //   game.global.lastPortal = 438;
-  //   $("#DailyModifier").val(3361);
-  //   game.global.world = 301;
-  //   game.global.totalHeliumEarned = 31721217442851980000;
-  // }
-  // if (value == "test2") {
-  //   game.global.fluffyExp = 266.4375;
-  //   game.global.fluffyPrestige = 0;
-  //   game.portal.Capable.level = 7;
-  //   game.portal.Cunning.level = 17;
-  //   game.portal.Cunning.locked = false;
-  //   game.portal.Curious.level = 0;
-  //   game.portal.Curious.locked = true;
-  //   game.global.lastPortal = 438;
-  //   $("#DailyModifier").val(3361);
-  //   game.global.world = 302;
-  //   game.global.totalHeliumEarned = 31721217442851980000;
-  // }
-  stealthCall();
-  // console.log(value);
-  if (!value) {
-    // console.log("didNothing");
-  }
-}
-
+var spireBonus = "";
 
 function getLocalStorage() {
   if (localStorage.getItem("fluffyCalculator") == null) {
     localStorage.setItem("fluffyCalculator", "");
   } else {
-    $("#spireBonus").val(localStorage.getItem("fluffyCalculator"));
+    $("#spireBonuss").val(localStorage.getItem("fluffyCalculator"));
   }
 
 }
 
 function saveLocalStorage() {
-  localStorage.setItem("fluffyCalculator", spireBonus);
+  localStorage.setItem("fluffyCalculator", $("#spireBonuss").val());
+  spireBonus = $("#spireBonuss").val();
 }

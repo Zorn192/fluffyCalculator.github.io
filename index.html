@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="main.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117103120-1"></script>
@@ -26,8 +28,8 @@
 <body>
   <div id="tipTitle">
     <span title="made by bhad">
-    F<span class="noselect astext" onclick="stealth()">l</span>uffy Calculator
-    <a style="font-size: xx-small" target="_blank" href="daily">Daily</a>
+    <span style="font-family: 'Indie Flower', cursive;">F<span class="noselect astext" onclick="stealth()">l</span>uffy Calculator</span>
+    <a style="font-size: x-small" target="_blank" href="daily">Daily</a>
     </span>
   </div>
   <hr>
@@ -107,7 +109,7 @@
             <tr id="showSpire">
               <td title="Spire's that you always get C50 Bonus On (bonus is spire 3+), seperate with commas and use numbers">Spires Exp Bonus</td>
               <td>
-                <input id="spireBonus" />
+                <input id="spireBonuss" oninput ="saveLocalStorage()" />
               </td>
             </tr>
           </table>
@@ -136,13 +138,13 @@
             <thead class="thead-light">
               <tr>
                 <th>Runs to E(X)L(X)</th>
-                <th class="e1">E(X)</th>
+                <th class="levelUpHeader1">E(X)</th>
                 <th>Damage %</th>
-                <th class="e2">E(X)</th>
+                <th class="levelUpHeader2">E(X)</th>
                 <th>Damage %</th>
               </tr>
             </thead>
-            <tbody id="RTable"></tbody>
+            <tbody id="levelUpTable"></tbody>
           </table>
         </div>
       </div>
@@ -175,11 +177,11 @@
         <thead class="thead-light">
           <tr>
             <th>Time to E(X)L(X)</th>
-            <th class="e1"></th>
-            <th class="e2"></th>
+            <th class="timeLevelUpHeader1"></th>
+            <th class="timeLevelUpHeader2"></th>
           </tr>
         </thead>
-        <tbody id="TTable"></tbody>
+        <tbody id="timeLevelUpTable"></tbody>
       </table>
     </div>
   </div>
