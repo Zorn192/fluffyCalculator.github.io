@@ -29,7 +29,7 @@ var prestigeEM = 5;
 var firstLevel = 1000;
 var growth = 4;
 var expGrowth = 1.015;
-var specialBonus = 1;
+var specialBonus = 1; 
 var dailyBonus = 1;
 var heirloomBonus = 1;
 var zoneYP = 0;
@@ -37,7 +37,7 @@ var plotX = [];
 var plotY = [];
 var maxEvolution = 7;
 var evolutionXP = 1;
-var startToEarn = 300;
+var startToEarn = 301;
 
 //Get fluffy level
 function calculateLevel() {
