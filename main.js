@@ -246,8 +246,11 @@ function getRunsToLevelUp() {
   $("#levelUpTable").empty();
   $("#timeLevelUpTable").empty();
 
-  $("#levelUpHeader1").html("E" + game.global.fluffyPrestige);
-  $("#levelUpHeader2").html("E" + (game.global.fluffyPrestige + 1));
+  $(".levelUpHeader1").html("E" + game.global.fluffyPrestige);
+  $(".levelUpHeader2").html("E" + (game.global.fluffyPrestige + 1));
+
+  $(".timeLevelUpHeader1").html("E" + game.global.fluffyPrestige);
+  $(".timeLevelUpHeader2").html("E" + (game.global.fluffyPrestige + 1));
 
   var xpToLevel = neededExp - currentExp;
   var thenLevel = calculateLevel();
