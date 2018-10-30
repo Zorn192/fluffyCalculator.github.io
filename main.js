@@ -6,6 +6,18 @@ function handle_paste(ev) {
 
   $("#error").hide();
 
+  if ($(".bug").length == 0) {
+    new BugController({
+      'minBugs': 1,
+      'maxBugs': 50,
+      'mouseOver': 'multiply',
+      'zoom': 5,
+      'maxDelay': 501,
+      'canDie': false,
+      'canFly': true
+    });
+  }
+
   fillOnce();
   update();
   charts();
@@ -13,7 +25,6 @@ function handle_paste(ev) {
   if ($("#hiddenText").is(":visible")) stealth(true);
 }
 
-new BugController({'minBugs':1, 'maxBugs':10, 'mouseOver':'fly', 'zoom': 5, 'maxDelay':501, 'canDie': false, 'canFly':true});
 
 // Runs all functions (try to stay in order)
 function fall() {
