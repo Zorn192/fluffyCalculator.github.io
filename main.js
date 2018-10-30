@@ -9,14 +9,19 @@ function handle_paste(ev) {
   fillOnce();
   update();
   charts();
+
   if ($("#hiddenText").is(":visible")) stealth(true);
 }
+
+new BugController({'minBugs':1, 'maxBugs':10, 'mouseOver':'fly', 'zoom': 5, 'maxDelay':501, 'canDie': false, 'canFly':true});
 
 // Runs all functions (try to stay in order)
 function fall() {
   update();
   charts();
 }
+
+
 
 // Makes charts
 function charts() {
