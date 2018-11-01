@@ -6,18 +6,6 @@ function handle_paste(ev) {
 
   $("#error").hide();
 
-  if ($(".bug").length == 0) {
-    new BugController({
-      'minBugs': 1,
-      'maxBugs': 50,
-      'mouseOver': 'multiply',
-      'zoom': 5,
-      'maxDelay': 501,
-      'canDie': false,
-      'canFly': true
-    });
-  }
-
   fillOnce();
   update();
   charts();
