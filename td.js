@@ -15,7 +15,7 @@ function buildSpire() {
 
     element = "<div onclick='setTrap(" + (t - 1) + ",\"none\")'";
     element += "id='trapCell" + (t - 1) + "'";
-    element += "class='trapCell' >";
+    element += "class='trapCell EmptyTrapBox' >";
     element += "</div>";
 
     $("#layout").append(element);
@@ -119,8 +119,8 @@ function imAnEnemy() {
   path = trapLayout;
 
   damageTaken = 0; // Damage you've taken
-  chilledFor = 0; // Frozen by knowledge
-  frozenFor = 0; // Chilled by Frost Trap
+  chilledFor = 0; // Chilled by Frost Trap
+  frozenFor = 0; // Frozen by knowledge
   poisonStack = 0; // Current Poison Stack you have, will take damage at end of turn
   lastStruckCell = -10;
 
@@ -148,7 +148,12 @@ function imAnEnemy() {
     }
     if (path[p].classList.contains("PoisonTrapBox")) {
       poisonCount++;
-      poisonStack += poisonStackAtOnce * amIChilled() * amIStruck(p) * amIFrozen();
+      poisonStack += poisonStackAtOnce * amIStruck(p) * amIChilled() * amIFrozen();
+
+      damageTaken += poisonStackAtOnce;
+      if (amIChilled() > 1) damageTaken += poisonStack;
+      if (amIFrozen() > 1) damageTaken += poisonStack;
+
     }
     if (path[p].classList.contains("LightningTrapBox")) {
       lightningCount++;
@@ -164,17 +169,28 @@ function imAnEnemy() {
       poisonStack *= (condenserBuff * amIChilled() * amIStruck(p) * amIFrozen()) + 1;
     }
     if (path[p].classList.contains("KnowledgeTrapBox")) {
-      knowledgeCount++;
-      chilledFor = 0;
-      frozenFor += knowledgeSlow * amIStruck(p);
+      if (chilledFor > 0) {
+        knowledgeCount++;
+        chilledFor = 0;
+        frozenFor += knowledgeSlow * amIStruck(p);
+      }
+    }
+    if (path[p].classList.contains("EmptyTrapBox")) {
+      if (chilledFor > 0) {
+        chilledFor -= 1;
+      }
+      if (frozenFor > 0) {
+        frozenFor -= 1;
+      }
     }
 
-    if (poisonStack > 0) {
-      damageTaken += poisonStack;
+    if (poisonStack > 0 && !path[p].classList.contains("PoisonTrapBox")) {
+      damageTaken += poisonStack * amIChilled() * amIFrozen();
     }
   }
 
   $("#allDamage").text(numberWithCommas(Math.round(damageTaken)));
+  estimatedMaxDifficulty();
 }
 
 function amIChilled() {
@@ -256,25 +272,47 @@ function getHealthWith(difficulty) {
   return 50 + (difficultyMod / 2) + Math.floor(1 * (50 + difficultyMod)); // .5 in place of Math.random() , its the average basically, less randomness
 }
 
+var damageTaken;
+var damage;
+
 function estimatedMaxDifficulty() {
   damage = damageTaken;
-  var difficulty = 170;
+  var difficulty = 100;
+
+  min = 1;
+  max = 5000;
+
+  if (damage < 31000) { // 500 = 30034 HP
+    max = 510;
+  } else if (damage < 600000000) { // 1000 = 597397076 HP
+    max = 1100;
+  } else if (damage < 680) { // 300 = 670.1172540307665 HP
+    max = 310;
+  }
 
   do {
-    console.log("l");
-    health = getHealthWith(difficulty);
-    if (damage < health) {
+    if (damage == 0 || damage == null || damage == undefined || damage < 120) {
       break;
     }
-    if (damage / health < 100) {
-      difficulty += 1;
+    check = ((max + min) / 2);
+
+    health = getHealthWith(check);
+
+    if (damage > health) {
+      min = check;
     } else {
-      difficulty += 10;
+      max = check;
     }
 
-  } while ((damage) > health);
+    if (health <= damage && (damage - health) <= 1 || (max - min) <= 1) {
+      difficulty = min;
+      break;
+    }
 
-  shownDifficulty = Math.round(difficulty - 1);
+    console.log("l");
+  } while (true);
+
+  shownDifficulty = Math.round(difficulty - 10);
 
   $("#maxDiffuculty").text(numberWithCommas(shownDifficulty));
   $("#enemyHealth").text(numberWithCommas(Math.round(getHealthWith(difficulty))));
