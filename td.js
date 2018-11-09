@@ -144,50 +144,48 @@ function imAnEnemy() {
     if (path[p] == null) {
       continue;
     }
-    console.log("yes");
+    // console.log("yes");
     if (path[p].classList.contains("FireTrapBox")) {
       layout[p].type = "fire";
       fireCount++;
-      damageTaken += fireDamage * amIChilled() * amIStruck(p) * amIFrozen() * isThereStrength(p);
+      damageTaken += fireDamage * multipleDamage(p, "fire");
     }
     if (path[p].classList.contains("FrostTrapBox")) {
       layout[p].type = "frost";
       frostCount++;
-      chilledFor += frostSlow * amIStruck(p);
-      damageTaken += frostDamage * amIStruck(p);
+      chilledFor += frostSlow * multipleDamage(p, "frost");
+      damageTaken += frostDamage * multipleDamage(p, "frost");
     }
     if (path[p].classList.contains("PoisonTrapBox")) {
       layout[p].type = "poison";
       poisonCount++;
-      poisonStack += poisonStackAtOnce * amIStruck(p) * amIChilled() * amIFrozen();
+      poisonStack += poisonStackAtOnce * multipleDamage(p, "poison");
 
       damageTaken += poisonStackAtOnce;
-      if (amIChilled() > 1) damageTaken += poisonStack;
-      if (amIFrozen() > 1) damageTaken += poisonStack;
-
+      if (multipleDamage(p, "poison") > 1) damageTaken += poisonStack;
     }
     if (path[p].classList.contains("LightningTrapBox")) {
       layout[p].type = "lightning";
       lightningCount++;
-      damageTaken += lightningDamage * amIChilled() * amIFrozen();
+      damageTaken += lightningDamage * multipleDamage(p, "lightning");
       lastStruckCell = p;
     }
     if (path[p].classList.contains("StrengthTrapBox")) {
       layout[p].type = "strength";
       strengthCount++;
-      damageTaken += strengthDamage * amIChilled() * amIStruck(p) * amIFrozen();
+      damageTaken += strengthDamage * multipleDamage(p, "strength");
     }
     if (path[p].classList.contains("CondenserTrapBox")) {
       layout[p].type = "condensor";
       condenserCount++;
-      poisonStack *= (condenserBuff * amIChilled() * amIStruck(p) * amIFrozen()) + 1;
+      poisonStack *= (multipleDamage(p, "condensor")) + 1;
     }
     if (path[p].classList.contains("KnowledgeTrapBox")) {
       layout[p].type = "knowledge";
       if (chilledFor > 0) {
         knowledgeCount++;
         chilledFor = 0;
-        frozenFor += knowledgeSlow * amIStruck(p);
+        frozenFor += knowledgeSlow * multipleDamage(p, "knowledge");
       }
     }
     if (path[p].classList.contains("EmptyTrapBox")) {
@@ -201,7 +199,7 @@ function imAnEnemy() {
     }
 
     if (poisonStack > 0 && !path[p].classList.contains("PoisonTrapBox") && p != 0) {
-      damageTaken += poisonStack * amIChilled() * amIFrozen();
+      damageTaken += poisonStack * multipleDamage(p, "poison");
     }
 
   }
@@ -210,41 +208,32 @@ function imAnEnemy() {
   estimatedMaxDifficulty();
 }
 
-function amIChilled() {
-  if (chilledFor > 0) {
+function multipleDamage(p, type) {
+
+  returnN = 0;
+  var row = Math.floor(p / 5);
+
+  if ((chilledFor > 0) && (type != "knowledge" && type != "frost")) {
     chilledFor -= 1;
-    return 2;
-  } else {
-    return 1;
+    returnN += 2;
   }
-}
-
-function amIStruck(p) {
-  if (lastStruckCell == (p + 1)) {
-    return 2;
-  } else {
-    return 1;
-  }
-}
-
-function amIFrozen() {
-  if (frozenFor > 0) {
+  if ((frozenFor > 0) && (type != "knowledge" && type != "frost")) {
     frozenFor -= 1;
-    return 3;
-  } else {
-    return 1;
+    returnN += 3;
   }
-}
 
-function isThereStrength(number) {
-  var row = Math.floor(number / 5);
-
-  if (strengthLocations[row]) {
-    // console.log(row);
-    return (strengthBoost + 1);
-  } else {
-    return 1;
+  if ((lastStruckCell == (p + 1)) && (type != "lightning" || type != "poison")) {
+    returnN += 2;
   }
+
+  if (strengthLocations[row] && type == "fire") {
+    returnN += (strengthBoost + 1);
+  }
+
+
+  if (returnN == 0) returnN = 1;
+  return returnN;
+
 }
 
 var fireBaseCost = 100;
