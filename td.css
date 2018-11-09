@@ -1,0 +1,96 @@
+#layout {
+  width: 100%;
+  height: 100%
+}
+
+.trapCell {
+  width: 20%;
+  height: 5%;
+  border: 1px solid white;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  cursor: pointer;
+}
+
+#layoutWrapper {
+  width: calc(27vw - 4px);
+  height: 100%;
+  display: inline-block;
+  background-color: black;
+}
+
+#firstLayoutWrapper {
+  top: 9vh;
+  left: 5vw;
+  width: 90vw;
+  height: 90vh;
+}
+
+#information {
+  width: 54vw;
+  height: 100%;
+  display: inline-block;
+  color: white;
+  font-size: 1vw;
+  vertical-align: top;
+  background-color: black;
+}
+
+.spireTrapBox {
+  cursor: pointer;
+  border: 2px solid white;
+  padding: 0.5vw;
+  display: inline-block;
+  margin: 0.5vw;
+  text-align: center;
+  width: 30%;
+}
+
+.FireTrapBox {
+  background-color: #7F0505;
+}
+
+.FrostTrapBox {
+  background-color: #02437C;
+}
+
+.PoisonTrapBox {
+  background-color: #008238;
+}
+
+.LightningTrapBox {
+  background-color: #a27d02;
+}
+
+.StrengthTrapBox {
+  background-color: #684112;
+}
+
+.CondenserTrapBox {
+  background-color: grey;
+}
+
+.KnowledgeTrapBox {
+  background-color: #2b112b;
+}
+
+.spireTrapBox.selected {
+  border: 2px solid yellow;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
