@@ -58,8 +58,8 @@
           <td style="width: 10px"></td>
           <td>Max Health For Difficulty: </td>
           <td id="enemyHealth"></td>
-          <td style="width: 10px"></td>
-          <td type="button" style="color: black" onclick="estimatedMaxDifficulty()" title="Hotkey: Enter. Probably Lags"> Get Max Difficulty</td>
+          <!-- <td style="width: 10px"></td> -->
+          <!-- <td type="button" style="color: black" onclick="estimatedMaxDifficulty()" title="Hotkey: Enter. Probably Lags"> Get Max Difficulty</td> -->
         </tr>
 
       </table>
@@ -70,7 +70,7 @@
         <div onclick="selectTrap('Frost')" class="FrostTrapBox spireTrapBox" title="Deals 10 Damage, then slows for 5 Cells After the Trap (2 hits for 5 cells), affected by lightning only. Hotkey: 2">Frost Trap</div>
         <div onclick="selectTrap('Poison')" class="PoisonTrapBox spireTrapBox" title="Adds 3 Poison Stacks, affected by sources of lightning and sources of slow. Hotkey: 3">Poison Trap</div>
         <div onclick="selectTrap('Lightning')" class="LightningTrapBox spireTrapBox" title="Deals 10 Damage, then doubles the adjacent traps effect, not affected by lightning and sources of slow. Hotkey: 4">Lightning Trap</div>
-        <div onclick="selectTrap('Strength')" class="StrengthTrapBox spireTrapBox" title="Deals 20 Damage, then doubles all Fire Traps on the rows damage, can only place one on each row, not affected by lightning and sources of slow. Hotkey: 5">Strength Tower</div>
+        <div onclick="selectTrap('Strength')" class="StrengthTrapBox spireTrapBox" title="Deals 20 Damage, then Fire Traps deal 50% more damage in the same row, can only place one on each row, not affected by lightning and sources of slow. Hotkey: 5">Strength Tower</div>
         <div onclick="selectTrap('Condenser')" class="CondenserTrapBox spireTrapBox" title="Increases Poison Stack by 25%, affected by lightning and sources of slow. Hotkey: 6">Condenser Tower</div>
         <div onclick="selectTrap('Knowledge')" class="KnowledgeTrapBox spireTrapBox" title="If enemy is affected by frost trap, halves its slow for 5 cells (3 hits for 5 cells), affected by lightning only. Hotkey: 7">Knowledge Tower</div>
         <div onclick="selectTrap('Empty')" class="EmptyTrapBox spireTrapBox" title="Removes a trap you've placed down already. Hotkey: 8">Empty</div>
@@ -79,6 +79,39 @@
       <div style="left:1vw; position: relative">
         <input id="spireRows" type="number" value="10" max="20" oninput="buildSpire()" /> Rows
 
+        <table>
+          <thead>
+            <th>Save</th>
+            <th>Load</th>
+          </thead>
+          <tbody style="text-align:center; color: black;">
+
+            <tr>
+              <td>
+                <div class="button" onmousedown="saveLoadout(1)">1</div>
+              </td>
+              <td>
+                <div class="button" onmousedown="loadLoadout(1)">1</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="button" onmousedown="saveLoadout(2)">2</div>
+              </td>
+              <td>
+                <div class="button" onmousedown="loadLoadout(2)">2</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="button" onmousedown="saveLoadout(3)">3</div>
+              </td>
+              <td>
+                <div class="button" onmousedown="loadLoadout(3)">3</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 

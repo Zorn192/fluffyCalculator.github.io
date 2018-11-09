@@ -1,4 +1,9 @@
-$(document).ready(buildSpire());
+/* jshint esversion: 6 */
+
+$(document).ready(function() {
+  buildSpire();
+  // getTrapLocalStorage();
+});
 
 var trapLayout;
 
@@ -111,6 +116,8 @@ var condenserBuff = 0.25;
 //
 var knowledgeSlow = 5;
 
+var layout = {};
+
 function imAnEnemy() {
 
   //hey you're an enemy cool;
@@ -133,20 +140,24 @@ function imAnEnemy() {
   knowledgeCount = 0;
 
   for (var p = (pathLength - 1); p > -1; p--) {
+    layout[p] = {};
     if (path[p] == null) {
       continue;
     }
-
+    console.log("yes");
     if (path[p].classList.contains("FireTrapBox")) {
+      layout[p].type = "fire";
       fireCount++;
       damageTaken += fireDamage * amIChilled() * amIStruck(p) * amIFrozen() * isThereStrength(p);
     }
     if (path[p].classList.contains("FrostTrapBox")) {
+      layout[p].type = "frost";
       frostCount++;
       chilledFor += frostSlow * amIStruck(p);
       damageTaken += frostDamage * amIStruck(p);
     }
     if (path[p].classList.contains("PoisonTrapBox")) {
+      layout[p].type = "poison";
       poisonCount++;
       poisonStack += poisonStackAtOnce * amIStruck(p) * amIChilled() * amIFrozen();
 
@@ -156,19 +167,23 @@ function imAnEnemy() {
 
     }
     if (path[p].classList.contains("LightningTrapBox")) {
+      layout[p].type = "lightning";
       lightningCount++;
       damageTaken += lightningDamage * amIChilled() * amIFrozen();
       lastStruckCell = p;
     }
     if (path[p].classList.contains("StrengthTrapBox")) {
+      layout[p].type = "strength";
       strengthCount++;
       damageTaken += strengthDamage * amIChilled() * amIStruck(p) * amIFrozen();
     }
     if (path[p].classList.contains("CondenserTrapBox")) {
+      layout[p].type = "condensor";
       condenserCount++;
       poisonStack *= (condenserBuff * amIChilled() * amIStruck(p) * amIFrozen()) + 1;
     }
     if (path[p].classList.contains("KnowledgeTrapBox")) {
+      layout[p].type = "knowledge";
       if (chilledFor > 0) {
         knowledgeCount++;
         chilledFor = 0;
@@ -176,6 +191,7 @@ function imAnEnemy() {
       }
     }
     if (path[p].classList.contains("EmptyTrapBox")) {
+      layout[p].type = "empty";
       if (chilledFor > 0) {
         chilledFor -= 1;
       }
@@ -184,9 +200,10 @@ function imAnEnemy() {
       }
     }
 
-    if (poisonStack > 0 && !path[p].classList.contains("PoisonTrapBox")) {
+    if (poisonStack > 0 && !path[p].classList.contains("PoisonTrapBox") && p != 0) {
       damageTaken += poisonStack * amIChilled() * amIFrozen();
     }
+
   }
 
   $("#allDamage").text(numberWithCommas(Math.round(damageTaken)));
@@ -215,7 +232,6 @@ function amIFrozen() {
     frozenFor -= 1;
     return 3;
   } else {
-
     return 1;
   }
 }
@@ -317,3 +333,30 @@ function estimatedMaxDifficulty() {
   $("#maxDiffuculty").text(numberWithCommas(shownDifficulty));
   $("#enemyHealth").text(numberWithCommas(Math.round(getHealthWith(difficulty))));
 }
+
+
+// loadouts = [{}];
+//
+//
+// function saveLoadout(number) {
+//
+//   loadouts[number] = $("#layout")[0].outerHTML;
+//
+//   localStorage.setItem('loadouts',loadouts);
+// }
+//
+// function loadLoadout(number) {
+//
+//   trapLayout = $.extend(true, {}, trapLayout);
+//
+//   $("#layout").html(trapLayout);
+//
+// }
+//
+// function getTrapLocalStorage() {
+//   if (localStorage.getItem("loadouts") == null) {
+//     localStorage.setItem("loadouts", loadouts);
+//   } else {
+//     loadouts = localStorage.getItem("loadouts");
+//   }
+// }

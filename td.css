@@ -94,3 +94,11 @@
   /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+.button {
+  color: white;
+  background-color: black;
+  cursor: pointer;
+  border: 2px solid white;
+  border-radius: 9px;
+}
