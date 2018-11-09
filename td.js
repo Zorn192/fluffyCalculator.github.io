@@ -70,7 +70,6 @@ function setTrap(number, current) {
   search[index].setAttribute('onclick', 'setTrap(' + number + ",\"" + selectedTrap + "\")");
 
   imAnEnemy();
-  estimatedMaxDifficulty();
   getCostOfBuild();
 
 }
@@ -216,7 +215,6 @@ function isThereStrength(number) {
   }
 }
 
-
 var fireBaseCost = 100;
 var fireCostIncrease = 1.1;
 
@@ -253,24 +251,31 @@ function getCostOfBuild() {
 
 }
 
+function getHealthWith(difficulty) {
+  var difficultyMod = Math.pow(1.02, difficulty);
+  return 50 + (difficultyMod / 2) + Math.floor(1 * (50 + difficultyMod)); // .5 in place of Math.random() , its the average basically, less randomness
+}
+
 function estimatedMaxDifficulty() {
   damage = damageTaken;
-  var difficulty = 100;
-
-  function getHealthWith(difficulty) {
-    var difficultyMod = Math.pow(1.02, difficulty);
-    return 50 + (difficultyMod / 2) + Math.floor(0.5 * (50 + difficultyMod)); // .5 in place of Math.random() , its the average basically, less randomness
-  }
+  var difficulty = 170;
 
   do {
+    console.log("l");
     health = getHealthWith(difficulty);
+    if (damage < health) {
+      break;
+    }
     if (damage / health < 100) {
-      difficulty += 5;
+      difficulty += 1;
     } else {
-      difficulty += 500;
+      difficulty += 10;
     }
 
   } while ((damage) > health);
 
-  $("#maxDiffuculty").text(numberWithCommas(Math.round(difficulty)));
+  shownDifficulty = Math.round(difficulty - 1);
+
+  $("#maxDiffuculty").text(numberWithCommas(shownDifficulty));
+  $("#enemyHealth").text(numberWithCommas(Math.round(getHealthWith(difficulty))));
 }

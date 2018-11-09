@@ -11,7 +11,6 @@
   <link href="https://fonts.googleapis.com/css?family=Poor+Story" rel="stylesheet">
   <link rel="icon" href="fluffy.png">
 
-
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117103120-1"></script>
   <script>
@@ -25,9 +24,6 @@
     gtag('config', 'UA-117103120-1');
   </script>
 </head>
-
-
-
 
 <body style="background-color: black">
   <div id="tipTitle">
@@ -49,31 +45,35 @@
     <div id="information">
       <table id="yes">
         <tr>
-          <td>All Damage</td>
+          <td>All Damage: </td>
           <td id="allDamage"></td>
         </tr>
         <tr>
-          <td>Max Difficulty</td>
-          <td id="maxDiffuculty"></td>
-        </tr>
-        <tr>
-          <td>Rs for Build</td>
+          <td>Rs for Build: </td>
           <td id="costOfBuild"></td>
+        </tr>
+        <tr title="inaccurate, just use a a baseline lol i guess">
+          <td>Max Difficulty: </td>
+          <td id="maxDiffuculty"></td>
+          <td style="width: 10px"></td>
+          <td>Max Health For Difficulty: </td>
+          <td id="enemyHealth"></td>
+          <td style="width: 10px"></td>
+          <td type="button" style="color: black" onclick="estimatedMaxDifficulty()" title="Hotkey: Enter. Probably Lags"> Get Max Difficulty</td>
         </tr>
 
       </table>
 
-
       <div id="trapSelector">
 
-        <div onclick="selectTrap('Fire')" class="FireTrapBox spireTrapBox" title="Deals 70 Damage, affected by lightning and sources of slow">Fire Trap</div>
-        <div onclick="selectTrap('Frost')" class="FrostTrapBox spireTrapBox" title="Deals 10 Damage, then slows for 5 Cells After the Trap (2 hits for 5 cells), affected by lightning only">Frost Trap</div>
-        <div onclick="selectTrap('Poison')" class="PoisonTrapBox spireTrapBox" title="Adds 3 Poison Stacks, affected by sources of lightning and sources of slow">Poison Trap</div>
-        <div onclick="selectTrap('Lightning')" class="LightningTrapBox spireTrapBox" title="Deals 10 Damage, then doubles the adjacent traps effect, not affected by lightning and sources of slow">Lightning Trap</div>
-        <div onclick="selectTrap('Strength')" class="StrengthTrapBox spireTrapBox" title="Deals 20 Damage, then doubles all Fire Traps on the rows damage, not affected by lightning and sources of slow">Strength Tower</div>
-        <div onclick="selectTrap('Condenser')" class="CondenserTrapBox spireTrapBox" title="Increases Poison Stack by 25%, affected by lightning and sources of slow">Condenser Tower</div>
-        <div onclick="selectTrap('Knowledge')" class="KnowledgeTrapBox spireTrapBox" title="If enemy is affected by frost trap, halves its slow for 5 cells (3 hits for 5 cells), affected by lightning only">Knowledge Tower</div>
-        <div onclick="selectTrap('Empty')" class="EmptyTrapBox spireTrapBox" title="Removes a trap you've placed down already.">Empty</div>
+        <div onclick="selectTrap('Fire')" class="FireTrapBox spireTrapBox" title="Deals 70 Damage, affected by lightning and sources of slow. Hotkey: 1">Fire Trap</div>
+        <div onclick="selectTrap('Frost')" class="FrostTrapBox spireTrapBox" title="Deals 10 Damage, then slows for 5 Cells After the Trap (2 hits for 5 cells), affected by lightning only. Hotkey: 2">Frost Trap</div>
+        <div onclick="selectTrap('Poison')" class="PoisonTrapBox spireTrapBox" title="Adds 3 Poison Stacks, affected by sources of lightning and sources of slow. Hotkey: 3">Poison Trap</div>
+        <div onclick="selectTrap('Lightning')" class="LightningTrapBox spireTrapBox" title="Deals 10 Damage, then doubles the adjacent traps effect, not affected by lightning and sources of slow. Hotkey: 4">Lightning Trap</div>
+        <div onclick="selectTrap('Strength')" class="StrengthTrapBox spireTrapBox" title="Deals 20 Damage, then doubles all Fire Traps on the rows damage, can only place one on each row, not affected by lightning and sources of slow. Hotkey: 5">Strength Tower</div>
+        <div onclick="selectTrap('Condenser')" class="CondenserTrapBox spireTrapBox" title="Increases Poison Stack by 25%, affected by lightning and sources of slow. Hotkey: 6">Condenser Tower</div>
+        <div onclick="selectTrap('Knowledge')" class="KnowledgeTrapBox spireTrapBox" title="If enemy is affected by frost trap, halves its slow for 5 cells (3 hits for 5 cells), affected by lightning only. Hotkey: 7">Knowledge Tower</div>
+        <div onclick="selectTrap('Empty')" class="EmptyTrapBox spireTrapBox" title="Removes a trap you've placed down already. Hotkey: 8">Empty</div>
       </div>
 
       <div style="left:1vw; position: relative">
@@ -82,18 +82,9 @@
       </div>
     </div>
 
-
-
   </div>
 
-
-
 </body>
-
-
-
-
-
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
@@ -106,11 +97,41 @@
 <!-- <script src="chart.js"></script> -->
 
 <script>
-  $('input').keypress(function(e) {
+  $('body').keypress(function(e) {
     if (e.which == 13) {
       $('#calButton').click();
-      return false; //<---- Add this line
     }
+    switch (e.which) {
+      case 49: // 1
+        selectTrap('Fire');
+        break;
+      case 50: // 2
+        selectTrap('Frost');
+        break;
+      case 51: // 3
+        selectTrap('Poison');
+        break;
+      case 52: // 4
+        selectTrap('Lightning');
+        break;
+      case 53: // 5
+        selectTrap('Strength');
+        break;
+      case 54: // 6
+        selectTrap('Condenser');
+        break;
+      case 55: // 7
+        selectTrap('Knowledge');
+        break;
+      case 56: // 8
+        selectTrap('Empty');
+        break;
+      case 13: // Enter
+        estimatedMaxDifficulty();
+        break;
+    }
+
+    return false; //<---- Add this line
   });
 </script>
 
