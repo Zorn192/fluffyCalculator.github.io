@@ -131,6 +131,9 @@ function imAnEnemy() {
   poisonStack = 0; // Current Poison Stack you have, will take damage at end of turn
   lastStruckCell = -10;
 
+  lastDamageTaken = 0;
+  thisTurnDamage = 0;
+
   fireCount = 0;
   frostCount = 0;
   poisonCount = 0;
@@ -144,92 +147,124 @@ function imAnEnemy() {
     if (path[p] == null) {
       continue;
     }
+
     // console.log("yes");
-    if (path[p].classList.contains("FireTrapBox")) {
+    if (path[p].classList.contains("FireTrapBox")) { // Does this if its a Fire Trap
       layout[p].type = "fire";
       fireCount++;
       damageTaken += fireDamage * multipleDamage(p, "fire");
     }
-    if (path[p].classList.contains("FrostTrapBox")) {
+    if (path[p].classList.contains("FrostTrapBox")) { // Does this if its a Frost Trap
       layout[p].type = "frost";
       frostCount++;
+      damageTaken += frostDamage * multipleDamage(p, "frostD");
       chilledFor += frostSlow * multipleDamage(p, "frost");
-      damageTaken += frostDamage * multipleDamage(p, "frost");
+      chilledFor++; // "to make up for stuff"
     }
-    if (path[p].classList.contains("PoisonTrapBox")) {
+    if (path[p].classList.contains("PoisonTrapBox")) { // Does this if its a Poison Trap
+      if (poisonStack > 0) damageTaken += poisonStack;
       layout[p].type = "poison";
       poisonCount++;
-      poisonStack += poisonStackAtOnce * multipleDamage(p, "poison");
 
-      damageTaken += poisonStackAtOnce;
-      if (multipleDamage(p, "poison") > 1) damageTaken += poisonStack;
+      //startPoison
+      addStack = 0;
+      if (lastStruckCell == (p + 1)) {
+        addStack += 6;
+      } //tick one
+      else {
+        addStack += 3;
+      } // still tick one
+      if (chilledFor > 0 || frozenFor > 0) {
+        addStack += 3;
+      } //tick two
+      if (frozenFor > 0) {
+        addStack += 3;
+      } //tick three
+
+      damageTaken += addStack;
+      poisonStack += addStack;
     }
-    if (path[p].classList.contains("LightningTrapBox")) {
+    if (path[p].classList.contains("LightningTrapBox")) { // Does this if its a Lightning Trap
       layout[p].type = "lightning";
       lightningCount++;
       damageTaken += lightningDamage * multipleDamage(p, "lightning");
       lastStruckCell = p;
     }
-    if (path[p].classList.contains("StrengthTrapBox")) {
+    if (path[p].classList.contains("StrengthTrapBox")) { // Does this if its a Strength Trap
       layout[p].type = "strength";
       strengthCount++;
       damageTaken += strengthDamage * multipleDamage(p, "strength");
     }
-    if (path[p].classList.contains("CondenserTrapBox")) {
+    if (path[p].classList.contains("CondenserTrapBox")) { // Does this if its a Condensor Trap
       layout[p].type = "condensor";
       condenserCount++;
-      poisonStack *= (multipleDamage(p, "condensor")) + 1;
+      poisonStack *= (condenserBuff * multipleDamage(p, "condensor")) + 1;
     }
-    if (path[p].classList.contains("KnowledgeTrapBox")) {
+    if (path[p].classList.contains("KnowledgeTrapBox")) { // Does this if its an Knowledge Trap
       layout[p].type = "knowledge";
+      knowledgeCount++;
       if (chilledFor > 0) {
-        knowledgeCount++;
         chilledFor = 0;
         frozenFor += knowledgeSlow * multipleDamage(p, "knowledge");
+        frozenFor++; // "to make up for stuff"
       }
     }
-    if (path[p].classList.contains("EmptyTrapBox")) {
+    if (path[p].classList.contains("EmptyTrapBox")) { // Does this if its an Empty trap
       layout[p].type = "empty";
-      if (chilledFor > 0) {
-        chilledFor -= 1;
-      }
-      if (frozenFor > 0) {
-        frozenFor -= 1;
-      }
     }
 
-    if (poisonStack > 0 && !path[p].classList.contains("PoisonTrapBox") && p != 0) {
-      damageTaken += poisonStack * multipleDamage(p, "poison");
+    // Stuff to do regardless of the cell type,
+    if (chilledFor > 0 && !path[p].classList.contains("FrostTrapBox")) { // Will lose chill every cell, except on the one you gain it.
+      chilledFor -= 1;
+    }
+    if (frozenFor > 0 && !path[p].classList.contains("KnowledgeTrapBox")) { // Will lose frost every cell, except on the one you gain it.
+      frozenFor -= 1;
+    }
+    if (poisonStack > 0 && !path[p].classList.contains("PoisonTrapBox")) { // Will take damage on every cell, but on the one you gain it.
+      damageTaken += (poisonStack * multipleDamage(p, layout[p].type));
     }
 
+    if ($("#hideExtra").is(":checked")) {
+      thisTurnDamage = damageTaken - lastDamageTaken;
+      if (lastDamageTaken == 0) thisTurnDamage = damageTaken;
+      // console.log(String(thisTurnDamage) + String(damageTaken) + String(lastDamageTaken));
+
+      innerHTML = "<div class = 'turnDamage'>" + thisTurnDamage + "</div>";
+      if (chilledFor > 0 && !path[p].classList.contains("FrostTrapBox")) {
+        innerHTML += "<div class='icons'>C</div>";
+      }
+      if (frozenFor > 0 && !path[p].classList.contains("KnowledgeTrapBox")) {
+        innerHTML += "<div class='icons'>F</div>";
+      }
+      path[p].innerHTML = innerHTML;
+      lastDamageTaken = damageTaken;
+    } else{
+      path[p].innerHTML = "";
+    }
   }
-
   $("#allDamage").text(numberWithCommas(Math.round(damageTaken)));
   estimatedMaxDifficulty();
 }
 
 function multipleDamage(p, type) {
 
-  returnN = 0;
+  returnN = 1;
   var row = Math.floor(p / 5);
 
   if ((chilledFor > 0) && (type != "knowledge" && type != "frost")) {
-    chilledFor -= 1;
-    returnN += 2;
+    returnN += 1;
   }
   if ((frozenFor > 0) && (type != "knowledge" && type != "frost")) {
-    frozenFor -= 1;
-    returnN += 3;
+    returnN += 2;
   }
 
-  if ((lastStruckCell == (p + 1)) && (type != "lightning" || type != "poison")) {
-    returnN += 2;
+  if ((lastStruckCell == (p + 1)) && (type != "lightning" && type != "poison" && type != "empty") || (frozenFor > 0 || chilledFor > 0 && type != "poison" && type == "lightning")) {
+    returnN += 1;
   }
 
   if (strengthLocations[row] && type == "fire") {
     returnN += (strengthBoost + 1);
   }
-
 
   if (returnN == 0) returnN = 1;
   return returnN;
@@ -309,12 +344,13 @@ function estimatedMaxDifficulty() {
       max = check;
     }
 
-    if (health <= damage && (damage - health) <= 1 || (max - min) <= 1) {
+    if (health <= damage && (damage - health) <= 1 || (max - min) <= 5) {
       difficulty = min;
       break;
     }
 
-    console.log("l");
+    // console.log("d " + damage + " h " + health + " m " + min + " M " + max);
+    // console.log("l");
   } while (true);
 
   shownDifficulty = Math.round(difficulty - 10);

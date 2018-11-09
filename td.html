@@ -52,7 +52,7 @@
           <td>Rs for Build: </td>
           <td id="costOfBuild"></td>
         </tr>
-        <tr title="inaccurate, just use a a baseline lol i guess">
+        <tr title="Accurate enough. Maybe a bit lower then real life.">
           <td>Max Difficulty: </td>
           <td id="maxDiffuculty"></td>
           <td style="width: 10px"></td>
@@ -69,7 +69,7 @@
         <div onclick="selectTrap('Fire')" class="FireTrapBox spireTrapBox" title="Deals 70 Damage, affected by lightning and sources of slow. Hotkey: 1">Fire Trap</div>
         <div onclick="selectTrap('Frost')" class="FrostTrapBox spireTrapBox" title="Deals 10 Damage, then slows for 5 Cells After the Trap (2 hits for 5 cells), affected by lightning only. Hotkey: 2">Frost Trap</div>
         <div onclick="selectTrap('Poison')" class="PoisonTrapBox spireTrapBox" title="Adds 3 Poison Stacks, affected by sources of lightning and sources of slow. Hotkey: 3">Poison Trap</div>
-        <div onclick="selectTrap('Lightning')" class="LightningTrapBox spireTrapBox" title="Deals 10 Damage, then doubles the adjacent traps effect, not affected by lightning and sources of slow. Hotkey: 4">Lightning Trap</div>
+        <div onclick="selectTrap('Lightning')" class="LightningTrapBox spireTrapBox" title="Deals 10 Damage, then doubles the next tick, not affected by lightning and sources of slow. Hotkey: 4">Lightning Trap</div>
         <div onclick="selectTrap('Strength')" class="StrengthTrapBox spireTrapBox" title="Deals 20 Damage, then Fire Traps deal 50% more damage in the same row, can only place one on each row, not affected by lightning and sources of slow. Hotkey: 5">Strength Tower</div>
         <div onclick="selectTrap('Condenser')" class="CondenserTrapBox spireTrapBox" title="Increases Poison Stack by 25%, affected by lightning and sources of slow. Hotkey: 6">Condenser Tower</div>
         <div onclick="selectTrap('Knowledge')" class="KnowledgeTrapBox spireTrapBox" title="If enemy is affected by frost trap, halves its slow for 5 cells (3 hits for 5 cells), affected by lightning only. Hotkey: 7">Knowledge Tower</div>
@@ -78,8 +78,8 @@
 
       <div style="left:1vw; position: relative">
         <input id="spireRows" type="number" value="10" max="20" oninput="buildSpire()" /> Rows
-
-        <table>
+        <input id="hideExtra" type="checkbox" value="true" oninput="imAnEnemy()" checked /> Damage Numbers
+        <!-- <table>
           <thead>
             <th>Save</th>
             <th>Load</th>
@@ -111,8 +111,8 @@
               </td>
             </tr>
           </tbody>
-        </table>
-      </div>
+        </table> -->
+            </div>
     </div>
 
   </div>

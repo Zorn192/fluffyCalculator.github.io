@@ -102,3 +102,17 @@
   border: 2px solid white;
   border-radius: 9px;
 }
+
+.icons {
+  color:white;
+  position: relative;
+  top: 18%;
+  left: -40%;
+  font-size: 9px;
+}
+
+.turnDamage {
+  color:white;
+
+  font-size: 9px;
+}
