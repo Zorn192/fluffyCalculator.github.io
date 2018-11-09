@@ -107,8 +107,9 @@
   color:white;
   position: relative;
   top: 18%;
-  left: -40%;
+  left: 91%;
   font-size: 9px;
+  width: fit-content;
 }
 
 .turnDamage {

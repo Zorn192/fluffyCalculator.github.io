@@ -158,7 +158,7 @@ function imAnEnemy() {
       layout[p].type = "frost";
       frostCount++;
       damageTaken += frostDamage * multipleDamage(p, "frostD");
-      chilledFor += frostSlow * multipleDamage(p, "frost");
+      chilledFor = frostSlow * multipleDamage(p, "frost");
       chilledFor++; // "to make up for stuff"
     }
     if (path[p].classList.contains("PoisonTrapBox")) { // Does this if its a Poison Trap
@@ -205,8 +205,10 @@ function imAnEnemy() {
       knowledgeCount++;
       if (chilledFor > 0) {
         chilledFor = 0;
-        frozenFor += knowledgeSlow * multipleDamage(p, "knowledge");
-        frozenFor++; // "to make up for stuff"
+        frozenFor = knowledgeSlow * multipleDamage(p, "knowledge");
+        // frozenFor++; // "to make up for stuff"
+      } else {
+        frozenFor -= 1;
       }
     }
     if (path[p].classList.contains("EmptyTrapBox")) { // Does this if its an Empty trap
@@ -214,12 +216,6 @@ function imAnEnemy() {
     }
 
     // Stuff to do regardless of the cell type,
-    if (chilledFor > 0 && !path[p].classList.contains("FrostTrapBox")) { // Will lose chill every cell, except on the one you gain it.
-      chilledFor -= 1;
-    }
-    if (frozenFor > 0 && !path[p].classList.contains("KnowledgeTrapBox")) { // Will lose frost every cell, except on the one you gain it.
-      frozenFor -= 1;
-    }
     if (poisonStack > 0 && !path[p].classList.contains("PoisonTrapBox")) { // Will take damage on every cell, but on the one you gain it.
       damageTaken += (poisonStack * multipleDamage(p, layout[p].type));
     }
@@ -241,6 +237,17 @@ function imAnEnemy() {
     } else{
       path[p].innerHTML = "";
     }
+
+
+    // Stuff to do regardless (cont.)
+    if (chilledFor > 0 && !path[p].classList.contains("FrostTrapBox")) { // Will lose chill every cell, except on the one you gain it.
+      chilledFor -= 1;
+    }
+    if (frozenFor > 0 && !path[p].classList.contains("KnowledgeTrapBox")) { // Will lose frost every cell, except on the one you gain it.
+      frozenFor -= 1;
+    }
+
+
   }
   $("#allDamage").text(numberWithCommas(Math.round(damageTaken)));
   estimatedMaxDifficulty();
@@ -258,12 +265,12 @@ function multipleDamage(p, type) {
     returnN += 2;
   }
 
-  if ((lastStruckCell == (p + 1)) && (type != "lightning" && type != "poison" && type != "empty") || (frozenFor > 0 || chilledFor > 0 && type != "poison" && type == "lightning")) {
+  if ((lastStruckCell == (p + 1) && (type != "lightning" && type != "poison" && type != "empty")) || ((frozenFor > 0 || chilledFor > 0) && type != "poison" && type == "lightning")) {
     returnN += 1;
   }
 
   if (strengthLocations[row] && type == "fire") {
-    returnN += (strengthBoost + 1);
+    returnN += (strengthBoost);
   }
 
   if (returnN == 0) returnN = 1;
@@ -358,7 +365,6 @@ function estimatedMaxDifficulty() {
   $("#maxDiffuculty").text(numberWithCommas(shownDifficulty));
   $("#enemyHealth").text(numberWithCommas(Math.round(getHealthWith(difficulty))));
 }
-
 
 // loadouts = [{}];
 //
