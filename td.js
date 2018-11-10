@@ -225,7 +225,7 @@ function imAnEnemy() {
       if (lastDamageTaken == 0) thisTurnDamage = damageTaken;
       // console.log(String(thisTurnDamage) + String(damageTaken) + String(lastDamageTaken));
 
-      innerHTML = "<div class = 'turnDamage'>" + thisTurnDamage + "</div>";
+      innerHTML = "<div class = 'turnDamage'>" + Math.round(thisTurnDamage * 100) / 100 + "</div>";
       if (chilledFor > 0 && !path[p].classList.contains("FrostTrapBox")) {
         innerHTML += "<div class='icons'>C</div>";
       }
@@ -234,7 +234,7 @@ function imAnEnemy() {
       }
       path[p].innerHTML = innerHTML;
       lastDamageTaken = damageTaken;
-    } else{
+    } else {
       path[p].innerHTML = "";
     }
 
@@ -310,7 +310,8 @@ function getCostOfBuild() {
   cost += condenserBaseCost * (1 - (Math.pow(condenserCostIncrease, condenserCount))) / (1 - condenserCostIncrease);
   cost += knowledgeBaseCost * (1 - (Math.pow(knowledgeCostIncrease, knowledgeCount))) / (1 - knowledgeCostIncrease);
 
-  $("#costOfBuild").text(numberWithCommas(Math.round(cost)));
+  if (cost < 1e21) $("#costOfBuild").text(numberWithCommas(Math.round(cost)));
+  else $("#costOfBuild").text((cost).toPrecision(2));
 
 }
 
@@ -351,7 +352,7 @@ function estimatedMaxDifficulty() {
       max = check;
     }
 
-    if (health <= damage && (damage - health) <= 1 || (max - min) <= 5) {
+    if (health <= damage && (damage - health) <= 1 || (max - min) <= 1) {
       difficulty = min;
       break;
     }
@@ -360,9 +361,9 @@ function estimatedMaxDifficulty() {
     // console.log("l");
   } while (true);
 
-  shownDifficulty = Math.round(difficulty - 10);
 
-  $("#maxDiffuculty").text(numberWithCommas(shownDifficulty));
+  $("#maxRS").text(numberWithCommas(Math.floor(getHealthWith(difficulty))));
+  $("#maxDiffuculty").text(numberWithCommas(Math.round(difficulty)));
   $("#enemyHealth").text(numberWithCommas(Math.round(getHealthWith(difficulty))));
 }
 
