@@ -112,6 +112,15 @@
   width: fit-content;
 }
 
+.poison {
+  color:black;
+  position: relative;
+  bottom: 20%;
+  left: 11%;
+  font-size: 9px;
+  width: fit-content;
+}
+
 .turnDamage {
   color:white;
 
