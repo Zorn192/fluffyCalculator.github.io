@@ -170,16 +170,21 @@ function imAnEnemy() {
       //startPoison
       times = 0;
       addStack = poisonStackAtOnce;
-      if (lastStruckCell == (p + 1)) addStack += poisonStackAtOnce;
-      times++;
-      if (frozenFor > 0 || chilledFor > 0 && times == 1) damageTaken += poisonStack + addStack;
-      addStack += poisonStackAtOnce;
-      times++; // checks if frozen, then adds another stack
-      if (frozenFor > 0 && times == 2) damageTaken += poisonStack + addStack;
-      addStack += poisonStackAtOnce; // checks if chilled and has done one above, then adds another stack
-      damageTaken += addStack;
-      poisonStack += addStack;
-
+      if (lastStruckCell == (p + 1)) {
+        addStack += poisonStackAtOnce;
+        times++;
+      }
+      if (frozenFor > 0 || chilledFor > 0 && times == 1) {
+        damageTaken += poisonStack + addStack;
+        addStack += poisonStackAtOnce;
+        times++; // checks if frozen, then adds another stack
+      }
+      if (frozenFor > 0 && times == 2) {
+        damageTaken += poisonStack + addStack;
+        addStack += poisonStackAtOnce; // checks if chilled and has done one above, then adds another stack
+        damageTaken += addStack;
+        poisonStack += addStack;
+      }
     }
     if (path[p].classList.contains("LightningTrapBox")) { // Does this if its a Lightning Trap
       layout[p].type = "lightning";
@@ -229,9 +234,9 @@ function imAnEnemy() {
       if (frozenFor > 0 && !path[p].classList.contains("KnowledgeTrapBox")) {
         innerHTML += "<div class='icons'>F</div>";
       }
-      if (addStack > 0 && path[p].classList.contains("PoisonTrapBox")) {
-        innerHTML += "<div class='poison'>" + addStack + "</div>";
-      }
+      // if (addStack > 0 && path[p].classList.contains("PoisonTrapBox")) { // for beta testing poison stacks, its annoying :)
+      //   innerHTML += "<div class='poison'>" + addStack + "</div>";
+      // }
       path[p].innerHTML = innerHTML;
       lastDamageTaken = damageTaken;
     } else {
