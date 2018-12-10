@@ -492,8 +492,17 @@ function changeTheme(flip) {
 }
 
 function correctLocalStorage() {
+  try{
+    JSON.parse(localStorage.getItem("fluffyCalculator"));
+  }
+  catch(err){
+    console.log("couldn't JSON.parse (1)");
+    localStorage.removeItem("fluffyCalculator");
+    localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
+    return;
+  }
   if(typeof JSON.parse(localStorage.getItem("fluffyCalculator")) == "string"){
-    console.log("couldn't JSON.parse");
+    console.log("couldn't JSON.parse (2)");
     localStorage.removeItem("fluffyCalculator");
     localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
     return;
