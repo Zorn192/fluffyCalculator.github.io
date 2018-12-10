@@ -492,9 +492,7 @@ function changeTheme(flip) {
 }
 
 function correctLocalStorage() {
-  try {
-    JSON.parse(localStorage.getItem("fluffyCalculator"));
-  } catch (err) {
+  if(typeof JSON.parse(localStorage.getItem("fluffyCalculator")) == "string"){
     console.log("couldn't JSON.parse");
     localStorage.removeItem("fluffyCalculator");
     localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
