@@ -441,6 +441,12 @@ function changeVars(type, data) {
       fluffyCalculator.minutesPerRun = Number($("#MPR").val());
       saveLocalStorage();
       break;
+      case "knowledgeTowers":
+      game.playerSpire.traps.Knowledge.owned = data;
+      break;
+    case "knowledgeLevel":
+      game.playerSpire.traps.Knowledge.level = data;
+      break;
   }
   if (fluffyCalculator.instantUpdating && type != "instantUpdating") {
     fall();
@@ -469,6 +475,9 @@ function updateValuesFromSave() {
   heirloomBonus = getHeirloomValue();
   check = (heirloomBonus > 1) ? $("#showHeirloom").show() : $("#showHeirloom").hide();
   document.getElementById("heirloom").value = prettify(heirloomBonus * 100 - 100);
+
+  document.getElementById("knowledgeTowers").value = game.playerSpire.traps.Knowledge.owned;
+  document.getElementById("knowledgeLevel").value = game.playerSpire.traps.Knowledge.level;
 }
 
 function changeTheme(flip) {
@@ -506,6 +515,10 @@ function correctLocalStorage() {
     localStorage.removeItem("fluffyCalculator");
     localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
     return;
+  }
+  if(localStorage.getItem("fluffyCalculator") == null){
+    console.log("localStorage was null (3)");
+    localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
   }
   var localStorageSave = JSON.parse(localStorage.getItem("fluffyCalculator"));
   var accurateStorageSave = fluffyCalculator;
