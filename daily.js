@@ -16,12 +16,10 @@ var mods = {
   "rampage": "D",
   "karma": "K",
 };
-
 var filterType = {
   "has": false,
   "atleast": true,
 };
-
 var filter = {
   "minDamage": true,
   "maxDamage": true,
@@ -62,7 +60,6 @@ function showFilter() {
   } else if (!$("#filter").is(":visible")) {
     $("#filter").show();
   }
-
   show = "";
   for (var f in filter) {
     if (f == "seed") continue;
@@ -86,7 +83,6 @@ function showFilter() {
   show += "<span style='width: 100%; text-align:center'><button onclick=flipFilter('all')>Flip all</button></span>";
   show += "<span style='width: 100%; text-align:center'><input type='number' min ='0' style='width:60px' value='2' id='filterMatch'> Mods to match  ";
   show += "<button onmousedown='makeDaily()'>Do Filter</span>";
-
   $("#filter").html(show);
 }
 
@@ -127,7 +123,7 @@ function flipFilter(f, type) {
 }
 
 function sendToConsole(add) {
-  var value = prettify(getDailyHeliumValue(countDailyWeight(getDailyChallenge(add, true, false))));
+  var value = prettify(getDailyHeliumValueDaily(countDailyWeightDaily(getDailyChallenge(add, true, false))));
   var returnText = getDailyChallenge(add, false, true);
   returnText += "Grants an additional " + value + "% of all helium earned before finishing.";
   console.log(returnText);
@@ -135,34 +131,26 @@ function sendToConsole(add) {
 
 function makeDaily() {
   var todayOfWeek = getDailyTimeString(0, false, true);
-
   for (var z = 0; z < 8; z++) {
     dayIndex = (todayOfWeek * -1) + z;
     if (dayIndex > -1) {
       dayIndex = (z - todayOfWeek) - 7;
     }
   }
-
-
   lastWeek = dayIndex - 7;
   blank = lastWeek - dayIndex + 1;
   if (lastWeek == -13) {
     lastWeek = -6;
     blank = -7;
   }
-
   // console.log(dayIndex);
   // console.log(lastWeek);
-
   $("#dates").html("");
   header = "";
   for (var i in days) {
     header += "<div class = 'daily'>" + days[i] + "</div>";
-
   }
   $("#dates").append(header);
-
-
   forX: for (var x = lastWeek; x < 365; x++) {
     if (x < (blank)) {
       $("#dates").append("<div class= 'daily'> </div>");
@@ -171,13 +159,12 @@ function makeDaily() {
     var add = 0;
     var dailyInfo = getDailyChallenge(x, false, true);
     var dailyObj = getDailyChallenge(x, true, false);
-    var dailyValue = getDailyHeliumValue(countDailyWeight(dailyObj));
-    var dailyWeight = countDailyWeight(dailyObj);
+    var dailyValue = getDailyHeliumValueDaily(countDailyWeightDaily(dailyObj));
+    var dailyWeight = countDailyWeightDaily(dailyObj);
     if ($("#100Daily").is(':checked')) {
       dailyValue += 100;
       add += 100;
     }
-
     showMods = "";
     classList = "";
     for (var m in dailyObj) {
@@ -186,7 +173,6 @@ function makeDaily() {
         showMods += mods[m];
       }
     }
-
     var append = "";
     var dailyDate = getDailyTimeString(x, true, false);
     var tiers = [(200 + add), (300 + add), (400 + add)];
@@ -197,18 +183,13 @@ function makeDaily() {
     } else if (dailyValue > tiers[1]) {
       append += ("<div onmousedown=sendToConsole(" + x + ") class ='daily daily3 " + classList + "' title='" + dailyInfo + "' > ");
     }
-
     append += ("<small>" + dailyDate + "</small> <br>");
     append += ("<span class=percent>" + prettify(dailyValue) + "% </span><br>");
     append += ("<span style='font-size: smaller' class=mods>" + showMods + "</span>");
-
     if (x == 1) {
       append += ("<span style='font-size: smaller' title='This is the next daily' class=mods>" + "⭐" + "</span>");
     }
-
     append += ("</div>");
-
-
     $("#dates").append(append);
   }
   doFilter();
@@ -259,9 +240,7 @@ function formatDailySeedDate() {
   var seed = String(game.global.dailyChallenge.seed);
   return seed.substr(0, 4) + '-' + seed.substr(4, 2) + '-' + seed.substr(6);
 }
-
 var lastAdd = 0; //internal starting seed
-
 function getDailyTimeString(add, makePretty, getDayOfWeek, makeReallyPretty) {
   var today = new Date();
   if (!add) add = 0;
@@ -297,7 +276,6 @@ function everythingInArrayGreaterEqual(smaller, bigger) {
   return true;
 }
 
-
 function getDailyChallenge(add, objectOnly, textOnly, reddit) {
   // checkCompleteDailies();
   var now = new Date().getTime();
@@ -313,7 +291,6 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
       returnText = "**" + days[todayOfWeek + add] + ", " + betterDailyDate + "**\n \n";
     }
   }
-
   var seedStr = getRandomIntSeeded(dateSeed + 2, 1, 1e9);
   //seedStr = getRandomIntSeeded(seedStr, 1, 1e9);
   var weightTarget = getRandomIntSeeded(seedStr++, 25, 51) / 10;
@@ -321,7 +298,6 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
   var modifierList = [];
   var totalChance = 0;
   var dailyObject = {};
-
   for (var item in dailyModifiers) {
     modifierList.push(item);
     totalChance += dailyModifiers[item].chance;
@@ -373,7 +349,6 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
             modSize = firstChoice[3];
             modWeight = firstChoice[4];
           }
-
           //It's been officially selected by this point
           sizeCount[modSize]++;
           if (!objectOnly) {
@@ -403,11 +378,10 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
           }
           break modLoop;
         }
-
     }
   dailyObject.seed = dateSeed;
   if (objectOnly) return dailyObject;
-  // returnText += "</ul>Challenge has no end point, and grants an <u><b>additional " + prettify(getDailyHeliumValue(currentWeight)) + "%</b></u> of all helium earned before finishing. <b>Can only be run once!</b> Reward does not count toward Bone Portals or affect best He/Hr stat.";
+  // returnText += "</ul>Challenge has no end point, and grants an <u><b>additional " + prettify(getDailyHeliumValueDaily(currentWeight)) + "%</b></u> of all helium earned before finishing. <b>Can only be run once!</b> Reward does not count toward Bone Portals or affect best He/Hr stat.";
   if (textOnly) return returnText;
   nextDaily = returnText;
   // if (document.getElementById('specificChallengeDescription') != null) document.getElementById('specificChallengeDescription').innerHTML = returnText;
@@ -416,15 +390,13 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
 }
 
 function findBestDaily(days) {
-
   var bestDailyValue = 0;
   var bestDailyDate = 0;
   var bestDailyObj = {};
   var bestDailyText = {};
-
   for (var x = 0; x < days; x++) {
     var dailyDate = getDailyTimeString(x, true, false);
-    var dailyValue = getDailyHeliumValue(countDailyWeight(getDailyChallenge(x, true, false)));
+    var dailyValue = getDailyHeliumValueDaily(countDailyWeightDaily(getDailyChallenge(x, true, false)));
     if (dailyValue > bestDailyValue) {
       bestDailyValue = dailyValue;
       bestDailyDate = dailyDate;
@@ -443,7 +415,7 @@ function avgDaily(days) {
   var dailyTimes = 0;
   for (var x = 0; x < days; x++) {
     dailyTimes = x;
-    dailyValues += getDailyHeliumValue(countDailyWeight(getDailyChallenge(x, true, false)));
+    dailyValues += getDailyHeliumValueDaily(countDailyWeightDaily(getDailyChallenge(x, true, false)));
   }
   return (dailyValues / dailyTimes);
 }
@@ -468,18 +440,14 @@ function findMostMods(days) {
 }
 
 function handle_paste(ev) {
-
   var save_string = ev.clipboardData.getData("text/plain").replace(/\s/g, '');
   game = JSON.parse(LZString.decompressFromBase64(save_string));
-
   $("#error").hide();
-
   if (game.global.version > 4.72) $("#error").show().empty().append("This calculator is updated for Trimps 4.71, values might be inaccurate.");
-
   makeDaily();
 }
 
-function countDailyWeight(daily) {
+function countDailyWeightDaily(daily) {
   var weight = 0;
   dailyObj = daily;
   for (var item in dailyObj) {
@@ -493,7 +461,7 @@ function prettify(x) {
   return (x).toFixed(1);
 }
 
-function getDailyHeliumValue(weight) {
+function getDailyHeliumValueDaily(weight) {
   var value = 75 * weight + 20;
   if (value < 100) value = 100;
   else if (value > 500) value = 500;

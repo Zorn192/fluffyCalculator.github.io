@@ -1,4 +1,3 @@
-//
 function countDailyWeight(daily) {
   var weight = 0;
   if (!daily) {
@@ -19,7 +18,7 @@ function getDailyHeliumValue(weight) {
   var value = 75 * weight + 20;
   if (value < 100) value = 100;
   else if (value > 500) value = 500;
-  if (e == 1 && l >= 10 || e == 2 && l >= 9 || e == 3 && l >= 8 || e == 4 && l >= 7) value += 100;
+  if (isRewardActive("dailies")) value += 100;
   return value;
 }
 $(function() {
@@ -148,11 +147,11 @@ var dailyModifiers = {
       return 0.01 * str * stacks;
     },
     getWeight: function(str) {
-      var count = (str < 2) ? 15 : ((str < 3) ? 11 : ((str < 4) ? 9 : ((str < 5) ? 8 : ((str < 7) ? 7 : ((str < 10) ? 6 : (str < 17) ? 5 : 4)))));
-      return ((10 / 8) + 6 - ((0.2 * count) / 2) + ((((500 * count + 400) / count) / 500) - 1) - ((10 - str) / 8)) / 1.75;
+      var count = Math.ceil((1 + Math.sqrt(1 + 800 / str)) / 2);
+      return (6 - (0.1 * count) + (0.8 / count) + (str / 8)) / 1.75;
     },
     minMaxStep: [1, 10, 1],
-    chance: 0.6,
+    chance: 0.3,
     icon: "*bug2",
     incompatible: ["rampage", "weakness"],
     stackDesc: function(str, stacks) {
@@ -330,7 +329,7 @@ var dailyModifiers = {
     },
     incompatible: ["rampage", "weakness"],
     minMaxStep: [1, 5, 1],
-    chance: 0.75
+    chance: 0.3
   },
   dysfunctional: {
     description: function(str) {
@@ -347,7 +346,7 @@ var dailyModifiers = {
   },
   oddTrimpNerf: {
     description: function(str) {
-      return "Trimps have " + prettify(100 - (this.getMult(str) * 100)) + "% less attack on odd numbered zones";
+      return "Trimps have " + prettify(100 - (this.getMult(str) * 100)) + "% less attack on odd numbered Zones";
     },
     getMult: function(str) {
       return 1 - (str * 0.02);
@@ -360,7 +359,7 @@ var dailyModifiers = {
   },
   evenTrimpBuff: {
     description: function(str) {
-      return "Trimps have " + prettify((this.getMult(str) * 100) - 100) + "% more attack on even numbered zones";
+      return "Trimps have " + prettify((this.getMult(str) * 100) - 100) + "% more attack on even numbered Zones";
     },
     getMult: function(str) {
       return 1 + (str * 0.2);
@@ -373,7 +372,7 @@ var dailyModifiers = {
   },
   karma: {
     description: function(str) {
-      return 'Gain a stack after killing an enemy, increasing all non Helium loot by ' + prettify((this.getMult(str, 1) * 100) - 100) + '%. Stacks cap at ' + this.getMaxStacks(str) + ', and reset after clearing a zone.';
+      return 'Gain a stack after killing an enemy, increasing all non Helium loot by ' + prettify((this.getMult(str, 1) * 100) - 100) + '%. Stacks cap at ' + this.getMaxStacks(str) + ', and reset after clearing a Zone.';
     },
     stackDesc: function(str, stacks) {
       return "Your Trimps are finding " + prettify((this.getMult(str, stacks) * 100) - 100) + "% more loot!";
@@ -394,7 +393,7 @@ var dailyModifiers = {
   },
   toxic: {
     description: function(str) {
-      return "Gain a stack after killing an enemy, reducing breed speed by " + prettify(100 - (this.getMult(str, 1) * 100)) + '% (compounding). Stacks cap at ' + this.getMaxStacks(str) + ', and reset after clearing a zone.';
+      return "Gain a stack after killing an enemy, reducing breed speed by " + prettify(100 - (this.getMult(str, 1) * 100)) + '% (compounding). Stacks cap at ' + this.getMaxStacks(str) + ', and reset after clearing a Zone.';
     },
     stackDesc: function(str, stacks) {
       return "Your Trimps are breeding " + prettify(100 - (this.getMult(str, stacks) * 100)) + "% slower.";
@@ -420,7 +419,7 @@ var dailyModifiers = {
     stackDesc: function(str, stacks) {
       var freq = this.getFreq(str);
       var max = this.getMaxStacks(str);
-      var text = "This bad guy";
+      var text = "This Bad Guy";
       if (stacks < max) {
         var next = (freq - (stacks % freq));
         text += " will heal to full and gain attack in " + next + " stack" + ((next == 1) ? "" : "s") + ", " + ((stacks >= freq) ? "" : " and") + " gains 1 stack whenever Trimps die";
@@ -475,7 +474,7 @@ var dailyModifiers = {
   },
   slippery: {
     description: function(str) {
-      return "Enemies have a " + prettify(this.getMult(str) * 100) + "% chance to dodge your attacks on " + ((str <= 15) ? "odd" : "even") + " zones.";
+      return "Enemies have a " + prettify(this.getMult(str) * 100) + "% chance to dodge your attacks on " + ((str <= 15) ? "odd" : "even") + " Zones.";
     },
     getMult: function(str) {
       if (str > 15) str -= 15;
@@ -516,7 +515,7 @@ var dailyModifiers = {
       else size = "the first " + prettify(size * 2) + " rows of";
 
       var name = (str < 4) ? "Mutimps" : "Hulking Mutimps";
-      return "40% of bad guys in " + size + " the World will be mutated into " + name + ".";
+      return "40% of Bad Guys in " + size + " the World will be mutated into " + name + ".";
     },
     getWeight: function(str) {
       return (str / 10) * 1.5;
@@ -533,13 +532,13 @@ var dailyModifiers = {
   empower: {
     description: function(str) {
       var s = (str == 1) ? "" : "s";
-      return "All enemies gain " + str + " stack" + s + " of Empower whenever your Trimps die in the World. Empower increases the attack and health of bad guys in the World by 0.2% per stack, can stack to 9999, and never resets.";
+      return "All enemies gain " + str + " stack" + s + " of Empower whenever your Trimps die in the World. Empower increases the attack and health of Bad Guys in the World by 0.2% per stack, can stack to 9999, and never resets.";
     },
     getWeight: function(str) {
       return (str / 6) * 2;
     },
     stackDesc: function(str, stacks) {
-      return "This bad guy is Empowered and has " + prettify((this.getMult(str, stacks) * 100) - 100) + "% more health and attack.";
+      return "This Bad Guy is Empowered and has " + prettify((this.getMult(str, stacks) * 100) - 100) + "% more health and attack.";
     },
     stacksToAdd: function(str) {
       return str;
@@ -558,7 +557,7 @@ var dailyModifiers = {
   },
   pressure: {
     description: function(str) {
-      return "Trimps gain a stack of Pressure every " + Math.round(this.timePerStack(str)) + " seconds. Each stack of pressure reduces Trimp health by 1%. Max of " + Math.round(this.getMaxStacks(str)) + " stacks, stacks reset after clearing a zone.";
+      return "Trimps gain a stack of Pressure every " + Math.round(this.timePerStack(str)) + " seconds. Each stack of pressure reduces Trimp health by 1%. Max of " + Math.round(this.getMaxStacks(str)) + " stacks, stacks reset after clearing a Zone.";
     },
     getWeight: function(str) {
       var time = (105 - this.timePerStack(str));
@@ -677,3 +676,70 @@ var dailyModifiers = {
   			chance: 1
   		} */
 };
+
+
+function romanNumeral(number) {
+  //This is only accurate up to 399, but that's more than plenty for this game. Probably not the cleanest converter ever, but I thought of it myself, it works, and I'm proud.
+  var numeral = "";
+  while (number >= 100) {
+    number -= 100;
+    numeral += "C";
+  }
+  //77
+  if (number >= 90) {
+    number -= 90;
+    numeral += "XC";
+  }
+  if (number >= 50) {
+    number -= 50;
+    numeral += "L";
+  }
+  if (number >= 40) {
+    number -= 40;
+    numeral += "XL";
+  }
+  while (number >= 10) {
+    number -= 10;
+    numeral += "X";
+  }
+  if (number >= 9) {
+    number -= 9;
+    numeral += "IX";
+  }
+  if (number >= 5) {
+    number -= 5;
+    numeral += "V";
+  }
+  if (number >= 4) {
+    number -= 4;
+    numeral += "IV";
+  }
+  while (number >= 1) {
+    number -= 1;
+    numeral += "I";
+  }
+  return numeral;
+}
+
+var rewards = ["stickler", "helium", "liquid", "purifier", "lucky", "void", "helium", "liquid", "eliminator", "overkiller"];
+var prestigeRewards = ["dailies", "voidance", "overkiller", "critChance", "megaCrit", "superVoid", "voidelicious", "naturesWrath", "voidSiphon"];
+
+function isRewardActive(reward) {
+  var calculatedPrestige = game.global.fluffyPrestige;
+  if (game.talents.fluffyAbility.purchased) calculatedPrestige++;
+  if (calculateLevel() + calculatedPrestige == 0) return 0;
+  var indexes = [];
+  for (var x = 0; x < rewards.length; x++) {
+    if (rewards[x] == reward)
+      indexes.push(x);
+  }
+  for (var z = 0; z < prestigeRewards.length; z++) {
+    if (prestigeRewards[z] == reward)
+      indexes.push(rewards.length + z);
+  }
+  var count = 0;
+  for (var y = 0; y < indexes.length; y++) {
+    if (currentLevel + calculatedPrestige > indexes[y]) count++;
+  }
+  return count;
+}
