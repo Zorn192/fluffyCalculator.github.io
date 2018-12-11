@@ -112,7 +112,7 @@ function update() {
   buffsToExp = getExpBonus();
   check = (zoneYP > startToEarn) ? ($("#ZoneYP").removeClass("has-error")) : ($("#ZoneYP").addClass("has-error"));
   // top title bar
-  document.getElementById("fluffyHelium").innerHTML ="<span title ='% of helium spent on fluffy \n " + countHelium("title") + "'>" + countHelium("percent") + "  <span  class ='noselect astext' onclick='stealth(false)'>%</span> spent" + "</span>";
+  document.getElementById("fluffyHelium").innerHTML = "<span title ='% of helium spent on fluffy \n " + countHelium("title") + "'>" + countHelium("percent") + "  <span  class ='noselect astext' onclick='stealth(false)'>%</span> spent" + "</span>";
   document.getElementById("fluffyLevel").innerHTML = "<span title='This is your current fluffy evolution and level'> E<span contenteditable id='inputE'>" + game.global.fluffyPrestige + "</span>L<span contenteditable id='inputL'>" + calculateLevel() + "</span>";
   document.getElementById("xpTA").innerHTML = "<span id='inputXP' title = " + numberWithCommas(currentExp) + ">" + prettify(currentExp) + "</span> <span title = 'Need " + numberWithCommas(neededExp - currentExp) + " Exp'" + "> / </span> <span title =" + numberWithCommas(neededExp) + ">" + prettify(upgrade(game.global.fluffyPrestige, calculateLevel())) + " exp</span";
   document.getElementById("fluffyDamage").innerHTML = "<span title='This is your current damage %'> +" + prettify(((getDamageModifier(calculateLevel(), currentExp, neededExp, game.global.fluffyPrestige)) - 1) * 100) + "% damage" + "</span>";
@@ -441,7 +441,7 @@ function changeVars(type, data) {
       fluffyCalculator.minutesPerRun = Number($("#MPR").val());
       saveLocalStorage();
       break;
-      case "knowledgeTowers":
+    case "knowledgeTowers":
       game.playerSpire.traps.Knowledge.owned = data;
       break;
     case "knowledgeLevel":
@@ -467,7 +467,7 @@ function updateValuesFromSave() {
   zoneYP = game.global.lastPortal;
   if (game.global.dailyChallenge.seed) {
     document.getElementById("DailyModifier").value = Math.round(getDailyHeliumValue(countDailyWeight()));
-    dailyBonus = (Math.round(getDailyHeliumValue(countDailyWeight())) / 100) - 1;
+    dailyBonus = (Math.round(getDailyHeliumValue(countDailyWeight())) / 100) + 1;
   } else {
     document.getElementById("DailyModifier").value = 0;
     dailyBonus = 1;
@@ -501,23 +501,20 @@ function changeTheme(flip) {
 }
 
 function correctLocalStorage() {
-  try{
-    JSON.parse(localStorage.getItem("fluffyCalculator"));
+  error = false;
+  oldSave = (localStorage.getItem("fluffyCalculator"));
+  try {
+    if (!JSON.parse(oldSave));
+    if (typeof JSON.parse(oldSave) == "string") throw "typeof was string";
+    if (typeof Number(oldSave) == "number" && !isNaN(Number(oldSave))) throw "typeof was number";
+  } catch (err) {
+    var errormessage = err;
+    if (err.name == "SyntaxError") errormessage = "couldn't parse oldSave";
+    error = true;
+    console.log(errormessage);
   }
-  catch(err){
-    console.log("couldn't JSON.parse (1)");
+  if (error) {
     localStorage.removeItem("fluffyCalculator");
-    localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
-    return;
-  }
-  if(typeof JSON.parse(localStorage.getItem("fluffyCalculator")) == "string"){
-    console.log("couldn't JSON.parse (2)");
-    localStorage.removeItem("fluffyCalculator");
-    localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
-    return;
-  }
-  if(localStorage.getItem("fluffyCalculator") == null){
-    console.log("localStorage was null (3)");
     localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
   }
   var localStorageSave = JSON.parse(localStorage.getItem("fluffyCalculator"));
