@@ -49,7 +49,7 @@
     <div class="row">
       <div class="col-md-3" style="min-width:21em;max-width: 30em;">
           <br />
-          <textarea placeholder="Import your save" id="Save" onpaste="handle_paste(event)" type="text" style="width: 298px;"></textarea>
+          <textarea placeholder="Import your save" id="Save" onpaste="handle_paste(event)" type="text" style="width: 298px;" onclick="this.select()"></textarea>
           <!-- beautify ignore:start -->
           <table id="leftTable">
             <tr id="showCapable" style="display: none;"><td>Capable Level</td><td><input id="capable" type="number" max="10" oninput="changeVars(this.id,this.value)" /></td></tr>
