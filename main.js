@@ -6,6 +6,7 @@ function handle_paste(ev) {
   fillOnce();
   update();
   charts();
+  timesNextRunned = 0;
   if ($("#hiddenText").is(":visible")) stealth(true);
 }
 $(document).ready(function() {
@@ -24,6 +25,7 @@ function charts() {
   getZoneToLevelUp();
 }
 //Vars
+var timesNextRunned  = 0;
 var avgDailyNPure = avgDaily(500);
 var avgDailyN = avgDailyNPure;
 var prestigeEM = 5;
@@ -138,12 +140,6 @@ function bonestolevel() {
   }
 }
 
-function graphNextLevel() {
-  game.global.world = 0;
-  dailyBonus = 1;
-  $("#DailyModifier").val("0");
-  fall();
-}
 //getTime
 function sformat(s) {
   var fm = [
@@ -526,4 +522,140 @@ function correctLocalStorage() {
       localStorage.setItem("fluffyCalculator", JSON.stringify(localStorageSave));
     }
   }
+}
+
+function makePopup(title, innerHTML, type, width) {
+
+  titleNoSpaces = title.replace(/\s/g, '');
+
+  if (document.getElementById(titleNoSpaces)) {
+    closePopup(titleNoSpaces);
+  }
+
+
+  firstLayer = document.createElement('div');
+  firstLayer.setAttribute("class", "firstLayer");
+  firstLayer.setAttribute("id", titleNoSpaces);
+
+  secondLayer = document.createElement('div');
+  secondLayer.setAttribute("class", "secondLayer");
+
+  thirdLayer = document.createElement('div');
+  thirdLayer.setAttribute("class", "thirdLayer");
+
+
+  thirdLayer.style.width = width;
+  thirdLayer.innerHTML += "<div class='tooltipTitle' style='position: relative; width:100%; text-align: center;'><u>" + uppercaseLetter(title) + "</u></div>";
+  if(type == "daily") thirdLayer.innerHTML += "<div class='center'> (" + timesNextRunned + ")</div>";
+  thirdLayer.innerHTML += innerHTML;
+
+  thirdLayer.innerHTML += "<br /> <div class='center'> <button onmousedown=closePopup('" + titleNoSpaces + "')>Close</button> </div>";
+
+  firstLayer.appendChild(secondLayer);
+  secondLayer.appendChild(thirdLayer);
+  document.getElementById("basicallyBody").appendChild(firstLayer);
+
+}
+
+function closePopup(title) {
+  document.getElementById(title).remove();
+}
+
+function graphNextLevel() {
+  innerHTML = "<div class ='center'>";
+  shownDailies = [];
+  var todayOfWeek = getDailyTimeString(0, false, true);
+  for (var z = 0; z < 8; z++) {
+    dayIndex = (todayOfWeek * -1) + z;
+    if (dayIndex > -1) {
+      dayIndex = (z - todayOfWeek) - 7;
+    }
+  }
+  lastWeek = dayIndex - 7;
+  blank = lastWeek - dayIndex + 1;
+  index = lastWeek;
+  do {
+    if (blank > index) {
+      index++;
+      continue;
+    }
+    daily = getDailyChallenge(index, true, false);
+    if (game.global.recentDailies.includes(daily.seed)) {
+      index++;
+      continue;
+    } else {
+      shownDailies.push(index);
+      index++;
+      continue;
+    }
+  } while (shownDailies.length < 7);
+
+  for (var x = 0; x < shownDailies.length; x++) {
+    if (x == 7) innerHTML += "<br>";
+    thisIndex = shownDailies[x];
+
+    dailyObj = getDailyChallenge(thisIndex, true, false);
+    dailyHeliumValue = getDailyHeliumValue(countDailyWeight(dailyObj));
+
+    innerHTML += "<div onmousedown=makeNextWith(this.id) class='graphNextLevel " + getDailyClass(dailyHeliumValue) + "' id='" + thisIndex + "' title='" + getDailyChallenge(thisIndex, false, true) + "'>";
+    innerHTML += getDailyTimeString(thisIndex, true) + "  <br /> <div class='center'>" + prettify(dailyHeliumValue) + "% </div>";
+    innerHTML += "</div>";
+  }
+
+  innerHTML += "<br> <br> <div class='graphNextLevel' id='none' onmousedown=makeNextWith(this.id)>⠀No Daily⠀</div>";
+
+  innerHTML += "</div>";
+
+
+  makePopup("Graph Next Level", innerHTML, "daily", "50%");
+}
+
+function getDailyClass(value) {
+  add = 0;
+  if (isRewardActive("dailies")) add = 100;
+  var tiers = [(200 + add), (300 + add), (400 + add)];
+
+  if (value <= tiers[0]) {
+    return "daily1";
+  } else if (value <= tiers[1] && value > tiers[0]) {
+    return "daily2";
+  } else if (value > tiers[1]) {
+    return "daily3";
+  }
+}
+
+function makeNextWith(input) {
+  //NowLevel
+nowLevel =   calculateLevel();
+  // finish off this run;
+  if (game.global.world < zoneYP) {
+    game.global.fluffyExp += zoneXP(game.global.world, zoneYP);
+  }
+  game.global.world = 0;
+//Then Level
+thenLevel= calculateLevel();
+
+if(thenLevel > nowLevel){
+  if(thenLevel == 10){
+    game.global.fluffyPrestige += 1;
+    game.global.fluffyExp = 0;
+  }
+}
+
+  if (input == "none") {
+    game.global.dailyChallenge = {};
+  } else {
+    input = Number(input);
+    var dailyObj = getDailyChallenge(input, true);
+    game.global.dailyChallenge = dailyObj;
+    game.global.recentDailies.push(dailyObj.seed);
+  }
+
+  timesNextRunned++;
+
+  closePopup("GraphNextLevel");
+  graphNextLevel();
+  $('.ui-tooltip').remove(); // tooltips stay why
+  fillOnce();
+  fall();
 }

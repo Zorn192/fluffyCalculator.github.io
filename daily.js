@@ -82,7 +82,7 @@ function showFilter() {
   }
   show += "<span style='width: 100%; text-align:center'><button onclick=flipFilter('all')>Flip all</button></span>";
   show += "<span style='width: 100%; text-align:center'><input type='number' min ='0' style='width:60px' value='2' id='filterMatch'> Mods to match  ";
-  show += "<button onmousedown='makeDaily()'>Do Filter</span>";
+  show += "<button onmousedown='makeDaily(365)'>Do Filter</span>";
   $("#filter").html(show);
 }
 
@@ -119,7 +119,7 @@ function flipFilter(f, type) {
       filterType.has = true;
     }
   }
-  makeDaily();
+  makeDaily(365);
 }
 
 function sendToConsole(add) {
@@ -129,7 +129,7 @@ function sendToConsole(add) {
   console.log(returnText);
 }
 
-function makeDaily() {
+function makeDaily(times, returnn) {
   var todayOfWeek = getDailyTimeString(0, false, true);
   for (var z = 0; z < 8; z++) {
     dayIndex = (todayOfWeek * -1) + z;
@@ -145,15 +145,20 @@ function makeDaily() {
   }
   // console.log(dayIndex);
   // console.log(lastWeek);
-  $("#dates").html("");
+  append = "";
+  if(!returnn)$("#dates").html("");
   header = "";
   for (var i in days) {
     header += "<div class = 'daily'>" + days[i] + "</div>";
   }
   $("#dates").append(header);
-  forX: for (var x = lastWeek; x < 365; x++) {
+  forX: for (var x = lastWeek; x < times; x++) {
     if (x < (blank)) {
+      if(!returnn){
       $("#dates").append("<div class= 'daily'> </div>");
+    } else {
+      append += "<div class= 'daily'> </div>";
+    }
       continue;
     }
     var add = 0;
@@ -173,7 +178,7 @@ function makeDaily() {
         showMods += mods[m];
       }
     }
-    var append = "";
+    if(!returnn) append = "";
     var dailyDate = getDailyTimeString(x, true, false);
     var tiers = [(200 + add), (300 + add), (400 + add)];
     if (dailyValue <= tiers[0]) {
@@ -190,9 +195,14 @@ function makeDaily() {
       append += ("<span style='font-size: smaller' title='This is the next daily' class=mods>" + "⭐" + "</span>");
     }
     append += ("</div>");
-    $("#dates").append(append);
+    if (!returnn) {
+      $("#dates").append(append);
+    }
   }
-  doFilter();
+  if (!returnn) {
+    doFilter();
+  }
+  if (returnn) return append;
 }
 var matched;
 
@@ -439,14 +449,6 @@ function findMostMods(days) {
   console.log(getDailyChallenge(bestNumber, false, true));
 }
 
-function handle_paste(ev) {
-  var save_string = ev.clipboardData.getData("text/plain").replace(/\s/g, '');
-  game = JSON.parse(LZString.decompressFromBase64(save_string));
-  $("#error").hide();
-  if (game.global.version > 4.72) $("#error").show().empty().append("This calculator is updated for Trimps 4.71, values might be inaccurate.");
-  makeDaily();
-}
-
 function countDailyWeightDaily(daily) {
   var weight = 0;
   dailyObj = daily;
@@ -467,6 +469,7 @@ function getDailyHeliumValueDaily(weight) {
   else if (value > 500) value = 500;
   return value;
 }
+
 $(function() {
   $(document).tooltip();
 });
