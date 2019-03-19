@@ -264,9 +264,9 @@ function getRunsToLevelUp() {
       // $("#D" + l).append("");
     } else if (l == nowLevel && e == nowEvolution) { // if level is the same as the one you are trying to upgrade from, calcualte from - currentXP
       runs += (xpToLevel - currentExp) / xpPerRun;
-        allxp += xpToLevel;
+        allxp += xpToLevel - currentExp;
       $("#R" + l).append(Number((runs).toFixed(2)));
-      $("#R"+l).attr("title","Bone Portals to level up: " + Math.ceil((allxp-currentExp)/game.stats.bestFluffyExp.valueTotal));
+      $("#R"+l).attr("title","Bone Portals to level up: " + (Math.ceil(allxp/game.stats.bestFluffyExp.valueTotal)));
       $("#Rt" + l).append(sformat(runs * seconds));
     } else if (e > maxEvolution) { // If evolution is above the max, put nothing for everything on the last column.
       $("#ER" + l).add("#ED" + l).append("");
