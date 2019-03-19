@@ -25,7 +25,7 @@ function charts() {
   getZoneToLevelUp();
 }
 //Vars
-var timesNextRunned  = 0;
+var timesNextRunned = 0;
 var avgDailyNPure = avgDaily(500);
 var avgDailyN = avgDailyNPure;
 var prestigeEM = 5;
@@ -249,12 +249,13 @@ function getRunsToLevelUp() {
     $("#timeLevelUpTable").append("<tr> <td> Time to L" + (i + 1) + "</td><td id='Rt" + i + "'></td> <td id='Et" + i + "' </td></tr> ");
   }
   for (var x = 0; 20 >= x; x++) {
+    date = new Date();
     if (x <= 10) {
       l = x - 1;
       e = nowEvolution;
     }
     if (x > 10) {
-      l = (x == 20) ? 9 : (x-11); // x == 20 because  20 % 10 = 0 :P
+      l = (x == 20) ? 9 : (x - 11); // x == 20 because  20 % 10 = 0 :P
       e = nowEvolution + 1;
     }
     xpToLevel = upgrade(e, l);
@@ -264,24 +265,27 @@ function getRunsToLevelUp() {
       // $("#D" + l).append("");
     } else if (l == nowLevel && e == nowEvolution) { // if level is the same as the one you are trying to upgrade from, calcualte from - currentXP
       runs += (xpToLevel - currentExp) / xpPerRun;
-        allxp += xpToLevel - currentExp;
+      allxp += xpToLevel - currentExp;
+      date.setDate(date.getDate() + runs);
       $("#R" + l).append(Number((runs).toFixed(2)));
-      $("#R"+l).attr("title","Bone Portals to level up: " + (Math.ceil(allxp/game.stats.bestFluffyExp.valueTotal)));
+      $("#R" + l).attr("title", "Bone Portals to level up: " + (Math.ceil(allxp / game.stats.bestFluffyExp.valueTotal)) + "\n" + "Date: " + date.toDateString());
       $("#Rt" + l).append(sformat(runs * seconds));
     } else if (e > maxEvolution) { // If evolution is above the max, put nothing for everything on the last column.
       $("#ER" + l).add("#ED" + l).append("");
     } else if (e == nowEvolution) { // If you are calculating the rest of your evolution, put data on the first columns
       runs += xpToLevel / xpPerRun;
       allxp += xpToLevel;
+      date.setDate(date.getDate() + runs);
       $("#R" + l).append(Number((runs).toFixed(2)));
-      $("#R"+l).attr("title","Bone Portals to level up: " + Math.ceil(allxp/game.stats.bestFluffyExp.valueTotal));
+      $("#R" + l).attr("title", "Bone Portals to level up: " + Math.ceil(allxp / game.stats.bestFluffyExp.valueTotal) + "\n" + "Date: " + date.toDateString());
       $("#D" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
       $("#Rt" + l).append(sformat(runs * seconds));
     } else if (e > nowEvolution) { // If you are above the evolution, new data goes to the last columns
       runs += xpToLevel / xpPerRun;
       allxp += xpToLevel;
+      date.setDate(date.getDate() + runs);
       $("#ER" + l).append(Number((runs).toFixed(2)));
-      $("#ER"+l).attr("title","Bone Portals to level up: " + Math.ceil(allxp/game.stats.bestFluffyExp.valueTotal));
+      $("#ER" + l).attr("title", "Bone Portals to level up: " + Math.ceil(allxp / game.stats.bestFluffyExp.valueTotal) + "\n" + "Date: " + date.toDateString());
       $("#ED" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
       $("#Et" + l).append(sformat(runs * seconds));
     }
@@ -606,7 +610,7 @@ function makePopup(title, innerHTML, type, width) {
 
   thirdLayer.style.width = width;
   thirdLayer.innerHTML += "<div class='tooltipTitle' style='position: relative; width:100%; text-align: center;'><u>" + uppercaseLetter(title) + "</u></div>";
-  if(type == "daily") thirdLayer.innerHTML += "<div class='center'> (" + timesNextRunned + ")</div>";
+  if (type == "daily") thirdLayer.innerHTML += "<div class='center'> (" + timesNextRunned + ")</div>";
   thirdLayer.innerHTML += innerHTML;
 
   thirdLayer.innerHTML += "<br /> <div class='center'> <button onmousedown=closePopup('" + titleNoSpaces + "')>Close</button> </div>";
@@ -686,21 +690,21 @@ function getDailyClass(value) {
 
 function makeNextWith(input) {
   //NowLevel
-nowLevel =   calculateLevel();
+  nowLevel = calculateLevel();
   // finish off this run;
   if (game.global.world < zoneYP) {
     game.global.fluffyExp += zoneXP(game.global.world, zoneYP);
   }
   game.global.world = 0;
-//Then Level
-thenLevel= calculateLevel();
+  //Then Level
+  thenLevel = calculateLevel();
 
-if(thenLevel > nowLevel){
-  if(thenLevel == 10){
-    game.global.fluffyPrestige += 1;
-    game.global.fluffyExp = 0;
+  if (thenLevel > nowLevel) {
+    if (thenLevel == 10) {
+      game.global.fluffyPrestige += 1;
+      game.global.fluffyExp = 0;
+    }
   }
-}
 
   if (input == "none") {
     game.global.dailyChallenge = {};
