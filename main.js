@@ -126,17 +126,17 @@ function update() {
   document.getElementById("dailyPToLevel").innerHTML = "Needed Daily: " + getneededPercent();
   document.getElementById("percentOfLevel").innerHTML = "You have " + prettify((currentExp / neededExp) * 100) + "% of level";
   document.getElementById("currentZone").innerHTML = "Current Zone: " + game.global.world;
-  document.getElementById("bonesToLevel").innerHTML = "Bones To Level: " + bonestolevel();
+  document.getElementById("bonesToLevel").innerHTML = "Bones To Level: " + bonestolevel(neededExp - currentExp);
   if (fluffyCalculator.minutesPerRun > 0) document.getElementById("fluffyHR").innerHTML = "Fluffy XP/hr: " + numberWithCommas(Math.ceil(((xpPerRun / fluffyCalculator.minutesPerRun) * 60)));
   else document.getElementById("fluffyHR").innerHTML = "";
   saveLocalStorage();
 }
 
-function bonestolevel() {
+function bonestolevel(xp) {
   if (game.stats.bestFluffyExp.valueTotal == 0) {
     return "N/A";
   } else {
-    return prettify(Math.ceil(((neededExp - currentExp) / game.stats.bestFluffyExp.valueTotal)) * 100);
+    return prettify(Math.ceil(((xp) / game.stats.bestFluffyExp.valueTotal)) * 100);
   }
 }
 
@@ -175,7 +175,60 @@ function countHelium(type) {
 const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
+
 // Makes both tables
+
+// function getRunsToLevelUp() {
+//   $("#levelUpTable").empty();
+//   $("#timeLevelUpTable").empty();
+//   $(".levelUpHeader1").html("E" + game.global.fluffyPrestige);
+//   $(".levelUpHeader2").html("E" + (game.global.fluffyPrestige + 1));
+//   $(".timeLevelUpHeader1").html("E" + game.global.fluffyPrestige);
+//   $(".timeLevelUpHeader2").html("E" + (game.global.fluffyPrestige + 1));
+//   var xpToLevel = neededExp - currentExp;
+//   var thenLevel = calculateLevel();
+//   var thenEvolution = game.global.fluffyPrestige;
+//   var seconds = (fluffyCalculator.minutesPerRun * 60);
+//   runs = 0;
+//   levelUpData = "";
+//   timeToLevelData = "";
+//   for (var i = 0; i < 10; i++) {
+//     $("#levelUpTable").append("<tr> <td> Runs to L" + (i + 1) + "</td><td id='R" + i + "'></td> <td id='D" + i + "'</td> <td id='ER" + i + "' </td> <td id='ED" + i + "' </td> </tr> ");
+//     $("#timeLevelUpTable").append("<tr> <td> Time to L" + (i + 1) + "</td><td id='Rt" + i + "'></td> <td id='Et" + i + "' </td></tr> ");
+//   }
+//   for (var x = 0; 20 >= x; x++) {
+//     if (x <= 10) {
+//       l = x - 1;
+//       e = thenEvolution;
+//     }
+//     if (x > 10) {
+//       l = (x == 20) ? 9 : (x % 10) - 1; // x == 20 because  20 % 10 = 0 :P
+//       e = thenEvolution + 1;
+//     }
+//     xpToLevel = upgrade(e, l);
+//     if (l <= thenLevel - 1 && e == thenEvolution) { // if level is lower then the one "l" just put blank
+//       $("#R" + l).add("#Rt" + l).append("");
+//       // $("#D" + l).append("");
+//     } else if (l == thenLevel && e == thenEvolution) { // if level is the same as the one you are trying to upgrade from, calcualte from - currentXP
+//       runs += (xpToLevel - currentExp) / xpPerRun;
+//       $("#R" + l).append(Number((runs).toFixed(2)));
+//       $("#Rt" + l).append(sformat(runs * seconds));
+//     } else if (e > maxEvolution) { // If evolution is above the max, put nothing for everything on the last column.
+//       $("#ER" + l).add("#ED" + l).append("");
+//     } else if (e == thenEvolution) { // If you are calculating the rest of your evolution, put data on the first columns
+//       runs += xpToLevel / xpPerRun;
+//       $("#R" + l).append(Number((runs).toFixed(2)));
+//       $("#D" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
+//       $("#Rt" + l).append(sformat(runs * seconds));
+//     } else if (e > thenEvolution || (e > thenEvolution && l == thenLevel)) { // If you are above the evolution, new data goes to the last columns
+//       runs += xpToLevel / xpPerRun;
+//       $("#ER" + l).append(Number((runs).toFixed(2)));
+//       $("#ED" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
+//       $("#Et" + l).append(sformat(runs * seconds));
+//     }
+//   }
+// }
+
 function getRunsToLevelUp() {
   $("#levelUpTable").empty();
   $("#timeLevelUpTable").empty();
@@ -183,15 +236,14 @@ function getRunsToLevelUp() {
   $(".levelUpHeader2").html("E" + (game.global.fluffyPrestige + 1));
   $(".timeLevelUpHeader1").html("E" + game.global.fluffyPrestige);
   $(".timeLevelUpHeader2").html("E" + (game.global.fluffyPrestige + 1));
-  var xpToLevel = neededExp - currentExp;
-  var thenLevel = calculateLevel();
-  var thenEvolution = game.global.fluffyPrestige;
   var xpPerRun = zoneXP(0, zoneYP);
-  var timesToLoop = 20 - thenLevel;
+  var xpToLevel = neededExp - currentExp;
+  var nowLevel = calculateLevel();
+  var nowEvolution = game.global.fluffyPrestige;
+  var timesToLoop = 20 - nowLevel;
   var seconds = (fluffyCalculator.minutesPerRun * 60);
+  allxp = 0;
   runs = 0;
-  levelUpData = "";
-  timeToLevelData = "";
   for (var i = 0; i < 10; i++) {
     $("#levelUpTable").append("<tr> <td> Runs to L" + (i + 1) + "</td><td id='R" + i + "'></td> <td id='D" + i + "'</td> <td id='ER" + i + "' </td> <td id='ED" + i + "' </td> </tr> ");
     $("#timeLevelUpTable").append("<tr> <td> Time to L" + (i + 1) + "</td><td id='Rt" + i + "'></td> <td id='Et" + i + "' </td></tr> ");
@@ -199,35 +251,43 @@ function getRunsToLevelUp() {
   for (var x = 0; 20 >= x; x++) {
     if (x <= 10) {
       l = x - 1;
-      e = thenEvolution;
+      e = nowEvolution;
     }
     if (x > 10) {
-      l = (x == 20) ? 9 : (x % 10) - 1; // x == 20 because  20 % 10 = 0 :P
-      e = thenEvolution + 1;
+      l = (x == 20) ? 9 : (x-11); // x == 20 because  20 % 10 = 0 :P
+      e = nowEvolution + 1;
     }
     xpToLevel = upgrade(e, l);
-    if (l <= thenLevel - 1 && e == thenEvolution) { // if level is lower then the one "l" just put blank
+
+    if (l <= nowLevel - 1 && e == nowEvolution) { // if level is lower then the one "l" just put blank
       $("#R" + l).add("#Rt" + l).append("");
       // $("#D" + l).append("");
-    } else if (l == thenLevel && e == thenEvolution) { // if level is the same as the one you are trying to upgrade from, calcualte from - currentXP
+    } else if (l == nowLevel && e == nowEvolution) { // if level is the same as the one you are trying to upgrade from, calcualte from - currentXP
       runs += (xpToLevel - currentExp) / xpPerRun;
+        allxp += xpToLevel;
       $("#R" + l).append(Number((runs).toFixed(2)));
+      $("#R"+l).attr("title","Bones to level up: " + bonestolevel(allxp - currentExp));
       $("#Rt" + l).append(sformat(runs * seconds));
     } else if (e > maxEvolution) { // If evolution is above the max, put nothing for everything on the last column.
       $("#ER" + l).add("#ED" + l).append("");
-    } else if (e == thenEvolution) { // If you are calculating the rest of your evolution, put data on the first columns
+    } else if (e == nowEvolution) { // If you are calculating the rest of your evolution, put data on the first columns
       runs += xpToLevel / xpPerRun;
+      allxp += xpToLevel;
       $("#R" + l).append(Number((runs).toFixed(2)));
+      $("#R"+l).attr("title","Bones to level up: " + bonestolevel(allxp));
       $("#D" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
       $("#Rt" + l).append(sformat(runs * seconds));
-    } else if (e > thenEvolution || (e > thenEvolution && l == thenLevel)) { // If you are above the evolution, new data goes to the last columns
+    } else if (e > nowEvolution) { // If you are above the evolution, new data goes to the last columns
       runs += xpToLevel / xpPerRun;
+      allxp += xpToLevel;
       $("#ER" + l).append(Number((runs).toFixed(2)));
+      $("#ER"+l).attr("title","Bones to level up: " + bonestolevel(allxp));
       $("#ED" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
       $("#Et" + l).append(sformat(runs * seconds));
     }
   }
 }
+
 var prestigeDamageModifier = 5;
 var damageModifiers = [1, 1.1, 1.3, 1.6, 2, 2.5, 3.1, 3.8, 4.6, 5.5, 6.5];
 
