@@ -266,7 +266,7 @@ function getRunsToLevelUp() {
       runs += (xpToLevel - currentExp) / xpPerRun;
         allxp += xpToLevel;
       $("#R" + l).append(Number((runs).toFixed(2)));
-      $("#R"+l).attr("title","Bones to level up: " + bonestolevel(allxp - currentExp));
+      $("#R"+l).attr("title","Bone Portals to level up: " + Math.ceil((allxp-currentExp)/game.stats.bestFluffyExp.valueTotal));
       $("#Rt" + l).append(sformat(runs * seconds));
     } else if (e > maxEvolution) { // If evolution is above the max, put nothing for everything on the last column.
       $("#ER" + l).add("#ED" + l).append("");
@@ -274,14 +274,14 @@ function getRunsToLevelUp() {
       runs += xpToLevel / xpPerRun;
       allxp += xpToLevel;
       $("#R" + l).append(Number((runs).toFixed(2)));
-      $("#R"+l).attr("title","Bones to level up: " + bonestolevel(allxp));
+      $("#R"+l).attr("title","Bone Portals to level up: " + Math.ceil(allxp/game.stats.bestFluffyExp.valueTotal));
       $("#D" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
       $("#Rt" + l).append(sformat(runs * seconds));
     } else if (e > nowEvolution) { // If you are above the evolution, new data goes to the last columns
       runs += xpToLevel / xpPerRun;
       allxp += xpToLevel;
       $("#ER" + l).append(Number((runs).toFixed(2)));
-      $("#ER"+l).attr("title","Bones to level up: " + bonestolevel(allxp));
+      $("#ER"+l).attr("title","Bone Portals to level up: " + Math.ceil(allxp/game.stats.bestFluffyExp.valueTotal));
       $("#ED" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
       $("#Et" + l).append(sformat(runs * seconds));
     }
