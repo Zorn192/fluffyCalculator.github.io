@@ -629,7 +629,7 @@ function graphNextLevel() {
   }
 
   innerHTML += "<br> <br> <div class='graphNextLevel' id='none' onmousedown=makeNextWith(this.id)>⠀No Daily⠀</div>";
-  innerHTML += "<br> <div class='graphNextLevel' id='ice"+graphNextIce+"' title='Would apply a " + iceBonus + "% bonus to your run' onmousedown=toggleIceBonus(this.id)> Ice Enlightenment</div>";
+  innerHTML += "<br> <div class='graphNextLevel' id='ice"+graphNextIce+"' title='Would apply a " + prettify(iceBonus*100) + "% bonus to your run' onmousedown=toggleIceBonus(this.id)> Ice Enlightenment</div>";
 
   innerHTML += "</div>";
 
@@ -689,6 +689,7 @@ function makeNextWith(input) {
 
 function toggleIceBonus(id){
   graphNextIce = !graphNextIce;
+  $('.ui-tooltip').remove(); // tooltips stay why
   closePopup("GraphNextLevel");
   graphNextLevel();
 }
