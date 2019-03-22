@@ -225,3 +225,13 @@ u {
   width: 100%;
   text-align: center;
 }
+
+#icetrue {
+  background-color: rgb(98, 189, 135) !important;
+}
+
+#icefalse {
+  background-color: rgb(221, 126, 107) !important;
+}
+
+.iceBonus

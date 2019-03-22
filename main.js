@@ -39,6 +39,7 @@ var zoneYP = 0;
 var maxEvolution = 10;
 var startToEarn = 301;
 var buffsToExp;
+var graphNextIce = false;
 var fluffyCalculator = {
   spireBonus: "",
   minutesPerRun: 0,
@@ -453,6 +454,10 @@ function getExpBonus() {
       returnN *= ((0.15 + ((game.playerSpire.traps.Knowledge.level - 1) * 0.075)) * game.playerSpire.traps.Knowledge.owned + 1);
     }
   }
+  // iceBonus
+  if(iceBonus > 1 && graphNextIce){
+    returnN *= iceBonus;
+  }
   return returnN;
 }
 
@@ -533,6 +538,7 @@ function updateValuesFromSave() {
     dailyBonus = 1;
   }
   heirloomBonus = getHeirloomValue();
+  iceBonus = (1 + (0.0025 * game.empowerments.Ice.level));
   check = (heirloomBonus > 1) ? $("#showHeirloom").show() : $("#showHeirloom").hide();
   document.getElementById("heirloom").value = prettify(heirloomBonus * 100 - 100);
 
@@ -667,6 +673,7 @@ function graphNextLevel() {
   }
 
   innerHTML += "<br> <br> <div class='graphNextLevel' id='none' onmousedown=makeNextWith(this.id)>⠀No Daily⠀</div>";
+  innerHTML += "<br> <div class='graphNextLevel' id='ice"+graphNextIce+"' title='Would apply a " + iceBonus + "% bonus to your run' onmousedown=toggleIceBonus(this.id)> Ice Enlightenment</div>";
 
   innerHTML += "</div>";
 
@@ -722,4 +729,10 @@ function makeNextWith(input) {
   $('.ui-tooltip').remove(); // tooltips stay why
   fillOnce();
   fall();
+}
+
+function toggleIceBonus(id){
+  graphNextIce = !graphNextIce;
+  closePopup("GraphNextLevel");
+  graphNextLevel();
 }
