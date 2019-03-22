@@ -36,7 +36,7 @@ var specialBonus = 1;
 var dailyBonus = 1;
 var heirloomBonus = 1;
 var zoneYP = 0;
-var maxEvolution = 9;
+var maxEvolution = 10;
 var startToEarn = 301;
 var buffsToExp;
 var fluffyCalculator = {
