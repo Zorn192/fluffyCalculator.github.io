@@ -1,0 +1,83 @@
+$nav-tabs-border-radius: 0rem;
+
+:root {
+    --myColor: red
+}
+
+.nav#myTab {
+    // line-height: 3;
+    font-family: "Consolas";
+    font-weight: 600;
+}
+
+.nav .nav-item .nav-link {
+    color: #495057;
+}
+
+.nav .nav-item .nav-link.active {
+    color: #495057;
+    border-bottom-color: rgba(255, 0, 0, 0.5);
+    border-bottom-width: 1px;
+    border-top-color: rgba(0,0,0,0)
+}
+
+.nav .nav-item .nav-link:hover {
+    background-color: #e3e6e7;
+}
+
+.fluffyContainer {
+    word-break: break-all;
+}
+
+.input-shadow.form-control:focus, .input-shadow.custom-select:focus {
+    border-color: rgba(180, 0, 0, 0.698);
+    -webkit-box-shadow: 0 0 0 0.1rem rgba(255, 0, 0, 0.25);
+    box-shadow: 0 0 0 0.1rem rgba(255, 0, 0, 0.25);
+}
+
+label {
+  margin:20px 0;
+  position:relative;
+  display:inline-block;
+}
+  
+label>span {
+  padding:0px;
+  position:absolute;
+  width:110%;
+  top:0;
+}
+
+input + span,select+span{
+  opacity:1;
+  transform: scale(0.75) translateY(-112%) translateX(-20px);
+}
+
+// select+span {
+//   opacity:1;
+//   transform: scale(0.75) translateY(-112%) translateX(-185px);
+// }
+
+.form-group>label {
+    width: 49.1%;
+}
+
+#InstantUpdating{
+    display:block;
+    background: none;
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    appearance: menulist;
+}
+
+td,th {
+    padding: 1px !important;
+}
+
+.levelRows { 
+    color: #495057;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+@import "C:/Users/P/node_modules/bootstrap/scss/bootstrap.scss";

@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "C:\\Users\\P\\AppData\\Local\\Programs\\Python\\Python36-32\\python.exe",
+    "python.linting.pylintArgs": [
+        "--extension-pkg-whitelist=PyQt5",
+        "--errors-only"
+    ],
+    "editor.formatOnPaste": false    
+}

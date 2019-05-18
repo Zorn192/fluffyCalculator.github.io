@@ -13,7 +13,7 @@ function countDailyWeight(daily) {
 }
 
 function getDailyHeliumValue(weight) {
-  var l = calculateLevel();
+  var l = calc.calculateLevel();
   var e = game.global.fluffyPrestige;
   var value = 75 * weight + 20;
   if (value < 100) value = 100;
@@ -21,9 +21,9 @@ function getDailyHeliumValue(weight) {
   if (isRewardActive("dailies")) value += 100;
   return value;
 }
-$(function() {
-  $(document).tooltip();
-});
+// $(function() {
+//   $(document).tooltip();
+// });
 
 
 function prettify(a) {
@@ -727,7 +727,7 @@ var prestigeRewards = ["dailies", "voidance", "overkiller", "critChance", "megaC
 function isRewardActive(reward) {
   var calculatedPrestige = game.global.fluffyPrestige;
   if (game.talents.fluffyAbility.purchased) calculatedPrestige++;
-  if (calculateLevel() + calculatedPrestige == 0) return 0;
+  if (calc.calculateLevel() + calculatedPrestige == 0) return 0;
   var indexes = [];
   for (var x = 0; x < rewards.length; x++) {
     if (rewards[x] == reward)
@@ -739,7 +739,7 @@ function isRewardActive(reward) {
   }
   var count = 0;
   for (var y = 0; y < indexes.length; y++) {
-    if (currentLevel + calculatedPrestige > indexes[y]) count++;
+    if (calc.currentLevel + calculatedPrestige > indexes[y]) count++;
   }
   return count;
 }
@@ -748,15 +748,28 @@ function uppercaseLetter(string){
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-var game = {
-  options: {
-    menu: {
-      standardNotation: {
-        enabled: 4
-      }
-    }
-  },
-  global : {
-    recentDailies: [],
+// var game = {
+//   options: {
+//     menu: {
+//       standardNotation: {
+//         enabled: 4
+//       }
+//     }
+//   },
+//   global : {
+//     recentDailies: [],
+//   }
+// };
+
+function log10(val) {
+  return Math.log(val) / Math.LN10;
+}
+
+function getHeirloomValue() {
+  var b = (game.heirlooms.Staff.FluffyExp.currentBonus / 100) + 1;
+  if (b > 1) {
+    return b;
+  } else if (b == 1) {
+    return 1;
   }
-};
+}
