@@ -5,7 +5,6 @@ function handle_paste(ev) {
     update.fill();
     update.table();
 }
-
 var calc = {
     firstLevel: 1000,
     getFirstLevel: function () {
@@ -30,6 +29,7 @@ var calc = {
     getMinZoneForExp: function () {
         var zone = 301;
         if (game.portal.Classy.level) zone -= (game.portal.Classy.level * 2);
+        calc.startToEarn = Math.floor(zone);
         return Math.floor(zone);
     },
     //removeExp input E/L and returns the right xp to remove
@@ -49,43 +49,42 @@ var calc = {
     expBonus: 1,
     currentExp: 0,
     maxEvolution: 10,
-
+    xpPerRun: 0,
     zoneXP: function (start, end) {
         // So if you start at zone 0, it wouldn't count you're gaining xp at there.
         if (start < this.startToEarn) {
             start = this.startToEarn;
         }
-        mcalc1 = (Math.pow(this.expGrowth, (end - this.startToEarn)) - 1) / (this.expGrowth - 1);
+        mcalc1 = (Math.pow(this.expGrowth, (end - start)) - 1) / (this.expGrowth - 1);
         mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * this.expBonus;
         // Starting spire bonus information
-        zones = [];
         addSpireBonus = 0;
         if (fluffyCalculator.spireBonus != "") {
             var spires = fluffyCalculator.spireBonus.split(",");
             for (var s in spires) {
-                zones[s] = (parseInt(spires[s]) + 1) * 100;
-            }
-            for (var z in zones) {
-                if (start < zones[z] && zones[z] < end) {
-                    addSpireBonus += this.zoneXP(zones[z], zones[z] + 1) * 2;
+                zone = (parseInt(spires[s]) + 1) * 100;
+                if (start < zone && zone < end) {
+                    addSpireBonus += this.spireXP(zone);
                 }
             }
         }
-        if (start > calc.startToEarn) {
-            return (((mcalc1 * mcalc2) + addSpireBonus) - this.zoneXP(0, (start)));
+        if (start < calc.startToEarn) {
+            return (((mcalc1 * mcalc2) + addSpireBonus) - this.zoneXP(calc.startToEarn, (start)));
         } else {
             return ((mcalc1 * mcalc2) + addSpireBonus);
         }
     },
-
+    spireXP: function (zone) {
+        var reward = (this.baseExp + (game.portal.Curious.level * 30)) * Math.pow(this.expGrowth, zone - this.getMinZoneForExp() - 1) * (1 + (game.portal.Cunning.level * 0.25));
+        value = reward * this.expBonus * this.expGrowth;
+        return (value);
+    }
 };
-
 var fluffyCalculator = {
     spireBonus: "",
     minutesPerRun: 0,
     instantUpdating: false,
 };
-
 var update = {
     fill: function () {
         //jshint ignore:start
@@ -132,7 +131,11 @@ var update = {
                 if ((data > 1)) calc.startToEarn = 301 - (data * 2);
                 break;
             case "ZoneYouPortal":
-                calc.zoneYouPortal = (data);
+                calc.zoneYouPortal = data;
+                this.XpPerRun();
+                this.expBonus();
+                this.table();
+                console.log(calc.xpPerRun)
                 break;
             case "DailyPercentage":
                 calc.dailyBonus = (data / 100) + 1;
@@ -162,8 +165,10 @@ var update = {
                 saveLocalStorage();
                 break;
         }
-        console.log(fluffyCalculator.instantUpdating && type != "instantUpdating");
+        console.log(fluffyCalculator.instantUpdating == "true" && type != "instantUpdating");
         if (fluffyCalculator.instantUpdating == "true" && type != "instantUpdating") {
+            calc.getMinZoneForExp();
+            this.XpPerRun();
             this.expBonus();
             this.table();
         }
@@ -200,8 +205,13 @@ var update = {
         // }
         calc.expBonus = returnN;
     },
+    XpPerRun: function () {
+        value = calc.zoneXP(0, calc.zoneYouPortal);
+        calc.xpPerRun = value;
+        return value;
+    },
     table: function () {
-
+        this.XpPerRun()
         $("#TableHead").empty();
         var thead = "<tr> <th>😊</th>";
         thead += `<th>Runs to E${game.global.fluffyPrestige}</th>`;
@@ -210,8 +220,6 @@ var update = {
         if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige + 1}</th>`;
         thead += "</tr>";
         $("#TableHead").append(thead);
-
-        var xpPerRun = calc.zoneXP(0, calc.zoneYouPortal);
         var hypo = {
             "E": game.global.fluffyPrestige,
             "L": 0,
@@ -224,7 +232,6 @@ var update = {
         var approxDate = [];
         var seconds = (fluffyCalculator.minutesPerRun * 60);
         var runsAdded = 0;
-
         for (var x = 0; 20 >= x; x++) {
             date = new Date();
             timeDate = new Date();
@@ -237,17 +244,16 @@ var update = {
                 e = hypo.E + 1;
             }
             xpToLevel = calc.upgrade(e, l);
-
             if ((l <= calc.currentLevel - 1 && e == hypo.E)) { // if level is lower then the one "l" just put blank
                 approxDate[x] = "";
             } else if (l == calc.currentLevel && e == hypo.E) { // if level is the same as the one you are trying to upgrade from, calcualte from - currentXP
-                runsAdded += (xpToLevel - calc.currentExp) / xpPerRun;
+                runsAdded += (xpToLevel - calc.currentExp) / calc.xpPerRun;
                 timeDate.setSeconds(timeDate.getDate() + (runsAdded * seconds));
                 tableValues.approxDate[x] = timeDate;
                 date.setDate(date.getDate() + runsAdded);
             } else if (e > calc.maxEvolution) { // If evolution is above the max, put nothing for everything on the last column.
             } else { // If you are calculating the rest of your evolution, put data on the first columns
-                runsAdded += xpToLevel / xpPerRun;
+                runsAdded += xpToLevel / calc.xpPerRun;
                 date.setDate(date.getDate() + runsAdded);
                 timeDate.setSeconds(timeDate.getDate() + (runsAdded * seconds));
                 tableValues.approxDate[x] = timeDate;
@@ -269,9 +275,7 @@ var update = {
         }
         $("#TableBody").append(tbody);
     }
-
 };
-
 
 function correctLocalStorage() {
     error = false;
