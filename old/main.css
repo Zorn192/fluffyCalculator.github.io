@@ -1,0 +1,237 @@
+/* stylelint-disable comment-empty-line-before,length-zero-no-unit, selector-list-comma-newline-after, selector-combinator-space-before, selector-combinator-space-after  */
+body {
+  padding: 1em;
+}
+
+a {
+  text-decoration: none !important
+}
+
+.fluffyThird {
+  width: 24%;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+#tipTitle, #tipTitle2 {
+  font-size: 1.8em;
+  text-align: center;
+}
+
+#extraInfo {
+  display: inline-block;
+  left: 1em;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  /* margin-right: 6em !important;
+  margin-left: 6em !important; */
+}
+
+.container div {
+  flex: 1;
+}
+
+td, th {
+  padding: 1px !important;
+}
+
+.ui-tooltip {
+  white-space: pre-line;
+}
+
+#version {
+  font-size: 0.75em;
+}
+
+.styleTable {
+  text-align: center;
+}
+
+#error {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+}
+
+.has-error {
+  outline: none;
+  border-color: red;
+}
+
+.inputHidden {
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  width: auto;
+}
+
+.astext {
+  cursor: pointer;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.hiddenPadding {
+  margin-right: 1em;
+}
+
+.row {
+  margin-right: 3em !important;
+  margin-left: 3em !important;
+}
+
+:root {
+  --daily-width: 4.615vw;
+  --daily-margin: 0.2vw;
+  --filter-width: 8vw;
+  --filter-height: 1.6vw;
+  --filter-margin: 0.1vw;
+}
+
+.daily {
+  background-color: white;
+  border: 2px solid gray;
+  cursor: pointer;
+  position: relative;
+  width: calc(var(--daily-width) - var(--daily-margin) * 2);
+  height: calc(var(--daily-width) - var(--daily-margin) * 2);
+  margin: var(--daily-margin);
+  text-align: center;
+  font-size: 0.8vw;
+}
+
+.filter {
+  background-color: white;
+  border: 2px solid gray;
+  cursor: pointer;
+  position: relative;
+  width: var(--filter-width);
+  height: var(--filter-height);
+  margin: var(--filter-margin);
+  text-align: center;
+  font-size: 0.8vw;
+}
+
+.containerInventory {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  flex: 0 0 calc(var(--daily-width) * 4)
+}
+
+.containerFilter {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  flex: 0 0 calc(var(--filter-width) * 4)
+}
+
+.containerInventoryWeapon {
+  display: flex;
+  align-content: flex-start;
+  flex-flow: row wrap;
+  flex: 0 0 calc(var(--daily-width) * 7)
+}
+
+.containerFilterInventory {
+  display: flex;
+  align-content: flex-start;
+  flex-flow: row wrap;
+  flex: 0 0 calc(var(--filter-width) + var(--filter-height) * 36.13)
+}
+
+.daily1 {
+  background-color: rgb(221, 126, 107) !important;
+}
+
+.daily2 {
+  background-color: rgb(175, 203, 119) !important;
+}
+
+.daily3 {
+  background-color: rgb(98, 189, 135) !important;
+}
+
+.mods {
+  line-height: 2.31vw
+}
+
+.percent {
+  top: 1.5vw;
+  position: absolute;
+  right: 0.75vw;
+}
+
+div.ui-tooltip {
+  max-width: 100%;
+}
+
+.firstLayer {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.secondLayer {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.thirdLayer {
+  margin-left: auto;
+  margin-right: auto;
+  /* width: 400px; */
+  border: 1px solid black;
+  background-color: white;
+  padding: 1%;
+  pointer-events: all;
+}
+
+u {
+  text-decoration: none;
+  box-shadow: inset 0 0px 0 white, inset 0 -2px 0 black
+}
+
+.graphNextLevel {
+  border: 1px solid gray;
+  display: inline-table;
+  cursor: pointer;
+}
+
+.center {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+#icetrue {
+  background-color: rgb(98, 189, 135) !important;
+}
+
+#icefalse {
+  background-color: rgb(221, 126, 107) !important;
+}
+
+.iceBonus

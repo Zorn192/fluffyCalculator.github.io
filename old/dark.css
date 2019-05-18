@@ -1,0 +1,9 @@
+body,textarea,input,button,th{
+  background-color: black !important;
+  color:#c8c8c8 !important;
+  border-color: #c8c8c8 !important;
+}
+
+hr{
+  border-color:#c8c8c8 !important
+}
