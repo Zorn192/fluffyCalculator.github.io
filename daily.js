@@ -146,7 +146,7 @@ function makeDaily(times, returnn) {
   // console.log(dayIndex);
   // console.log(lastWeek);
   append = "";
-  if(!returnn)$("#dates").html("");
+  if (!returnn) $("#dates").html("");
   header = "";
   for (var i in days) {
     header += "<div class = 'daily'>" + days[i] + "</div>";
@@ -154,11 +154,11 @@ function makeDaily(times, returnn) {
   $("#dates").append(header);
   forX: for (var x = lastWeek; x < times; x++) {
     if (x < (blank)) {
-      if(!returnn){
-      $("#dates").append("<div class= 'daily'> </div>");
-    } else {
-      append += "<div class= 'daily'> </div>";
-    }
+      if (!returnn) {
+        $("#dates").append("<div class= 'daily'> </div>");
+      } else {
+        append += "<div class= 'daily'> </div>";
+      }
       continue;
     }
     var add = 0;
@@ -178,7 +178,7 @@ function makeDaily(times, returnn) {
         showMods += mods[m];
       }
     }
-    if(!returnn) append = "";
+    if (!returnn) append = "";
     var dailyDate = getDailyTimeString(x, true, false);
     var tiers = [(200 + add), (300 + add), (400 + add)];
     if (dailyValue <= tiers[0]) {
@@ -435,7 +435,7 @@ function findMostMods(days) {
   var bestNumber = 0;
   for (var x = 0; x < days; x++) {
     var challenge = getDailyChallenge(x, true, false);
-    var length = $.map(challenge, function(n, i) {
+    var length = $.map(challenge, function (n, i) {
       return i;
     }).length;
     length -= 1;
@@ -470,6 +470,6 @@ function getDailyHeliumValueDaily(weight) {
   return value;
 }
 
-$(function() {
+$(function () {
   $(document).tooltip();
 });

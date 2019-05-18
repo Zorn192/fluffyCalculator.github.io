@@ -9,7 +9,7 @@ function handle_paste(ev) {
   timesNextRunned = 0;
   if ($("#hiddenText").is(":visible")) stealth(true);
 }
-$(document).ready(function() {
+$(document).ready(function () {
   correctLocalStorage();
   getLocalStorage();
   changeTheme(fluffyCalculator.theme);
@@ -149,7 +149,7 @@ function sformat(s) {
     Math.floor(s / 60) % 60, // MINUTES
     Math.floor(s % 60) // SECONDS
   ];
-  return $.map(fm, function(v, i) {
+  return $.map(fm, function (v, i) {
     return ((v < 10) ? '0' : '') + v;
   }).join(':');
 }
@@ -222,7 +222,7 @@ function getRunsToLevelUp() {
       $("#R" + l).attr("title", "Bone Portals to level up: " + (Math.ceil(allxp / game.stats.bestFluffyExp.valueTotal)) + "\n" + "Date: " + date.toDateString());
       $("#Rt" + l).append(sformat(runs * seconds));
       timeDate.setSeconds(timeDate.getDate() + (runs * seconds));
-      $("#Rt" + l).attr("title","Approx date: " + timeDate);
+      $("#Rt" + l).attr("title", "Approx date: " + timeDate);
     } else if (e > maxEvolution) { // If evolution is above the max, put nothing for everything on the last column.
       $("#ER" + l).add("#ED" + l).append("");
     } else if (e == nowEvolution) { // If you are calculating the rest of your evolution, put data on the first columns
@@ -234,7 +234,7 @@ function getRunsToLevelUp() {
       $("#D" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
       $("#Rt" + l).append(sformat(runs * seconds));
       timeDate.setSeconds(timeDate.getDate() + (runs * seconds));
-      $("#Rt" + l).attr("title","Approx date: " + timeDate);
+      $("#Rt" + l).attr("title", "Approx date: " + timeDate);
     } else if (e > nowEvolution) { // If you are above the evolution, new data goes to the last columns
       runs += xpToLevel / xpPerRun;
       allxp += xpToLevel;
@@ -244,7 +244,7 @@ function getRunsToLevelUp() {
       $("#ED" + l).append(prettify(((getDamageModifier(l + 1, 0, upgrade(e, l + 1), e)) - 1) * 100));
       $("#Et" + l).append(sformat(runs * seconds));
       timeDate.setSeconds(timeDate.getDate() + (runs * seconds));
-      $("#Et" + l).attr("title","Approx date: " + timeDate);
+      $("#Et" + l).attr("title", "Approx date: " + timeDate);
     }
   }
 }
@@ -411,7 +411,7 @@ function getExpBonus() {
     }
   }
   // iceBonus
-  if(iceBonus > 1 && graphNextIce){
+  if (iceBonus > 1 && graphNextIce) {
     returnN *= iceBonus;
   }
   return returnN;
@@ -629,7 +629,7 @@ function graphNextLevel() {
   }
 
   innerHTML += "<br> <br> <div class='graphNextLevel' id='none' onmousedown=makeNextWith(this.id)>⠀No Daily⠀</div>";
-  innerHTML += "<br> <div class='graphNextLevel' id='ice"+graphNextIce+"' title='Would apply a " + prettify(iceBonus*100) + "% bonus to your run' onmousedown=toggleIceBonus(this.id)> Ice Enlightenment</div>";
+  innerHTML += "<br> <div class='graphNextLevel' id='ice" + graphNextIce + "' title='Would apply a " + prettify(iceBonus * 100) + "% bonus to your run' onmousedown=toggleIceBonus(this.id)> Ice Enlightenment</div>";
 
   innerHTML += "</div>";
 
@@ -687,7 +687,7 @@ function makeNextWith(input) {
   fall();
 }
 
-function toggleIceBonus(id){
+function toggleIceBonus(id) {
   graphNextIce = !graphNextIce;
   $('.ui-tooltip').remove(); // tooltips stay why
   closePopup("GraphNextLevel");
