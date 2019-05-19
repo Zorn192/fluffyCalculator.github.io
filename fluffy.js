@@ -48,8 +48,9 @@ var calc = {
     startToEarn: 301,
     expBonus: 1,
     currentExp: 0,
+    neededExp:0,
     maxEvolution: 10,
-    xpPerRun: 0,
+    xpPerRun: 0,  
     zoneXP: function (start, end) {
         // So if you start at zone 0, it wouldn't count you're gaining xp at there.
         if (start < this.startToEarn) {
@@ -107,6 +108,7 @@ var update = {
         document.getElementById("KnowledgeLevel").value = game.playerSpire.traps.Knowledge.level;
         calc.currentExp = Math.ceil(game.global.fluffyExp - calc.removeExp(game.global.fluffyPrestige, calc.calculateLevel()));
         this.expBonus()
+        this.stats();
         // jshint ignore:end
     },
     toggle: function (id) {},
@@ -132,10 +134,6 @@ var update = {
                 break;
             case "ZoneYouPortal":
                 calc.zoneYouPortal = data;
-                this.XpPerRun();
-                this.expBonus();
-                this.table();
-                console.log(calc.xpPerRun)
                 break;
             case "DailyPercentage":
                 calc.dailyBonus = (data / 100) + 1;
@@ -165,11 +163,8 @@ var update = {
                 saveLocalStorage();
                 break;
         }
-        console.log(fluffyCalculator.instantUpdating == "true" && type != "instantUpdating");
+        // console.log(fluffyCalculator.instantUpdating == "true" && type != "instantUpdating");
         if (fluffyCalculator.instantUpdating == "true" && type != "instantUpdating") {
-            calc.getMinZoneForExp();
-            this.XpPerRun();
-            this.expBonus();
             this.table();
         }
     },
@@ -210,8 +205,22 @@ var update = {
         calc.xpPerRun = value;
         return value;
     },
+    stats: function(){
+        calc.neededExp = calc.upgrade(game.global.fluffyPrestige,calc.currentLevel);
+        document.getElementById("XpPerRun").value=numberWithCommas(Math.round(calc.xpPerRun));
+        document.getElementById("PercentageToLevel").value=prettify((calc.currentExp / calc.neededExp) * 100) + "%";
+        document.getElementById("CurrentZone").value= game.global.world;
+        document.getElementById("BonesToLevel").value= prettify(Math.ceil(((calc.neededExp-calc.currentExp) / game.stats.bestFluffyExp.valueTotal)) * 100);
+        (fluffyCalculator.minutesPerRun > 0) ? $("#FluffyXPHr").parent().show() : $("#FluffyXPHr").parent().hide();
+        if(fluffyCalculator.minutesPerRun > 0){
+            document.getElementById("FluffyXPHr").value=numberWithCommas(Math.ceil(((calc.xpPerRun / fluffyCalculator.minutesPerRun) * 60)));
+        }
+        document.getElementById("HeliumSpentFluffy").value= this.countHelium() + "%";
+    },
     table: function () {
-        this.XpPerRun()
+        calc.getMinZoneForExp();
+        this.expBonus();
+        this.XpPerRun();
         $("#TableHead").empty();
         var thead = "<tr> <th>😊</th>";
         thead += `<th>Runs to E${game.global.fluffyPrestige}</th>`;
@@ -274,6 +283,15 @@ var update = {
             tbody += `</tr>`;
         }
         $("#TableBody").append(tbody);
+        this.stats();
+    },
+    countHelium: function(){
+            allHelium = game.global.totalHeliumEarned;
+            var capableCost = game.portal.Capable.heliumSpent;
+            var cunningCost = game.portal.Cunning.heliumSpent;
+            var curiousCost = game.portal.Curious.heliumSpent;
+            var classyCost = game.portal.Classy.heliumSpent;
+            return prettify((capableCost + cunningCost + curiousCost + classyCost) / allHelium * 100);
     }
 };
 
@@ -288,7 +306,7 @@ function correctLocalStorage() {
         var errormessage = err;
         if (err.name == "SyntaxError") errormessage = "couldn't parse oldSave";
         error = true;
-        console.log(errormessage);
+        // console.log(errormessage);
     }
     if (error) {
         localStorage.removeItem("fluffyCalculator");

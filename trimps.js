@@ -773,3 +773,8 @@ function getHeirloomValue() {
     return 1;
   }
 }
+
+//number with commas do numberWithCommas(number) and make numbers look good
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};

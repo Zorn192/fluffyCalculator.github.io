@@ -1,11 +1,11 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-    
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
     <title>Fluffy Calculator</title>
     <link rel="icon" href="fluffy.png">
 
@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body style="margin: -2px">
     <div style="position: fixed; width: 100%; text-align: center">
         <a href="old\index.html" style="text-align:center; position:fixed; padding: 0.5rem 1rem;">Old Site</a>
     </div>
@@ -22,75 +22,89 @@
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link" id="fluffy-tab" data-toggle="tab" href="#fluffy" role="tab" aria-controls="home"
-            aria-selected="false">Fluffy Calculator</a>
+                aria-selected="false">Fluffy Calculator</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="daily-tab" data-toggle="tab" href="#daily" role="tab" aria-controls="profile"
-            aria-selected="false">Daily Seeker</a>
+                aria-selected="false">Daily Seeker</a>
         </li>
-        <li class="nav-item"  style="position: fixed; right:0%">
-                <a class="nav-link" id="Version" data-toggle="tab" role="tab" aria-controls="profile"
-                aria-selected="false">V0.01</a>
-            </li>
+        <li class="nav-item" style="position: fixed; right:0%">
+            <a class="nav-link" id="Version" data-toggle="tab" role="tab" aria-controls="profile"
+                aria-selected="false">V0.02</a>
+        </li>
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane" id="fluffy" role="tabpanel" aria-labelledby="fluffy-tab">
             <br>
             <div class="container fluffyContainer">
                 <div class="row">
-                    <div class="col-3" style="min-width: 17.2em">
+                    <div class="col-1" style="min-width: 17.2em">
                         <textarea placeholder="Import your save" class=" input-shadow form-control"
                             id="trimpsSaveTextArea" rows="2" onpaste="handle_paste(event)"
                             onclick="this.select()"></textarea>
                         <br>
                         <div class="form-group">
                             <label>
-                                <input id="CapablePerk" type="number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="CapablePerk" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Capable Level</span>
                             </label>
                             <label style="display: none">
-                                <input id="CunningPerk" type="number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="CunningPerk" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Cunning Level</span>
                             </label>
                             <label style="display: none">
-                                <input id="CuriousPerk" type="number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="CuriousPerk" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Curious Level</span>
                             </label>
                             <label style="display: none">
-                                <input id="ClassyPerk" type = "number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="ClassyPerk" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Classy Level</span>
                             </label>
                             <label>
-                                <input id="ZoneYouPortal" type="number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="ZoneYouPortal" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Zone You Portal</span>
                             </label>
                             <label>
-                                <input id="DailyPercentage" type="number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="DailyPercentage" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Daily Bonus</span>
                             </label>
                             <label style="display: none">
-                                <input id="HeirloomPercentage" type="number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="HeirloomPercentage" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Heirloom Bonus</span>
                             </label>
                             <label>
-                                <input id="SpiresInARun" type="text" title="Spires that you always get C50 Bonus On (bonus is spire 3+), seperate with commas and use numbers" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="SpiresInARun" type="text"
+                                    title="Spires that you always get C50 Bonus On (bonus is spire 3+), seperate with commas and use numbers"
+                                    class="input-shadow form-control" oninput="update.vars(this.id,this.value)"
+                                    placeholder=" ">
                                 <span>List of Spire Clears</span>
                             </label>
                             <label>
-                                <input id="KnowledgeTowers" type="number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="KnowledgeTowers" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Knowledge Towers</span>
                             </label>
                             <label>
-                                <input id="KnowledgeLevel" type="number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="KnowledgeLevel" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Knowledge Level</span>
                             </label>
                             <hr>
                             <label>
-                                <input id="MinutesPerRun" type="number" class="input-shadow form-control" oninput="update.vars(this.id,this.value)" placeholder=" ">
+                                <input id="MinutesPerRun" type="number" class="input-shadow form-control"
+                                    oninput="update.vars(this.id,this.value)" placeholder=" ">
                                 <span>Minutes Per Run</span>
                             </label>
                             <label>
-                                <select class="input-shadow custom-select"  oninput="update.vars(this.id,this.value)" id="InstantUpdating">
+                                <select class="input-shadow custom-select" oninput="update.vars(this.id,this.value)"
+                                    id="InstantUpdating">
                                     <option selected>Choose...</option>
                                     <option value="true">True</option>
                                     <option value="false">False</option>
@@ -101,30 +115,69 @@
                                 value="Calculate" onclick="update.table()"></input>
                         </div>
                     </div>
-                    <div class="col-7">
+                    <div class="col-7 table-responsive-md">
                         <table class="table table-bordered table-hover" style="text-align: center">
-                            <thead class="thead-light" id="TableHead">
-                                
+                            <thead class="thead-active" id="TableHead">
+
                             </thead>
                             <tbody id="TableBody">
 
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-2">
+                        <div style="position: relative; text-align:center">
+                            <h7 id="statsHeader" style="font-size: 90%">Varied Stats</h7>
+                            <hr style="margin-top: 12%;position:relative; width: 100%;">
+                        </div>
+                        <div id="OtherStats" style="width: 100%">
+
+                            <label>
+                                <input id="XpPerRun" class="input-shadow form-control" placeholder=" "
+                                    disabled>
+                                <span>Xp Per Run</span>
+                            </label>
+                            <label>
+                                <input id="PercentageToLevel" class="input-shadow form-control"
+                                    placeholder=" " disabled>
+                                <span>% Of Level</span>
+                            </label>
+                            <label>
+                                <input id="CurrentZone" class="input-shadow form-control" placeholder=" "
+                                    disabled>
+                                <span>Current Zone</span>
+                            </label>
+                            <label>
+                                <input id="BonesToLevel" class="input-shadow form-control" placeholder=" "
+                                    disabled>
+                                <span>Bones To Level</span>
+                            </label>
+                            <label>
+                                <input id="HeliumSpentFluffy" class="input-shadow form-control" placeholder=" "
+                                    disabled>
+                                <span>Helium On Fluffy</span>
+                            </label>
+                            <label style="display:none;">
+                                <input id="FluffyXPHr" class="input-shadow form-control" placeholder=" "
+                                    disabled>
+                                <span>Fluffy XP/hr</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="tab-pane" id="daily" role="tabpanel" aria-labelledby="daily-tab">
-            <iframe src="old\daily.html" style="width:100%; height:100%; position:absolute"  frameborder="0"></iframe>
+            <iframe src="old\daily.html" style="width:100%; height:100%; position:absolute" frameborder="0"></iframe>
         </div>
     </div>
 
 </body>
 
+<script id="testenv"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="bootstrap.min.js"></script>
 <script src="lz-string.js"></script>
-<!-- <script src="testsave.js"></script> -->
 <script src="trimps.js"></script>
 <script src="fluffy.js"></script>
 
@@ -139,11 +192,14 @@
         if (hash == "") {
             hash = "#fluffy"
         }
-        var titles = {"#fluffy":"Fluffy Calculator","#daily":"Daily Seeker"}
+        var titles = {
+            "#fluffy": "Fluffy Calculator",
+            "#daily": "Daily Seeker"
+        }
 
         hash && $('ul.nav a[href="' + hash + '"]').tab('show');
         $("title").text(titles[hash])
-        
+
         $('.nav-tabs a').click(function (e) {
             $("title").text(titles[this.hash])
             $(this).tab('show');
@@ -151,10 +207,22 @@
             window.location.hash = this.hash;
             $('html,body').scrollTop(scrollmem);
         });
-        
+
         getLocalStorage()
-        // update.fill()
-        // update.table()
+
+        if (window.location.origin == "http://127.0.0.1:5500") {
+            document.getElementById("testenv").setAttribute("src", "testsave.js")
+            // console.log("ayy")
+            setTimeout(function () {
+                // console.log("ayy")
+                //  console.log(game)
+                update.fill()
+                update.table();
+                // console.log(calc.zoneYouPortal)
+                // console.log(calc)
+            }, 1000)
+
+        }
     });
 </script>
 
