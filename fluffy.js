@@ -48,9 +48,9 @@ var calc = {
     startToEarn: 301,
     expBonus: 1,
     currentExp: 0,
-    neededExp:0,
+    neededExp: 0,
     maxEvolution: 10,
-    xpPerRun: 0,  
+    xpPerRun: 0,
     zoneXP: function (start, end) {
         // So if you start at zone 0, it wouldn't count you're gaining xp at there.
         if (start < this.startToEarn) {
@@ -100,7 +100,14 @@ var update = {
         document.getElementById("ZoneYouPortal").setAttribute("min", calc.getMinZoneForExp());
         calc.zoneYouPortal = game.global.lastPortal;
         document.getElementById("DailyPercentage").value = Math.round(getDailyHeliumValue(countDailyWeight()));
-        calc.dailyBonus = Math.round(getDailyHeliumValue(countDailyWeight())) / 100 + 1;
+        if (game.global.dailyChallenge.seed) {
+            document.getElementById("DailyPercentage").value = Math.round(getDailyHeliumValue(countDailyWeight()));
+            calc.dailyBonus = (Math.round(getDailyHeliumValue(countDailyWeight())) / 100) + 1;
+        } else {
+            document.getElementById("DailyPercentage").value = 0;
+            calc.dailyBonus = 1;
+        }
+        document.getElementById("HeirloomPercentage").value = getHeirloomValue() * 100 - 100;
         document.getElementById("HeirloomPercentage").value = getHeirloomValue() * 100 - 100;
         calc.heirloomBonus = getHeirloomValue()
         getHeirloomValue() > 1 && !$("#HeirloomPercentage").is(":visible") && $("#HeirloomPercentage").parent().toggle();
@@ -205,17 +212,17 @@ var update = {
         calc.xpPerRun = value;
         return value;
     },
-    stats: function(){
-        calc.neededExp = calc.upgrade(game.global.fluffyPrestige,calc.currentLevel);
-        document.getElementById("XpPerRun").value=numberWithCommas(Math.round(calc.xpPerRun));
-        document.getElementById("PercentageToLevel").value=prettify((calc.currentExp / calc.neededExp) * 100) + "%";
-        document.getElementById("CurrentZone").value= game.global.world;
-        document.getElementById("BonesToLevel").value= prettify(Math.ceil(((calc.neededExp-calc.currentExp) / game.stats.bestFluffyExp.valueTotal)) * 100);
-        (fluffyCalculator.minutesPerRun > 0) ? $("#FluffyXPHr").parent().show() : $("#FluffyXPHr").parent().hide();
-        if(fluffyCalculator.minutesPerRun > 0){
-            document.getElementById("FluffyXPHr").value=numberWithCommas(Math.ceil(((calc.xpPerRun / fluffyCalculator.minutesPerRun) * 60)));
+    stats: function () {
+        calc.neededExp = calc.upgrade(game.global.fluffyPrestige, calc.currentLevel);
+        document.getElementById("XpPerRun").value = numberWithCommas(Math.round(calc.xpPerRun));
+        document.getElementById("PercentageToLevel").value = prettify((calc.currentExp / calc.neededExp) * 100) + "%";
+        document.getElementById("CurrentZone").value = game.global.world;
+        document.getElementById("BonesToLevel").value = prettify(Math.ceil(((calc.neededExp - calc.currentExp) / game.stats.bestFluffyExp.valueTotal)) * 100);
+        (fluffyCalculator.minutesPerRun > 0) ? $("#FluffyXPHr").parent().show(): $("#FluffyXPHr").parent().hide();
+        if (fluffyCalculator.minutesPerRun > 0) {
+            document.getElementById("FluffyXPHr").value = numberWithCommas(Math.ceil(((calc.xpPerRun / fluffyCalculator.minutesPerRun) * 60)));
         }
-        document.getElementById("HeliumSpentFluffy").value= this.countHelium() + "%";
+        document.getElementById("HeliumSpentFluffy").value = this.countHelium() + "%";
     },
     table: function () {
         calc.getMinZoneForExp();
@@ -285,13 +292,13 @@ var update = {
         $("#TableBody").append(tbody);
         this.stats();
     },
-    countHelium: function(){
-            allHelium = game.global.totalHeliumEarned;
-            var capableCost = game.portal.Capable.heliumSpent;
-            var cunningCost = game.portal.Cunning.heliumSpent;
-            var curiousCost = game.portal.Curious.heliumSpent;
-            var classyCost = game.portal.Classy.heliumSpent;
-            return prettify((capableCost + cunningCost + curiousCost + classyCost) / allHelium * 100);
+    countHelium: function () {
+        allHelium = game.global.totalHeliumEarned;
+        var capableCost = game.portal.Capable.heliumSpent;
+        var cunningCost = game.portal.Cunning.heliumSpent;
+        var curiousCost = game.portal.Curious.heliumSpent;
+        var classyCost = game.portal.Classy.heliumSpent;
+        return prettify((capableCost + cunningCost + curiousCost + classyCost) / allHelium * 100);
     }
 };
 
