@@ -99,11 +99,11 @@ function upgrade(e, l) {
 
 function zoneXP(start, end) {
   // So if you start at zone 0, it wouldn't count you're gaining xp at there.
-  if (start < this.startToEarn) {
-    start = this.startToEarn;
+  if (start < startToEarn) {
+    start = startToEarn;
   }
-  mcalc1 = (Math.pow(this.expGrowth, (end - start)) - 1) / (this.expGrowth - 1);
-  mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * this.expBonus;
+  mcalc1 = (Math.pow(expGrowth, (end - start)) - 1) / (expGrowth - 1);
+  mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * buffsToExp;
   // Starting spire bonus information
   addSpireBonus = 0;
   if (fluffyCalculator.spireBonus != "") {
@@ -111,20 +111,20 @@ function zoneXP(start, end) {
     for (var s in spires) {
       zone = (parseInt(spires[s]) + 1) * 100;
       if (start < zone && zone < end) {
-        addSpireBonus += this.spireXP(zone);
+        addSpireBonus += spireXP(zone);
       }
     }
   }
-  if (start < calc.startToEarn) {
-    return (((mcalc1 * mcalc2) + addSpireBonus) - this.zoneXP(calc.startToEarn, (start)));
+  if (start < startToEarn) {
+    return (((mcalc1 * mcalc2) + addSpireBonus) - zoneXP(startToEarn, (start)));
   } else {
     return ((mcalc1 * mcalc2) + addSpireBonus);
   }
 }
 
 function spireXP(zone) {
-  var reward = (this.baseExp + (game.portal.Curious.level * 30)) * Math.pow(this.expGrowth, zone - this.getMinZoneForExp() - 1) * (1 + (game.portal.Cunning.level * 0.25));
-  value = reward * this.expBonus * this.expGrowth;
+  var reward = (50 + (game.portal.Curious.level * 30)) * Math.pow(expGrowth, zone - startToEarn - 1) * (1 + (game.portal.Cunning.level * 0.25));
+  value = reward * buffsToExp * expGrowth;
   return (value);
 }
 // fills stuff from your save
