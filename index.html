@@ -3,6 +3,8 @@
     
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         
     <title>Fluffy Calculator</title>
     <link rel="icon" href="fluffy.png">
@@ -14,7 +16,7 @@
 
 <body>
     <div style="position: fixed; width: 100%; text-align: center">
-        <a href="old\index.html" style="text-align:center; position:fixed; padding: 0.5rem 1rem;">Old Site</a>
+        <!-- <a href="old\index.html" style="text-align:center; position:fixed; padding: 0.5rem 1rem;">Old Site</a> -->
     </div>
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -26,9 +28,9 @@
             <a class="nav-link" id="daily-tab" data-toggle="tab" href="#daily" role="tab" aria-controls="profile"
             aria-selected="false">Daily Seeker</a>
         </li>
-        <li class="nav-item"  style="position: fixed; right:0">
+        <li class="nav-item"  style="position: fixed; right:0%">
                 <a class="nav-link" id="Version" data-toggle="tab" role="tab" aria-controls="profile"
-                aria-selected="false">V 0.01</a>
+                aria-selected="false">V0.01</a>
             </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -122,8 +124,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="bootstrap.min.js"></script>
 <script src="lz-string.js"></script>
-<script src="testsave.js"></script>
-<!-- <script src="trimps.js"></script> -->
+<!-- <script src="testsave.js"></script> -->
+<script src="trimps.js"></script>
 <script src="fluffy.js"></script>
 
 <script>
@@ -137,9 +139,13 @@
         if (hash == "") {
             hash = "#fluffy"
         }
-        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+        var titles = {"#fluffy":"Fluffy Calculator","#daily":"Daily Seeker"}
 
+        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+        $("title").text(titles[hash])
+        
         $('.nav-tabs a').click(function (e) {
+            $("title").text(titles[this.hash])
             $(this).tab('show');
             var scrollmem = $('body').scrollTop();
             window.location.hash = this.hash;

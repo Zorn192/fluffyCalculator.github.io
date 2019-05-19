@@ -69,32 +69,63 @@ function upgrade(e, l) {
   return Math.floor(firstLevel * Math.pow(prestigeEM, e) * ((Math.pow(growth, l + 1) - 1) / (growth - 1)) - removeExp(e, l));
 }
 
+// function zoneXP(start, end) {
+//   // So if you start at zone 0, it wouldn't count you're gaining xp at there.
+//   if (start < startToEarn) {
+//     start = startToEarn;
+//   }
+//   mcalc1 = (Math.pow(expGrowth, (end - startToEarn)) - 1) / (expGrowth - 1);
+//   mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * buffsToExp;
+//   // Starting spire bonus information
+//   zones = [];
+//   addSpireBonus = 0;
+//   if (fluffyCalculator.spireBonus != "") {
+//     var spires = fluffyCalculator.spireBonus.split(",");
+//     for (var s in spires) {
+//       zones[s] = (parseInt(spires[s]) + 1) * 100;
+//     }
+//     for (var z in zones) {
+//       if (start < zones[z] && zones[z] < end) {
+//         addSpireBonus += zoneXP(zones[z], zones[z] + 1) * 2;
+//       }
+//     }
+//   }
+//   if (start > startToEarn) {
+//     return (((mcalc1 * mcalc2) + addSpireBonus) - zoneXP(0, (start)));
+//   } else {
+//     return ((mcalc1 * mcalc2) + addSpireBonus);
+//   }
+// }
+
 function zoneXP(start, end) {
   // So if you start at zone 0, it wouldn't count you're gaining xp at there.
-  if (start < startToEarn) {
-    start = startToEarn;
+  if (start < this.startToEarn) {
+    start = this.startToEarn;
   }
-  mcalc1 = (Math.pow(expGrowth, (end - startToEarn)) - 1) / (expGrowth - 1);
-  mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * buffsToExp;
+  mcalc1 = (Math.pow(this.expGrowth, (end - start)) - 1) / (this.expGrowth - 1);
+  mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * this.expBonus;
   // Starting spire bonus information
-  zones = [];
   addSpireBonus = 0;
   if (fluffyCalculator.spireBonus != "") {
     var spires = fluffyCalculator.spireBonus.split(",");
     for (var s in spires) {
-      zones[s] = (parseInt(spires[s]) + 1) * 100;
-    }
-    for (var z in zones) {
-      if (start < zones[z] && zones[z] < end) {
-        addSpireBonus += zoneXP(zones[z], zones[z] + 1) * 2;
+      zone = (parseInt(spires[s]) + 1) * 100;
+      if (start < zone && zone < end) {
+        addSpireBonus += this.spireXP(zone);
       }
     }
   }
-  if (start > startToEarn) {
-    return (((mcalc1 * mcalc2) + addSpireBonus) - zoneXP(0, (start)));
+  if (start < calc.startToEarn) {
+    return (((mcalc1 * mcalc2) + addSpireBonus) - this.zoneXP(calc.startToEarn, (start)));
   } else {
     return ((mcalc1 * mcalc2) + addSpireBonus);
   }
+}
+
+function spireXP(zone) {
+  var reward = (this.baseExp + (game.portal.Curious.level * 30)) * Math.pow(this.expGrowth, zone - this.getMinZoneForExp() - 1) * (1 + (game.portal.Cunning.level * 0.25));
+  value = reward * this.expBonus * this.expGrowth;
+  return (value);
 }
 // fills stuff from your save
 var currentExp;
@@ -216,7 +247,7 @@ function getRunsToLevelUp() {
     } else if (l == nowLevel && e == nowEvolution) { // if level is the same as the one you are trying to upgrade from, calcualte from - currentXP
       runs += (xpToLevel - currentExp) / xpPerRun;
       allxp += xpToLevel - currentExp;
-       console.log(`${xpToLevel} ${e} ${l}`);
+      console.log(`${xpToLevel} ${e} ${l}`);
 
       date.setDate(date.getDate() + runs);
       $("#R" + l).append(Number((runs).toFixed(2)));
