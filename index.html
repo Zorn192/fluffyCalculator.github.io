@@ -210,10 +210,10 @@
 			"#fluffy": "Fluffy Calculator",
 			"#daily": "Daily Seeker"
 		}
-
+		
 		hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 		$("title").text(titles[hash])
-
+		
 		$('.nav-tabs a').click(function (e) {
 			$("title").text(titles[this.hash])
 			$(this).tab('show');
@@ -221,7 +221,8 @@
 			window.location.hash = this.hash;
 			$('html,body').scrollTop(scrollmem);
 		});
-
+		
+		makeDaily(365, false)
 		getLocalStorage()
 
 		if (window.location.origin == "http://127.0.0.1:5500" || window.location.origin ==
@@ -234,7 +235,6 @@
 				//  console.log(game)
 				update.fill()
 				update.table();
-				makeDaily(365, false)
 
 				// console.log(calc.zoneYouPortal)
 				// console.log(calc)
