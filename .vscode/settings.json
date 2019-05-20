@@ -4,5 +4,6 @@
         "--extension-pkg-whitelist=PyQt5",
         "--errors-only"
     ],
-    "editor.formatOnPaste": false    
+    "editor.formatOnPaste": false,
+    "editor.trimAutoWhitespace":true
 }

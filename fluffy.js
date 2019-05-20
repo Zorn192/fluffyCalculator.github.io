@@ -231,9 +231,11 @@ var update = {
         $("#TableHead").empty();
         var thead = "<tr> <th>😊</th>";
         thead += `<th>Runs to E${game.global.fluffyPrestige}</th>`;
-        if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige + 1}</th>`;
+        if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige}</th>`;
+        if(game.global.fluffyPrestige != calc.maxEvolution){
         thead += `<th>Runs to E${game.global.fluffyPrestige + 1}</th>`;
         if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige + 1}</th>`;
+    }
         thead += "</tr>";
         $("#TableHead").append(thead);
         var hypo = {
@@ -248,7 +250,11 @@ var update = {
         var approxDate = [];
         var seconds = (fluffyCalculator.minutesPerRun * 60);
         var runsAdded = 0;
-        for (var x = 0; 20 >= x; x++) {
+        var runLength = 20;
+        if(game.global.fluffyPrestige == calc.maxEvolution){
+            runLength = 10;
+        }
+        for (var x = 0; runLength >= x; x++) {
             date = new Date();
             timeDate = new Date();
             if (x <= 10) {
@@ -285,8 +291,10 @@ var update = {
             tbody += `<th class="levelRows">L${y}</th>`;
             tbody += `<td>${tableValues.runs[y]}</td>`;
             if (fluffyCalculator.minutesPerRun > 0) tbody += `<td title="${tableValues.approxDate[y]}">${tableValues.runSeconds[y]}</td>`;
-            tbody += `<td>${tableValues.runs[y+10]}</td>`;
-            if (fluffyCalculator.minutesPerRun > 0) tbody += `<td title="${tableValues.approxDate[y+10]}">${tableValues.runSeconds[y+10]}</td>`;
+            if(game.global.fluffyPrestige != calc.maxEvolution){
+                tbody += `<td>${tableValues.runs[y+10]}</td>`;
+                if (fluffyCalculator.minutesPerRun > 0) tbody += `<td title="${tableValues.approxDate[y+10]}">${tableValues.runSeconds[y+10]}</td>`;
+            }
             tbody += `</tr>`;
         }
         $("#TableBody").append(tbody);

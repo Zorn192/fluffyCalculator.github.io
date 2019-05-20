@@ -532,7 +532,7 @@ var dailyModifiers = {
   empower: {
     description: function(str) {
       var s = (str == 1) ? "" : "s";
-      return "All enemies gain " + str + " stack" + s + " of Empower whenever your Trimps die in the World. Empower increases the attack and health of Bad Guys in the World by 0.2% per stack, can stack to 9999, and never resets.";
+      return "Enemies gain " + str + " stack" + s + " of Empower whenever your Trimps die in the World.";
     },
     getWeight: function(str) {
       return (str / 6) * 2;
