@@ -748,18 +748,18 @@ function uppercaseLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// var game = {
-//   options: {
-//     menu: {
-//       standardNotation: {
-//         enabled: 4
-//       }
-//     }
-//   },
-//   global : {
-//     recentDailies: [],
-//   }
-// };
+var game = {
+  options: {
+    menu: {
+      standardNotation: {
+        enabled: 4
+      }
+    }
+  },
+  global : {
+    recentDailies: [],
+  }
+};
 
 function log10(val) {
   return Math.log(val) / Math.LN10;

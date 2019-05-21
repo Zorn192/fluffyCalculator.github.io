@@ -54,7 +54,7 @@ label {
 
 .dropdown-item.active,
 .dropdown-item:active {
-  background-color: white !important;
+  background-color: #0C141B !important;
 }
 
 label > span {
@@ -94,7 +94,7 @@ th {
   border-color: #dee2e6;
 }
 
-#TableHead > tr > th {
+.thead-active > tr > th {
   background-color: #101f2c;
 }
 

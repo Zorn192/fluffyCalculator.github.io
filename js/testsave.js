@@ -1,1266 +1,1512 @@
 var game = {
     "global": {
-        "stringVersion": "4.11.3",
+        "stringVersion": "4.10.2",
         "version": 4.914,
         "isBeta": false,
         "betaV": 0,
         "killSavesBelow": 0.13,
-        "playerGathering": "",
-        "playerModifier": 2.6584559915698317e+37,
-        "buildingsQueue": [],
-        "timeLeftOnCraft": -1136.075,
-        "crafting": "",
+        "playerGathering": "metal",
+        "playerModifier": 3.7414441915671115e+51,
+        "buildingsQueue": [
+            "Trap.1"
+        ],
+        "timeLeftOnCraft": 5,
+        "crafting": "Trap",
         "timeLeftOnTrap": -1,
-        "world": 243,
+        "world": 256,
         "gridArray": [{
-            "level": 1,
-            "maxHealth": 8.705892677672989e+74,
-            "health": 0,
-            "attack": 9.647432823571648e+76,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Chimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDbl",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 2,
-            "maxHealth": 8.842993349762328e+74,
-            "health": 0,
-            "attack": 9.859723521400855e+76,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Turtlimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptBleed",
-            "vm": "TrimpmasSnow",
-            "OKcount": 1,
-            "overkilled": true
-        }, {
-            "level": 3,
-            "maxHealth": 8.980094021851665e+74,
-            "health": 0,
-            "attack": 2.014402843846012e+77,
-            "special": "",
-            "text": "",
-            "name": "Chimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptStrong",
-            "vm": "TrimpmasSnow",
-            "OKcount": 2,
-            "overkilled": true
-        }, {
-            "level": 4,
-            "maxHealth": 9.117194693941003e+74,
-            "health": 0,
-            "attack": 1.0284304917059264e+77,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Turtlimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow",
-            "OKcount": 3,
-            "overkilled": true
-        }, {
-            "level": 5,
-            "maxHealth": 9.254295366030344e+74,
-            "health": 0,
-            "attack": 1.0496595614888469e+77,
-            "special": "",
-            "text": "",
-            "name": "Whipimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptCrit",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 6,
-            "maxHealth": 9.391396038119681e+74,
-            "health": 0,
-            "attack": 1.0708886312717674e+77,
-            "special": "",
-            "text": "",
-            "name": "Presimpt",
-            "mutation": "Corruption",
-            "corrupted": "corruptDbl",
-            "vm": "TrimpmasSnow",
-            "OKcount": 1,
-            "overkilled": true
-        }, {
-            "level": 7,
-            "maxHealth": 9.52849671020902e+74,
-            "health": 0,
-            "attack": 1.0921177010546878e+77,
-            "special": "",
-            "text": "",
-            "name": "Presimpt",
-            "mutation": "Corruption",
-            "corrupted": "corruptCrit",
-            "vm": "TrimpmasSnow",
-            "OKcount": 2,
-            "overkilled": true
-        }, {
-            "level": 8,
-            "maxHealth": 9.66559738229836e+74,
-            "health": 0,
-            "attack": 1.1133467708376082e+77,
-            "special": "",
-            "text": "",
-            "name": "Tauntimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow",
-            "OKcount": 3,
-            "overkilled": true
-        }, {
-            "level": 9,
-            "maxHealth": 4.71526537158357e+73,
-            "health": 0,
-            "attack": 1.8191679280646993e+76,
-            "special": "",
-            "text": "",
-            "name": "Chimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 10,
-            "maxHealth": 9.939798726477034e+74,
-            "health": 0,
-            "attack": 1.1558049104034491e+77,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Chimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow",
-            "OKcount": 1,
-            "overkilled": true
-        }, {
-            "level": 11,
-            "maxHealth": 1.0076899398566375e+75,
-            "health": 0,
-            "attack": 1.17703398018637e+77,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Penguimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptCrit",
-            "vm": "TrimpmasSnow",
-            "OKcount": 2,
-            "overkilled": true
-        }, {
-            "level": 12,
-            "maxHealth": 1.0214000070655714e+75,
-            "health": 0,
-            "attack": 1.1982630499692906e+77,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Elephimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptBleed",
-            "vm": "TrimpmasSnow",
-            "OKcount": 3,
-            "overkilled": true
-        }, {
-            "level": 13,
-            "maxHealth": 1.035110074274505e+75,
-            "health": 0,
-            "attack": 1.219492119752211e+77,
-            "special": "fiveTrimpMax",
-            "text": "<span title=\"Battle Territory Bonus!\" class=\"glyphicon glyphicon-gift \"></span>",
-            "name": "Elephimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDbl",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 14,
-            "maxHealth": 1.048820141483439e+75,
-            "health": 0,
-            "attack": 1.2407211895351313e+77,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Chimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptBleed",
-            "vm": "TrimpmasSnow",
-            "OKcount": 1,
-            "overkilled": true
-        }, {
-            "level": 15,
-            "maxHealth": 1.0625302086923727e+75,
-            "health": 0,
-            "attack": 1.2619502593180517e+77,
-            "special": "",
-            "text": "",
-            "name": "Chimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow",
-            "OKcount": 2,
-            "overkilled": true
-        }, {
-            "level": 16,
-            "maxHealth": 1.0762402759013066e+75,
-            "health": 0,
-            "attack": 1.2831793291009722e+77,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Venimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow",
-            "OKcount": 3,
-            "overkilled": true
-        }, {
-            "level": 17,
-            "maxHealth": 5.2428475110614524e+73,
-            "health": 0,
-            "attack": 2.0914758091887292e+76,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Chimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 18,
-            "maxHealth": -1,
-            "health": 4.322503293451295e+96,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Presimpt",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow",
-            "OKcount": 1
-        }, {
-            "level": 19,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Elephimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 20,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Tauntimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 21,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Chimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptBleed",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 22,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Dragimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDbl",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 23,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Venimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 24,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Turtlimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 25,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Penguimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 26,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Gorillimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptCrit",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 27,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Dragimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 28,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Squimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptBleed",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 29,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Squimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 30,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Chimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 31,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Gorillimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptTough",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 32,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Dragimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 33,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Squimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 34,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Turtlimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 35,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Venimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 36,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Squimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 37,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Gorillimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 38,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Chimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 39,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Whipimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptStrong",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 40,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Dragimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 41,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Presimpt",
-            "mutation": "Corruption",
-            "corrupted": "corruptDbl",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 42,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Dragimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptCrit",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 43,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Whipimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDbl",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 44,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Gorillimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 45,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Turtlimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 46,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Presimpt",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 47,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Turtlimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDodge",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 48,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Squimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 49,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Penguimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 50,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Chimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 51,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Chimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptBleed",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 52,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Elephimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 53,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Chimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 54,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Feyimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 55,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Squimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 56,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Gorillimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 57,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fiveTrimpMax",
-            "text": "<span title=\"Battle Territory Bonus!\" class=\"glyphicon glyphicon-gift \"></span>",
-            "name": "Penguimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 58,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Turtlimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 59,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Elephimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDbl",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 60,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Megaminer",
-            "text": "<span title=\"Megaminer\" class=\"glyphicon glyphicon-book brokenUpgrade\"></span>",
-            "name": "Gorillimp",
-            "mutation": "Corruption",
-            "corrupted": "corruptDbl",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 61,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Gorillimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 62,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Penguimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 63,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Dragimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 64,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Magnimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 65,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Turtlimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 66,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Chimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 67,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Venimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 68,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Squimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 69,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Presimpt",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 70,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Megalumber",
-            "text": "<span title=\"Megalumber\" class=\"glyphicon glyphicon-book brokenUpgrade\"></span>",
-            "name": "Venimp",
-            "vm": "CorruptSnow"
-        }, {
-            "level": 71,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Presimpt",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 72,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Squimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 73,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Feyimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 74,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Venimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 75,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Chimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 76,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Dragimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 77,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Chimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 78,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Snimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 79,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Snimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 80,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Megafarming",
-            "text": "<span title=\"Megafarming\" class=\"glyphicon glyphicon-book brokenUpgrade\"></span>",
-            "name": "Chimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 81,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Feyimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 82,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Tauntimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 83,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Gorillimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 84,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Magnimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 85,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Penguimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 86,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Elephimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 87,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Squimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 88,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Presimpt",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 89,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Presimpt",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 90,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Foreman",
-            "text": "<span title=\"Foreman\" class=\"glyphicon glyphicon-user \"></span>",
-            "name": "Turtlimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 91,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Venimp",
-            "mutation": "Magma",
-            "corrupted": "none",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 92,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Dragimp",
-            "vm": "HotSnow"
-        }, {
-            "level": 93,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Elephimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 94,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Squimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 95,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "fruit",
-            "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
-            "name": "Gorillimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 96,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "freeMetals",
-            "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
-            "name": "Elephimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 97,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "",
-            "text": "",
-            "name": "Chimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 98,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Map",
-            "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
-            "name": "Chimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 99,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "groundLumber",
-            "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
-            "name": "Turtlimp",
-            "vm": "TrimpmasSnow"
-        }, {
-            "level": 100,
-            "maxHealth": -1,
-            "health": -1,
-            "attack": -1,
-            "special": "Coordination",
-            "text": "<span title=\"Coordination\" class=\"glyphicon glyphicon-book \"></span>",
-            "name": "Omnipotrimp",
-            "vm": "TrimpmasSnow"
-        }],
-        "mapGridArray": [],
+                "level": 1,
+                "maxHealth": 1.1729436108265507e+77,
+                "health": 1.1729436108265507e+77,
+                "attack": 1.943760241413818e+80,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Elephimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 2,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Dragimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptTough",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 3,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Chimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptStrong",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 4,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Turtlimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptCrit",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 5,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Squimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 6,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Turtlimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 7,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Snimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 8,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Elephimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDbl",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 9,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Squimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptStrong",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 10,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Efficiency",
+                "text": "<span title=\"Efficiency\" class=\"glyphicon glyphicon-book \"></span>",
+                "name": "Squimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptBleed",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 11,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Feyimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 12,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Dragimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDodge",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 13,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Penguimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 14,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Turkimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 15,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Presimpt",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 16,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Presimpt",
+                "mutation": "Corruption",
+                "corrupted": "corruptBleed",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 17,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Snimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 18,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Snimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 19,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fiveTrimpMax",
+                "text": "<span title=\"Battle Territory Bonus!\" class=\"glyphicon glyphicon-gift \"></span>",
+                "name": "Penguimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 20,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Penguimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptBleed",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 21,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Penguimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 22,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Gorillimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 23,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Squimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 24,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Elephimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptStrong",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 25,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Elephimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDodge",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 26,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Tauntimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptCrit",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 27,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Dragimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptBleed",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 28,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Squimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDbl",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 29,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Squimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 30,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Snimp",
+                "mutation": "Magma",
+                "corrupted": "none",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 31,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Snimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptStrong",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 32,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Turtlimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDbl",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 33,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Penguimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 34,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Elephimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptTough",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 35,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Penguimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptBleed",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 36,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Elephimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 37,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Elephimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDbl",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 38,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Presimpt",
+                "mutation": "Corruption",
+                "corrupted": "corruptDodge",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 39,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Squimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDbl",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 40,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Megascience",
+                "text": "<span title=\"Megascience\" class=\"glyphicon glyphicon-book brokenUpgrade\"></span>",
+                "name": "Squimp",
+                "vm": "HotSnow"
+            },
+            {
+                "level": 41,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Chimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 42,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Presimpt",
+                "mutation": "Corruption",
+                "corrupted": "corruptDodge",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 43,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Gorillimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 44,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Dragimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 45,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Chimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptBleed",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 46,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Squimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDodge",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 47,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Penguimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDbl",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 48,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Snimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptCrit",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 49,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Turtlimp",
+                "mutation": "Corruption",
+                "corrupted": "corruptDodge",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 50,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Gorillimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 51,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Magnimp",
+                "vm": "TrimpmasSnow",
+                "empowerment": "Poison"
+            },
+            {
+                "level": 52,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Dragimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 53,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Dragimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 54,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Snimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 55,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Dragimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 56,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Turtlimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 57,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Penguimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 58,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Squimp",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 59,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fiveTrimpMax",
+                "text": "<span title=\"Battle Territory Bonus!\" class=\"glyphicon glyphicon-gift \"></span>",
+                "name": "Presimpt",
+                "vm": "CorruptSnow"
+            },
+            {
+                "level": 60,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Megaminer",
+                "text": "<span title=\"Megaminer\" class=\"glyphicon glyphicon-book brokenUpgrade\"></span>",
+                "name": "Gorillimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 61,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Snimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 62,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Gorillimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 63,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Penguimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 64,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Elephimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 65,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Dragimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 66,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Elephimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 67,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Chimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 68,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Venimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 69,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Snimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 70,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Megalumber",
+                "text": "<span title=\"Megalumber\" class=\"glyphicon glyphicon-book brokenUpgrade\"></span>",
+                "name": "Magnimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 71,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Chimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 72,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Presimpt",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 73,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Elephimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 74,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Dragimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 75,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Turtlimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 76,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Snimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 77,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Presimpt",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 78,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Whipimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 79,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Chimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 80,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Megafarming",
+                "text": "<span title=\"Megafarming\" class=\"glyphicon glyphicon-book brokenUpgrade\"></span>",
+                "name": "Squimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 81,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Dragimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 82,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Skeletimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 83,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Dragimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 84,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Elephimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 85,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Squimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 86,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Presimpt",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 87,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Turtlimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 88,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Elephimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 89,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Squimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 90,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Foreman",
+                "text": "<span title=\"Foreman\" class=\"glyphicon glyphicon-user \"></span>",
+                "name": "Penguimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 91,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Presimpt",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 92,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Magnimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 93,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Turtlimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 94,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "freeMetals",
+                "text": "<span title=\"Metal\" class=\"icomoon icon-cubes \"></span>",
+                "name": "Presimpt",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 95,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "fruit",
+                "text": "<span title=\"Food\" class=\"glyphicon glyphicon-apple \"></span>",
+                "name": "Penguimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 96,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Map",
+                "text": "<span title=\"Map Fragments\" class=\"glyphicon glyphicon-th \"></span>",
+                "name": "Penguimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 97,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Squimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 98,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "groundLumber",
+                "text": "<span title=\"Wood\" class=\"glyphicon glyphicon-tree-deciduous \"></span>",
+                "name": "Turtlimp",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 99,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Presimpt",
+                "vm": "TrimpmasSnow"
+            },
+            {
+                "level": 100,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Coordination",
+                "text": "<span title=\"Coordination\" class=\"glyphicon glyphicon-book \"></span>",
+                "name": "Omnipotrimp",
+                "vm": "TrimpmasSnow"
+            }
+        ],
+        "mapGridArray": [{
+                "level": 1,
+                "maxHealth": 2.1993537569214257e+101,
+                "health": 7.476526661601086e+100,
+                "attack": 3.40851805122345e+105,
+                "special": "",
+                "text": "",
+                "name": "Turtlimp"
+            },
+            {
+                "level": 2,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Penguimp"
+            },
+            {
+                "level": 3,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Goblimp"
+            },
+            {
+                "level": 4,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Turtlimp"
+            },
+            {
+                "level": 5,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Titimp"
+            },
+            {
+                "level": 6,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "gems",
+                "text": "<span title=\"Gems\" class=\"icomoon icon-diamond \"></span>",
+                "name": "Slosnimp"
+            },
+            {
+                "level": 7,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Squirrimp"
+            },
+            {
+                "level": 8,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Snimp"
+            },
+            {
+                "level": 9,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "gems",
+                "text": "<span title=\"Gems\" class=\"icomoon icon-diamond \"></span>",
+                "name": "Squimp"
+            },
+            {
+                "level": 10,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Titimp"
+            },
+            {
+                "level": 11,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Gnomimp"
+            },
+            {
+                "level": 12,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "gems",
+                "text": "<span title=\"Gems\" class=\"icomoon icon-diamond \"></span>",
+                "name": "Entimp"
+            },
+            {
+                "level": 13,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Flowimp"
+            },
+            {
+                "level": 14,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Gravelimp"
+            },
+            {
+                "level": 15,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Entimp"
+            },
+            {
+                "level": 16,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "gems",
+                "text": "<span title=\"Gems\" class=\"icomoon icon-diamond \"></span>",
+                "name": "Gorillimp"
+            },
+            {
+                "level": 17,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Gorillimp"
+            },
+            {
+                "level": 18,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Penguimp"
+            },
+            {
+                "level": 19,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Squimp"
+            },
+            {
+                "level": 20,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Turtlimp"
+            },
+            {
+                "level": 21,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "gems",
+                "text": "<span title=\"Gems\" class=\"icomoon icon-diamond \"></span>",
+                "name": "Gravelimp"
+            },
+            {
+                "level": 22,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Gorillimp"
+            },
+            {
+                "level": 23,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Gorillimp"
+            },
+            {
+                "level": 24,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Squimp"
+            },
+            {
+                "level": 25,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Gravelimp"
+            },
+            {
+                "level": 26,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Slosnimp"
+            },
+            {
+                "level": 27,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "Any",
+                "text": "<span title=\"Food/Wood/Metal\" class=\"icomoon icon-leaf2 \"></span>",
+                "name": "Snimp"
+            },
+            {
+                "level": 28,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Gorillimp"
+            },
+            {
+                "level": 29,
+                "maxHealth": -1,
+                "health": -1,
+                "attack": -1,
+                "special": "",
+                "text": "",
+                "name": "Titimp"
+            }
+        ],
         "mapsOwnedArray": [{
-            "id": "map1",
-            "name": "Tricky Paradise",
-            "location": "Plentiful",
-            "clears": 0,
-            "level": 6,
-            "difficulty": 0.85,
-            "size": 45,
-            "loot": 1.45,
-            "noRecycle": false
-        }, {
-            "id": "map2",
-            "name": "Deadly Pit",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 85,
-            "loot": 2,
-            "difficulty": 4.5,
-            "noRecycle": true,
-            "voidBuff": "doubleAttack",
-            "stacked": 0,
-            "bonus": "fa"
-        }, {
-            "id": "map3",
-            "name": "Dimension of Anger",
-            "location": "Hell",
-            "clears": 0,
-            "level": 20,
-            "difficulty": 2.5,
-            "size": 100,
-            "loot": 3,
-            "noRecycle": true
-        }, {
-            "id": "map4",
-            "name": "Trimple Of Doom",
-            "location": "Doom",
-            "clears": 0,
-            "level": 33,
-            "difficulty": 1.8,
-            "size": 100,
-            "loot": 3,
-            "noRecycle": true
-        }, {
-            "id": "map5",
-            "name": "Poisonous Pit",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 85,
-            "loot": 2,
-            "difficulty": 4.5,
-            "noRecycle": true,
-            "voidBuff": "slowBreed",
-            "stacked": 1,
-            "bonus": "fa"
-        }, {
-            "id": "map6",
-            "name": "Deadly Void",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 90,
-            "loot": 2.5,
-            "difficulty": 4,
-            "noRecycle": true,
-            "voidBuff": "doubleAttack",
-            "stacked": 0,
-            "bonus": "fa"
-        }, {
-            "id": "map7",
-            "name": "Deadly Descent",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 100,
-            "loot": 2.5,
-            "difficulty": 3.5,
-            "noRecycle": true,
-            "voidBuff": "doubleAttack",
-            "stacked": 0,
-            "bonus": "fa"
-        }, {
-            "id": "map8",
-            "name": "Heinous Descent",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 100,
-            "loot": 2.5,
-            "difficulty": 3.5,
-            "noRecycle": true,
-            "voidBuff": "getCrit",
-            "stacked": 0,
-            "bonus": "fa"
-        }, {
-            "id": "map9",
-            "name": "Deadly Nightmare",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 100,
-            "loot": 3,
-            "difficulty": 4,
-            "noRecycle": true,
-            "voidBuff": "doubleAttack",
-            "stacked": 0,
-            "bonus": "fa"
-        }, {
-            "id": "map11",
-            "name": "Heinous Void",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 90,
-            "loot": 2.5,
-            "difficulty": 4,
-            "noRecycle": true,
-            "voidBuff": "getCrit",
-            "stacked": 1,
-            "bonus": "fa"
-        }, {
-            "id": "map14",
-            "name": "Destructive Nightmare",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 100,
-            "loot": 3,
-            "difficulty": 4,
-            "noRecycle": true,
-            "voidBuff": "bleed",
-            "stacked": 0,
-            "bonus": "fa"
-        }, {
-            "id": "map18",
-            "name": "Bionic Wonderland VI",
-            "location": "Bionic",
-            "clears": 0,
-            "level": 200,
-            "difficulty": 2.6,
-            "size": 100,
-            "loot": 3,
-            "noRecycle": true,
-            "bonus": "fa"
-        }, {
-            "id": "map19",
-            "name": "Poisonous Nightmare",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 100,
-            "loot": 3,
-            "difficulty": 4,
-            "noRecycle": true,
-            "voidBuff": "slowBreed",
-            "stacked": 0,
-            "bonus": "fa"
-        }, {
-            "id": "map20",
-            "name": "Bionic Wonderland VII",
-            "location": "Bionic",
-            "clears": 0,
-            "level": 215,
-            "difficulty": 2.6,
-            "size": 100,
-            "loot": 3,
-            "noRecycle": true,
-            "bonus": "fa"
-        }, {
-            "id": "map22",
-            "name": "Bionic Wonderland VIII",
-            "location": "Bionic",
-            "clears": 0,
-            "level": 230,
-            "difficulty": 2.6,
-            "size": 100,
-            "loot": 3,
-            "noRecycle": true,
-            "bonus": "fa"
-        }, {
-            "id": "map23",
-            "name": "Poisonous Pit",
-            "location": "Void",
-            "clears": 0,
-            "level": -1,
-            "size": 85,
-            "loot": 2,
-            "difficulty": 4.5,
-            "noRecycle": true,
-            "voidBuff": "slowBreed",
-            "stacked": 0,
-            "bonus": "fa"
-        }],
-        "currentMapId": "",
-        "lastClearedCell": 15,
+                "id": "map2",
+                "name": "Dimension of Anger",
+                "location": "Hell",
+                "clears": 0,
+                "level": 20,
+                "difficulty": 2.5,
+                "size": 100,
+                "loot": 3,
+                "noRecycle": true
+            },
+            {
+                "id": "map4",
+                "name": "Trimple Of Doom",
+                "location": "Doom",
+                "clears": 0,
+                "level": 33,
+                "difficulty": 1.8,
+                "size": 100,
+                "loot": 3,
+                "noRecycle": true
+            },
+            {
+                "id": "map28",
+                "name": "The Prison",
+                "location": "Prison",
+                "clears": 0,
+                "level": 80,
+                "difficulty": 2.6,
+                "size": 100,
+                "loot": 2.6,
+                "noRecycle": true
+            },
+            {
+                "id": "map29",
+                "name": "Imploding Star",
+                "location": "Star",
+                "clears": 0,
+                "level": 170,
+                "difficulty": 3.2,
+                "size": 100,
+                "loot": 3,
+                "noRecycle": true
+            },
+            {
+                "id": "map30",
+                "name": "The Wall",
+                "location": "Wall",
+                "clears": 0,
+                "level": 15,
+                "difficulty": 1.5,
+                "size": 100,
+                "loot": 2,
+                "noRecycle": true
+            },
+            {
+                "id": "map31",
+                "name": "The Block",
+                "location": "Block",
+                "clears": 0,
+                "level": 11,
+                "difficulty": 1.3,
+                "size": 100,
+                "loot": 2,
+                "noRecycle": true
+            },
+            {
+                "id": "map38",
+                "name": "Bionic Wonderland XIII",
+                "location": "Bionic",
+                "clears": 0,
+                "level": 305,
+                "difficulty": 2.6,
+                "size": 100,
+                "loot": 3,
+                "noRecycle": true,
+                "bonus": ""
+            },
+            {
+                "id": "map42",
+                "name": "Bionic Wonderland XIV",
+                "location": "Bionic",
+                "clears": 0,
+                "level": 320,
+                "difficulty": 2.6,
+                "size": 100,
+                "loot": 3,
+                "noRecycle": true,
+                "bonus": ""
+            },
+            {
+                "id": "map46",
+                "name": "Black Gardens",
+                "location": "Plentiful",
+                "clears": 0,
+                "level": 332,
+                "difficulty": "1.470",
+                "size": 29,
+                "loot": 1.82,
+                "noRecycle": false,
+                "bonus": "p"
+            },
+            {
+                "id": "map47",
+                "name": "Bionic Wonderland XV",
+                "location": "Bionic",
+                "clears": 0,
+                "level": 335,
+                "difficulty": 2.6,
+                "size": 100,
+                "loot": 3,
+                "noRecycle": true,
+                "bonus": ""
+            }
+        ],
+        "currentMapId": "map46",
+        "lastClearedCell": -1,
         "lastClearedMapCell": -1,
         "pauseFight": false,
-        "soldierHealth": 2.984102922948078e+104,
-        "soldierHealthMax": 2.984102922948078e+104,
+        "soldierHealth": 2.0242813912042306e+117,
+        "soldierHealthMax": 2.0242813912042306e+117,
         "soldierHealthRemaining": 0,
-        "soldierCurrentAttack": 1.2952755474316509e+88,
-        "soldierCurrentBlock": 5.227259986087934e+95,
+        "soldierCurrentAttack": 4.156229625039381e+103,
+        "soldierCurrentBlock": 1.6250690255329173e+114,
         "fighting": true,
-        "health": 1.7609988837913703e+53,
-        "attack": 1.4762199834322586e+49,
-        "block": 5.854092734440755e+59,
+        "health": 1.5073281881977724e+72,
+        "attack": 4.052631277951928e+66,
+        "block": 1.6361721834727995e+73,
         "autoBattle": true,
-        "autoCraftModifier": 12560.75,
-        "start": 1558191013466,
-        "time": 0,
-        "portalTime": 1545367314335,
-        "lastFightUpdate": "2019-05-18T14:50:13.509Z",
-        "battleCounter": 0,
+        "autoCraftModifier": 84.25,
+        "start": 1545348865998,
+        "time": 3400,
+        "portalTime": 1519701469073,
+        "lastFightUpdate": "2018-12-20T23:34:29.119Z",
+        "battleCounter": 300,
         "firing": false,
         "mapsActive": false,
         "preMapsActive": false,
         "switchToMaps": false,
         "switchToWorld": false,
-        "lookingAtMap": "",
-        "mapsOwned": 11,
-        "totalMapsEarned": 23,
+        "lookingAtMap": "map46",
+        "mapsOwned": 5,
+        "totalMapsEarned": 47,
         "freshFight": false,
         "tab": "All",
         "repeatMap": true,
@@ -1270,53 +1516,53 @@ var game = {
         "lockTooltip": false,
         "portalActive": true,
         "mapsUnlocked": true,
-        "lastOnline": 1545368891661,
+        "lastOnline": 1545348869404,
         "buyTab": "all",
-        "nextQueueId": 0,
+        "nextQueueId": 1,
         "kongBonusMode": false,
         "canRespecPerks": true,
         "respecActive": false,
-        "heliumLeftover": 56668720546342430,
+        "heliumLeftover": 45765,
         "viewingUpgrades": false,
-        "totalPortals": 637,
-        "lastCustomAmt": 100000,
-        "trapBuildAllowed": false,
+        "totalPortals": 267,
+        "lastCustomAmt": 3000000000000,
+        "trapBuildAllowed": true,
         "trapBuildToggled": true,
-        "lastSkeletimp": 1545367215217,
+        "lastSkeletimp": 1519741603175,
         "pp": [],
-        "highestLevelCleared": 543,
-        "b": 219,
-        "challengeActive": "Daily",
+        "highestLevelCleared": 335,
+        "b": 262,
+        "challengeActive": "",
         "selectedChallenge": "",
-        "lastOfflineProgress": 1545345654348,
+        "lastOfflineProgress": 1545348866069,
         "sLevel": 5,
-        "totalGifts": 38315,
+        "totalGifts": 31584,
         "brokenPlanet": true,
-        "formation": 0,
-        "bestHelium": 146191691444626050,
-        "tempHighHelium": 37181686829825,
-        "totalHeliumEarned": 14325956910111040000,
+        "formation": 4,
+        "bestHelium": 18540016255,
+        "tempHighHelium": 3881228405,
+        "totalHeliumEarned": 292690459934,
         "removingPerks": false,
-        "lastBreedTime": 10700,
-        "antiStacks": 10,
+        "lastBreedTime": 300,
+        "antiStacks": 30,
         "prisonClear": 1,
         "frugalDone": true,
-        "lastUnlock": 0,
+        "lastUnlock": 1545348869004,
         "lowestGen": 1011,
-        "breedBack": -6706219.019685632,
+        "breedBack": 6746177668741823,
         "titimpLeft": 0,
         "mapBonus": 0,
         "slowDone": true,
-        "turkimpTimer": 2055300,
+        "turkimpTimer": 1922800,
         "statsMode": "current",
-        "achievementBonus": 5049,
-        "lastLowGen": 1008,
-        "presimptStore": "gems",
-        "lastWarp": 0,
-        "zoneStarted": 1545368890258,
-        "mapStarted": 1545367314335,
-        "bionicOwned": 8,
-        "roboTrimpLevel": 28,
+        "achievementBonus": 2479,
+        "lastLowGen": 1051,
+        "presimptStore": "food",
+        "lastWarp": 225,
+        "zoneStarted": 1545348868998,
+        "mapStarted": 1519743277874,
+        "bionicOwned": 15,
+        "roboTrimpLevel": 15,
         "roboTrimpCooldown": 0,
         "useShriek": false,
         "usingShriek": false,
@@ -1325,102 +1571,96 @@ var game = {
         "autoPrestiges": 1,
         "autoStorage": true,
         "autoStorageAvailable": true,
-        "totalVoidMaps": 12,
+        "totalVoidMaps": 0,
         "voidMapsToggled": false,
         "voidBuff": "",
-        "lastVoidMap": 365,
-        "voidSeed": 323181,
-        "scrySeed": 932797,
-        "heirloomSeed": 1081339,
+        "lastVoidMap": 1761,
+        "voidSeed": 272685,
+        "scrySeed": 71603,
+        "heirloomSeed": 982588,
         "heirloomBoneSeed": 749936,
-        "eggSeed": 410025,
-        "mutationSeed": 661344,
-        "enemySeed": 351587,
+        "eggSeed": 780723,
+        "mutationSeed": 703959,
+        "enemySeed": 9763974,
         "heirloomsExtra": [{
-            "name": "Legendary Staff",
-            "type": "Staff",
-            "repSeed": 1023134,
-            "rarity": 4,
+            "name": "Magnificent Shield",
+            "type": "Shield",
+            "repSeed": 1327135,
+            "rarity": 5,
             "mods": [
-                ["FarmerSpeed", 18, 11, 0, 496],
-                ["LumberjackSpeed", 38, 1, 0, 524],
-                ["woodDrop", 32, 4, 0, 2]
+                [
+                    "breedSpeed",
+                    103,
+                    9,
+                    0,
+                    200
+                ],
+                [
+                    "storageSize",
+                    288,
+                    14,
+                    0,
+                    557
+                ],
+                [
+                    "trainerEfficiency",
+                    70,
+                    5,
+                    0,
+                    500
+                ],
+                [
+                    "trimpAttack",
+                    140,
+                    2,
+                    0,
+                    210
+                ]
             ]
         }],
-        "heirloomsCarried": [{
-            "name": "Plagued Shield",
-            "type": "Shield",
-            "repSeed": 4630778,
-            "rarity": 8,
-            "mods": [
-                ["plaguebringer", 7.5, 15, 0, 588],
-                ["trimpAttack", 356, 0, 0, 359],
-                ["trimpBlock", 118, 2, 0, 951],
-                ["trimpHealth", 340, 2, 0, 532],
-                ["voidMaps", 40.75, 37, 0, 808]
-            ]
-        }, {
-            "name": "Plagued Staff",
-            "type": "Staff",
-            "repSeed": 5970547,
-            "rarity": 8,
-            "mods": [
-                ["FluffyExp", 40, 10, 0, 807],
-                ["foodDrop", 480, 5, 0, 388],
-                ["LumberjackSpeed", 480, 5, 0, 609],
-                ["metalDrop", 448, 6, 0, 621],
-                ["woodDrop", 640, 0, 0, 941]
-            ]
-        }, {
-            "name": "Plagued Shield",
-            "type": "Shield",
-            "repSeed": 1504166,
-            "rarity": 8,
-            "mods": [
-                ["critChance", 29, 2, 0, 746],
-                ["critDamage", 575, 5, 0, 757],
-                ["plaguebringer", 3.5, 23, 0, 515],
-                ["trimpBlock", 109, 11, 0, 377],
-                ["voidMaps", 49.5, 2, 0, 108]
-            ]
-        }, {
-            "name": "Plagued Staff",
-            "type": "Staff",
-            "repSeed": 388534,
-            "rarity": 8,
-            "mods": [
-                ["DragimpSpeed", 256, 12, 0, 409],
-                ["ExplorerSpeed", 416, 7, 0, 613],
-                ["FluffyExp", 39, 11, 0, 405],
-                ["MinerSpeed", 480, 5, 0, 398],
-                ["empty", 640, 0, 0, 487]
-            ]
-        }, {
-            "name": "Plagued Shield",
-            "type": "Shield",
-            "repSeed": 5388861,
-            "rarity": 8,
-            "mods": [
-                ["breedSpeed", 196, 8, 0, 604],
-                ["critChance", 26, 8, 0, 780],
-                ["critDamage", 575, 5, 0, 51],
-                ["plaguebringer", 4.5, 21, 0, 525],
-                ["voidMaps", 49.25, 3, 0, 170]
-            ]
-        }],
+        "heirloomsCarried": [],
         "StaffEquipped": {
-            "name": "Plagued Staff",
+            "name": "Magmatic Staff",
             "type": "Staff",
-            "repSeed": 1121898,
-            "rarity": 8,
+            "repSeed": 2993497,
+            "rarity": 7,
             "mods": [
-                ["DragimpSpeed", 960, 0, 10, 944],
-                ["ExplorerSpeed", 1920, 0, 40, 83],
-                ["FluffyExp", 117, 3, 70, 9402371],
-                ["LumberjackSpeed", 640, 5, 5, 112],
-                ["MinerSpeed", 2112, 4, 50, 929]
-            ],
-            "protected": false
+                [
+                    "ExplorerSpeed",
+                    288,
+                    2,
+                    0,
+                    39
+                ],
+                [
+                    "gemsDrop",
+                    320,
+                    0,
+                    0,
+                    904
+                ],
+                [
+                    "metalDrop",
+                    256,
+                    4,
+                    0,
+                    739
+                ],
+                [
+                    "MinerSpeed",
+                    608,
+                    3,
+                    21,
+                    806
+                ],
+                [
+                    "woodDrop",
+                    176,
+                    9,
+                    0,
+                    43
+                ]
+            ]
         },
         "ShieldEquipped": {
             "name": "Magmatic Shield",
@@ -1428,157 +1668,170 @@ var game = {
             "repSeed": 9084937,
             "rarity": 7,
             "mods": [
-                ["critChance", 30, 1, 48, 292],
-                ["critDamage", 1000, 10, 60, 48],
-                ["voidMaps", 50, 8, 32, 6990368],
-                ["trimpAttack", 650, 3, 68, 15],
-                ["trimpHealth", 518, 8, 51, 6828506]
+                [
+                    "critChance",
+                    17.1,
+                    1,
+                    5,
+                    292
+                ],
+                [
+                    "critDamage",
+                    600,
+                    10,
+                    20,
+                    48
+                ],
+                [
+                    "voidMaps",
+                    50,
+                    8,
+                    32,
+                    6990368
+                ],
+                [
+                    "trimpAttack",
+                    350,
+                    3,
+                    18,
+                    15
+                ],
+                [
+                    "trimpHealth",
+                    266,
+                    8,
+                    9,
+                    6828506
+                ]
             ]
         },
-        "CoreEquipped": {},
-        "nullifium": 726460,
-        "maxCarriedHeirlooms": 7,
+        "nullifium": 12635,
+        "maxCarriedHeirlooms": 3,
         "selectedHeirloom": [],
-        "lastPortal": 600,
+        "lastPortal": 335,
         "addonUser": false,
         "eggLoc": -1,
-        "researched": false,
+        "researched": true,
         "bonePortalThisRun": false,
         "maxSplit": 1,
-        "maxSoldiersAtStart": 3.737054075843798e+33,
+        "maxSoldiersAtStart": 2.8114470111179447e+37,
         "playFabLoginType": 2,
-        "lastCustomExact": "1e21",
-        "voidMaxLevel": 356,
+        "lastCustomExact": "3t",
+        "voidMaxLevel": 336,
         "rememberInfo": false,
         "spireActive": false,
-        "spireDeaths": 0,
+        "spireDeaths": 1,
         "Geneticistassist": true,
-        "GeneticistassistSetting": 10,
-        "GeneticistassistSteps": [-1, 3, 10, 45],
-        "spireRows": 10,
-        "goldenUpgrades": 15,
+        "GeneticistassistSetting": 30,
+        "GeneticistassistSteps": [
+            -1,
+            2,
+            10,
+            30
+        ],
+        "spireRows": 20,
+        "goldenUpgrades": 13,
         "voidDeaths": 0,
-        "essence": 9.622289414449049e+22,
-        "spentEssence": 2.6558825450909894e+23,
-        "skeleSeed": 967465,
+        "essence": 686969152224,
+        "spentEssence": 0,
+        "skeleSeed": 329574,
         "decayDone": true,
-        "dailyChallenge": {
-            "badHealth": {
-                "strength": 13,
-                "stacks": 0
-            },
-            "bloodthirst": {
-                "strength": 4,
-                "stacks": 0
-            },
-            "minDamage": {
-                "strength": 68,
-                "stacks": 0
-            },
-            "seed": 20181215
-        },
-        "recentDailies": [20181219, 20181218, 20181217, 20181216, 20181215],
+        "dailyChallenge": {},
+        "recentDailies": [
+            20180227,
+            20180226,
+            20180225,
+            20180224,
+            20180223,
+            20180222,
+            20180221
+        ],
         "dailyHelium": 0,
-        "breedTime": 10.10360996789441,
-        "magmite": 1738,
-        "magmaFuel": 0,
+        "breedTime": 118.98579289882862,
+        "magmite": 606,
+        "magmaFuel": 0.32,
         "generatorMode": 0,
-        "trimpsGenerated": 0,
-        "timeSinceLastGeneratorTick": -1,
+        "trimpsGenerated": 3016055825730.2793,
+        "timeSinceLastGeneratorTick": 0,
         "canMagma": true,
-        "lastBonePresimpt": 1545350378142,
+        "lastBonePresimpt": 1515365536945,
         "runningChallengeSquared": false,
-        "totalSquaredReward": 2781,
+        "totalSquaredReward": 969,
         "perkPreset1": {
-            "Looting_II": 168000,
-            "Carpentry_II": 23900,
-            "Motivation_II": 64600,
-            "Power_II": 251000,
-            "Toughness_II": 80000,
-            "Capable": 6,
-            "Overkill": 30,
-            "Resourceful": 44,
-            "Coordinated": 61,
+            "Looting_II": 770,
+            "Carpentry_II": 2220,
+            "Motivation_II": 2940,
+            "Power_II": 6010,
+            "Toughness_II": 2240,
+            "Capable": 3,
+            "Overkill": 21,
+            "Resourceful": 20,
+            "Coordinated": 46,
             "Siphonology": 3,
             "Anticipation": 10,
-            "Resilience": 84,
+            "Resilience": 57,
             "Meditation": 7,
             "Relentlessness": 10,
-            "Carpentry": 91,
-            "Artisanistry": 90,
+            "Carpentry": 74,
+            "Artisanistry": 66,
             "Range": 10,
             "Agility": 20,
-            "Trumps": 61,
-            "Pheromones": 86,
-            "Packrat": 72,
-            "Motivation": 91,
-            "Power": 101,
-            "Toughness": 92,
-            "Looting": 109,
+            "Trumps": 36,
+            "Pheromones": 60,
+            "Packrat": 49,
+            "Motivation": 68,
+            "Power": 73,
+            "Toughness": 66,
+            "Looting": 71,
             "Name": "Current :)"
         },
         "perkPreset2": {
-            "Looting_II": 35900,
-            "Carpentry_II": 40600,
-            "Motivation_II": 113000,
-            "Power_II": 321000,
-            "Toughness_II": 121000,
-            "Capable": 6,
-            "Cunning": 12,
-            "Overkill": 30,
-            "Resourceful": 47,
-            "Coordinated": 63,
+            "Looting_II": 770,
+            "Carpentry_II": 2220,
+            "Motivation_II": 2940,
+            "Power_II": 6010,
+            "Toughness_II": 2240,
+            "Capable": 3,
+            "Overkill": 21,
+            "Resourceful": 20,
+            "Coordinated": 46,
             "Siphonology": 3,
             "Anticipation": 10,
-            "Resilience": 87,
+            "Resilience": 57,
             "Meditation": 7,
             "Relentlessness": 10,
-            "Carpentry": 95,
-            "Artisanistry": 94,
+            "Carpentry": 74,
+            "Artisanistry": 66,
             "Range": 10,
             "Agility": 20,
-            "Trumps": 71,
-            "Pheromones": 89,
-            "Packrat": 77,
-            "Motivation": 95,
-            "Power": 103,
-            "Toughness": 95,
-            "Looting": 97,
-            "Name": "C2"
+            "Trumps": 36,
+            "Pheromones": 60,
+            "Packrat": 49,
+            "Motivation": 68,
+            "Power": 73,
+            "Toughness": 66,
+            "Looting": 71
         },
         "perkPreset3": {
-            "Looting_II": 18802579,
-            "Carpentry_II": 1467523,
-            "Motivation_II": 4232342,
-            "Power_II": 26523210,
-            "Toughness_II": 3754216,
-            "Capable": 10,
-            "Cunning": 46,
-            "Curious": 22,
-            "Overkill": 30,
-            "Resourceful": 73,
-            "Coordinated": 88,
+            "Carpentry_II": 37,
+            "Power_II": 291,
+            "Toughness_II": 291,
+            "Coordinated": 25,
             "Siphonology": 3,
             "Anticipation": 10,
-            "Resilience": 113,
-            "Meditation": 7,
+            "Resilience": 42,
             "Relentlessness": 10,
-            "Carpentry": 123,
-            "Artisanistry": 121,
+            "Carpentry": 52,
             "Range": 10,
             "Agility": 20,
-            "Trumps": 71,
-            "Pheromones": 114,
-            "Packrat": 93,
-            "Motivation": 122,
-            "Power": 135,
-            "Toughness": 121,
-            "Looting": 144,
-            "Name": "Perky"
+            "Trumps": 31,
+            "Pheromones": 47,
+            "Power": 53,
+            "Toughness": 53
         },
         "improvedAutoStorage": true,
-        "firstCustomAmt": -1,
-        "firstCustomExact": -1,
+        "firstCustomAmt": 100000,
+        "firstCustomExact": "3t",
         "autoGolden": 1,
         "autoStructureSetting": {
             "enabled": true,
@@ -1635,55 +1888,18 @@ var game = {
             }
         },
         "autoJobsSetting": {
-            "enabled": true,
-            "Farmer": {
-                "enabled": true,
-                "ratio": 1
-            },
-            "Trainer": {
-                "enabled": true,
-                "value": 0.1,
-                "buyMax": 0
-            },
-            "Lumberjack": {
-                "enabled": true,
-                "ratio": 1
-            },
-            "Explorer": {
-                "enabled": true,
-                "value": 0.1,
-                "buyMax": 0
-            },
-            "Miner": {
-                "enabled": true,
-                "ratio": 20
-            },
-            "Magmamancer": {
-                "enabled": true,
-                "value": 0.1,
-                "buyMax": 0
-            },
-            "Scientist": {
-                "enabled": true,
-                "ratio": 10,
-                "buyMax": 0
-            },
-            "portalGather": "0"
-        },
-        "autoEquipSetting": {
             "enabled": false
         },
-        "autoEquipUnlocked": false,
         "passive": false,
-        "spiresCompleted": 4,
-        "lastSpireCleared": 1,
+        "spiresCompleted": 2,
+        "lastSpireCleared": 2,
         "sugarRush": 0,
-        "holidaySeed": 35395,
+        "holidaySeed": 54156,
         "hideMapRow": false,
         "mapExtraBonus": "",
-        "realBreedTime": 10500,
-        "fluffyExp": 3888562765.4592285,
-        "fluffyPrestige": 2,
+        "realBreedTime": 300,
+        "fluffyExp": 0,
+        "fluffyPrestige": 0,
         "selectedMapPreset": 1,
         "runFluffyExp": 0,
         "bestFluffyExp": 0,
@@ -1692,23 +1908,21 @@ var game = {
         "genPaused": false,
         "canMapAtZone": true,
         "capTrimp": false,
-        "lastSoldierSentAt": 1545368874785,
+        "lastSoldierSentAt": 1545348869098,
         "supervisionSetting": 100,
         "canScryCache": false,
-        "waitToScry": true,
+        "waitToScry": false,
         "waitToScryMaps": false,
         "freeTalentRespecs": 3,
         "genStateConfig": [],
-        "uberNature": "",
-        "logNotBase": 10,
         "mapPresets": {
             "p1": {
                 "loot": 9,
-                "difficulty": 9,
+                "difficulty": 0,
                 "size": 9,
                 "biome": "Plentiful",
                 "specMod": "p",
-                "perf": true,
+                "perf": false,
                 "extra": 0,
                 "offset": "d"
             },
@@ -1735,24 +1949,24 @@ var game = {
         },
         "lootAvgs": {
             "food": {
-                "average": 2.674021724884649e+68,
-                "accumulator": 0
+                "accumulator": 0,
+                "average": 2.9847766353728946e+82
             },
             "wood": {
-                "average": 2.3449763396746317e+68,
-                "accumulator": 0
+                "accumulator": 0,
+                "average": 8.233812907323015e+82
             },
             "metal": {
-                "average": 8.16224789448776e+68,
-                "accumulator": 0
+                "accumulator": 0,
+                "average": 1.4194260780476335e+83
             },
             "gems": {
-                "average": 3.517757538219951e+75,
-                "accumulator": 0
+                "accumulator": 0,
+                "average": 1.1292501904607087e+87
             },
             "fragments": {
-                "average": 7.012250280620447e+24,
-                "accumulator": 0
+                "accumulator": 0,
+                "average": 8.564771001155294e+25
             }
         },
         "menu": {
@@ -1762,29 +1976,29 @@ var game = {
         },
         "messages": {
             "Story": {
-                "enabled": false
+                "enabled": true
             },
             "Loot": {
                 "enabled": true,
                 "primary": false,
                 "secondary": false,
-                "exotic": false,
-                "helium": false,
-                "essence": false,
-                "token": false,
-                "magma": false,
+                "exotic": true,
+                "helium": true,
+                "essence": true,
+                "token": true,
+                "magma": true,
                 "events": true,
-                "cache": false,
+                "cache": true,
                 "bone": true
             },
             "Unlocks": {
                 "enabled": true,
                 "repeated": false,
-                "unique": false
+                "unique": true
             },
             "Combat": {
-                "enabled": true,
-                "trimp": false,
+                "enabled": false,
+                "trimp": true,
                 "enemy": false
             },
             "Notices": {
@@ -1795,30 +2009,29 @@ var game = {
             "attack": 0,
             "health": 0,
             "block": 0,
-            "trainers": 1537
-        }
+            "trainers": 1990
+        },
+        "justAmalged": false
     },
     "empowerments": {
         "Poison": {
             "currentDebuffPower": 0,
-            "level": 140,
-            "retainLevel": 80,
-            "tokens": 134,
-            "nextUberCost": 0
+            "level": 20,
+            "retainLevel": 6,
+            "tokens": 40
         },
         "Wind": {
-            "currentDebuffPower": 9,
-            "level": 177,
-            "retainLevel": 80,
-            "tokens": 718,
-            "nextUberCost": 0
+            "currentDebuffPower": 1,
+            "level": 19,
+            "retainLevel": 5,
+            "maxStacks": 200,
+            "tokens": 33
         },
         "Ice": {
             "currentDebuffPower": 0,
-            "level": 31,
-            "retainLevel": 80,
-            "tokens": 110,
-            "nextUberCost": 0
+            "level": 18,
+            "retainLevel": 1,
+            "tokens": 39
         }
     },
     "singleRunBonuses": {
@@ -1845,7 +2058,7 @@ var game = {
                 "enabled": 0
             },
             "standardNotation": {
-                "enabled": 2
+                "enabled": 4
             },
             "tooltips": {
                 "enabled": 1
@@ -1884,13 +2097,13 @@ var game = {
                 "enabled": 1
             },
             "repeatUntil": {
-                "enabled": 3
+                "enabled": 0
             },
             "exitTo": {
                 "enabled": 0
             },
             "repeatVoids": {
-                "enabled": 0
+                "enabled": 1
             },
             "boneAlerts": {
                 "enabled": 1
@@ -1903,7 +2116,10 @@ var game = {
             },
             "darkTheme": {
                 "enabled": 2,
-                "styleNames": ["dark", "gradient"]
+                "styleNames": [
+                    "dark",
+                    "gradient"
+                ]
             },
             "fadeIns": {
                 "enabled": 0
@@ -1915,10 +2131,10 @@ var game = {
                 "enabled": 1
             },
             "voidPopups": {
-                "enabled": 0
+                "enabled": 1
             },
             "detailedPerks": {
-                "enabled": 1
+                "enabled": 0
             },
             "alwaysAbandon": {
                 "enabled": 0
@@ -1940,14 +2156,16 @@ var game = {
                 "enabled": 0
             },
             "mapsOnSpire": {
-                "enabled": 2
+                "enabled": 3
             },
             "mapAtZone": {
                 "enabled": 1,
-                "setZone": [400]
+                "setZone": [
+                    330
+                ]
             },
             "timestamps": {
-                "enabled": 2
+                "enabled": 0
             },
             "gaFire": {
                 "enabled": 1
@@ -1963,6 +2181,10 @@ var game = {
             },
             "generatorStart": {
                 "enabled": 2
+            },
+            "showSnow": {
+                "enabled": 1,
+                "isNew": true
             },
             "geneSend": {
                 "enabled": 3
@@ -1983,8 +2205,8 @@ var game = {
                 "enabled": 1
             },
             "pauseGame": {
-                "enabled": 1,
-                "timeAtPause": 1545368891696
+                "enabled": 0,
+                "timeAtPause": 0
             },
             "disablePause": {
                 "enabled": 1
@@ -1996,115 +2218,115 @@ var game = {
     },
     "talents": {
         "portal": {
-            "purchased": true
+            "purchased": false
         },
         "bionic": {
-            "purchased": true
+            "purchased": false
         },
         "bounty": {
-            "purchased": true
+            "purchased": false
         },
         "housing": {
-            "purchased": true
+            "purchased": false
         },
         "turkimp": {
-            "purchased": true
+            "purchased": false
         },
         "explorers": {
-            "purchased": true
+            "purchased": false
         },
         "voidPower": {
-            "purchased": true
+            "purchased": false
         },
         "pierce": {
-            "purchased": true
+            "purchased": false
         },
         "headstart": {
-            "purchased": true
+            "purchased": false
         },
         "foreman": {
-            "purchased": true
+            "purchased": false
         },
         "turkimp2": {
-            "purchased": true
+            "purchased": false
         },
         "scry": {
-            "purchased": true
+            "purchased": false
         },
         "voidPower2": {
-            "purchased": true
+            "purchased": false
         },
         "mapLoot": {
-            "purchased": true
+            "purchased": false
         },
         "headstart2": {
-            "purchased": true
+            "purchased": false
         },
         "doubleBuild": {
-            "purchased": true
+            "purchased": false
         },
         "skeletimp": {
-            "purchased": true
+            "purchased": false
         },
         "daily": {
-            "purchased": true
+            "purchased": false
         },
         "hyperspeed": {
-            "purchased": true
+            "purchased": false
         },
         "blacksmith": {
-            "purchased": true
+            "purchased": false
         },
         "headstart3": {
-            "purchased": true
+            "purchased": false
         },
         "autoStructure": {
-            "purchased": true
+            "purchased": false
         },
         "turkimp3": {
-            "purchased": true
+            "purchased": false
         },
         "autoJobs": {
-            "purchased": true
+            "purchased": false
         },
         "hyperspeed2": {
-            "purchased": true
+            "purchased": false
         },
         "blacksmith2": {
-            "purchased": true
+            "purchased": false
         },
         "magmaFlow": {
-            "purchased": true
+            "purchased": false
         },
         "quickGen": {
             "purchased": false
         },
         "skeletimp2": {
-            "purchased": true
+            "purchased": false
         },
         "explorers2": {
-            "purchased": true
+            "purchased": false
         },
         "voidPower3": {
-            "purchased": true
+            "purchased": false
         },
         "blacksmith3": {
-            "purchased": true
+            "purchased": false
         },
         "nature": {
             "purchased": false
         },
         "liquification": {
-            "purchased": true
+            "purchased": false
         },
         "turkimp4": {
             "purchased": false
         },
         "scry2": {
-            "purchased": true
+            "purchased": false
         },
         "magmamancer": {
-            "purchased": true
+            "purchased": false
         },
         "mapLoot2": {
             "purchased": false
@@ -2116,16 +2338,16 @@ var game = {
             "purchased": false
         },
         "stillRowing": {
-            "purchased": true
+            "purchased": false
         },
         "patience": {
-            "purchased": true
+            "purchased": false
         },
         "voidSpecial": {
-            "purchased": true
+            "purchased": false
         },
         "healthStrength": {
-            "purchased": true
+            "purchased": false
         },
         "nature3": {
             "purchased": false
@@ -2152,76 +2374,58 @@ var game = {
             "purchased": false
         },
         "overkill": {
-            "purchased": true
+            "purchased": false
         },
         "crit": {
-            "purchased": false
-        },
-        "voidMastery": {
-            "purchased": false
-        },
-        "healthStrength2": {
-            "purchased": false
-        },
-        "stillMagmamancer": {
-            "purchased": false
-        },
-        "liquification3": {
-            "purchased": false
-        },
-        "mesmer": {
-            "purchased": false
-        },
-        "angelic": {
             "purchased": false
         }
     },
     "portal": {
         "Looting_II": {
-            "level": 47194800,
+            "level": 3660,
             "locked": false,
-            "heliumSpent": 11136750218706000000,
+            "heliumSpent": 67325700000,
             "additive": true
         },
         "Carpentry_II": {
-            "level": 4290589,
+            "level": 2360,
             "locked": false,
-            "heliumSpent": 92046177440560080,
+            "heliumSpent": 28072200000,
             "additive": true
         },
         "Motivation_II": {
-            "level": 10038783,
+            "level": 2850,
             "locked": false,
-            "heliumSpent": 50389078980302984,
+            "heliumSpent": 4202325000,
             "additive": true
         },
         "Power_II": {
-            "level": 65907708,
+            "level": 6320,
             "locked": false,
-            "heliumSpent": 1085957795130549000,
+            "heliumSpent": 10110420000,
             "additive": true
         },
         "Toughness_II": {
-            "level": 9360840,
+            "level": 2550,
             "locked": false,
-            "heliumSpent": 21906516252990044,
+            "heliumSpent": 1675987500,
             "additive": true
         },
         "Capable": {
-            "level": 10,
+            "level": 3,
             "locked": false,
-            "heliumSpent": 111111111100000020,
+            "heliumSpent": 11100000002,
             "max": 10
         },
         "Cunning": {
-            "level": 52,
-            "locked": false,
-            "heliumSpent": 280499795611576200
+            "level": 0,
+            "locked": true,
+            "heliumSpent": 0
         },
         "Curious": {
-            "level": 29,
-            "locked": false,
-            "heliumSpent": 671460421448704800
+            "level": 0,
+            "locked": true,
+            "heliumSpent": 0
         },
         "Classy": {
             "level": 0,
@@ -2230,21 +2434,21 @@ var game = {
             "max": 50
         },
         "Overkill": {
-            "level": 30,
+            "level": 23,
             "locked": false,
-            "heliumSpent": 8729985711,
+            "heliumSpent": 1388463652,
             "max": 30
         },
         "Resourceful": {
-            "level": 80,
+            "level": 19,
             "locked": false,
-            "heliumSpent": 217428732343507
+            "heliumSpent": 24198770
         },
         "Coordinated": {
-            "level": 100,
+            "level": 47,
             "locked": false,
-            "heliumSpent": 123966755547801650,
-            "currentSend": 1235030
+            "heliumSpent": 113319760691,
+            "currentSend": 13548875993555896
         },
         "Siphonology": {
             "level": 3,
@@ -2259,9 +2463,9 @@ var game = {
             "heliumSpent": 42647
         },
         "Resilience": {
-            "level": 120,
+            "level": 58,
             "locked": false,
-            "heliumSpent": 15706557989902804
+            "heliumSpent": 1353921065
         },
         "Meditation": {
             "level": 7,
@@ -2276,14 +2480,14 @@ var game = {
             "max": 10
         },
         "Carpentry": {
-            "level": 131,
+            "level": 74,
             "locked": false,
-            "heliumSpent": 70371677890362610
+            "heliumSpent": 22523031793
         },
         "Artisanistry": {
-            "level": 128,
+            "level": 66,
             "locked": false,
-            "heliumSpent": 19218482810297668
+            "heliumSpent": 1656652929
         },
         "Range": {
             "level": 10,
@@ -2302,116 +2506,112 @@ var game = {
         },
         "Trumps": {
             "locked": 0,
-            "level": 74,
-            "heliumSpent": 2702765036
+            "level": 42,
+            "heliumSpent": 610852
         },
         "Pheromones": {
-            "level": 121,
-            "heliumSpent": 612555761609764
+            "level": 61,
+            "heliumSpent": 89237839
         },
         "Packrat": {
-            "heliumSpent": 2479335113483,
-            "level": 100
+            "heliumSpent": 2946906,
+            "level": 48
         },
         "Motivation": {
-            "heliumSpent": 2562464374709934,
-            "level": 128
+            "heliumSpent": 373300054,
+            "level": 68
         },
         "Power": {
-            "level": 142,
-            "heliumSpent": 50446933590816910
+            "level": 74,
+            "heliumSpent": 900922604
         },
         "Toughness": {
-            "heliumSpent": 985563221044760,
-            "level": 127
+            "heliumSpent": 143577632,
+            "level": 67
         },
         "Looting": {
-            "heliumSpent": 534964475633542800,
-            "level": 151
+            "heliumSpent": 5653148704,
+            "level": 81
         }
     },
     "c2": {
-        "Discipline": 515,
-        "Metal": 529,
-        "Size": 529,
-        "Balance": 529,
-        "Meditate": 544,
-        "Trimp": 171,
-        "Trapper": 380,
-        "Electricity": 528,
-        "Coordinate": 199,
-        "Slow": 543,
-        "Nom": 516,
-        "Mapology": 400,
-        "Toxicity": 511,
-        "Watch": 526,
-        "Lead": 530,
-        "Obliterated": 60,
+        "Discipline": 303,
+        "Metal": 305,
+        "Size": 302,
+        "Balance": 302,
+        "Meditate": 302,
+        "Trimp": 100,
+        "Trapper": 231,
+        "Electricity": 301,
+        "Coordinate": 105,
+        "Slow": 313,
+        "Nom": 305,
+        "Mapology": 311,
+        "Toxicity": 306,
+        "Watch": 309,
+        "Lead": 309,
+        "Obliterated": 0,
         "Eradicated": 0
     },
-    "challenges": {
-        "Daily": {
-            "fireAbandon": true
-        }
-    },
+    "challenges": {},
     "stats": {
         "trimpsKilled": {
-            "value": 2856945000,
-            "valueTotal": 1.0380384273912483e+25
+            "value": 782262237315858700,
+            "valueTotal": 14284811461122544000
         },
         "battlesWon": {
-            "value": 24216,
-            "valueTotal": 39303816
+            "value": 171005,
+            "valueTotal": 12429405
         },
         "battlesLost": {
-            "value": 2,
-            "valueTotal": 1539695
+            "value": 59,
+            "valueTotal": 1303613
         },
         "gemsCollected": {
-            "value": 9.881592662819017e+76,
-            "valueTotal": 1.6391402320878685e+166
+            "value": 3.0345023718701173e+93,
+            "valueTotal": 3.4002607604519414e+92
         },
         "mapsCleared": {
-            "value": 0,
-            "valueTotal": 697673
+            "value": 5009,
+            "valueTotal": 224046
         },
         "zonesCleared": {
-            "value": 242,
-            "valueTotal": 192184
+            "value": 336,
+            "valueTotal": 44536
         },
         "trimpsFired": {
-            "value": 0,
-            "valueTotal": 4.039068695909047e+24
+            "value": 3000000002862,
+            "valueTotal": 6078940928108570
         },
         "spentOnWorms": {
             "value": 0,
-            "valueTotal": 297710
+            "valueTotal": 297633
         },
         "goldenUpgrades": {
-            "value": 15,
-            "valueTotal": 8342
+            "value": 13,
+            "valueTotal": 1311
         },
         "heliumHour": {},
         "bestHeliumHourThisRun": {
-            "storedValue": 254927537878501,
-            "atZone": 243,
+            "storedValue": 8910818617,
+            "atZone": 325,
             "noFormat": true
         },
         "totalHelium": {},
         "bestHeliumHour": {
-            "valueTotal": 37750048771644856
+            "valueTotal": 6570782615
         },
         "dailyBonusHelium": {
             "value": 0,
-            "valueTotal": 8726833789300689000
+            "valueTotal": 122789731893
         },
         "zonesLiquified": {
-            "value": 163,
-            "valueTotal": 47827
+            "value": 41,
+            "valueTotal": 1999
         },
         "highestVoidMap": {
-            "value": 0,
-            "valueTotal": 516,
+            "value": 330,
+            "valueTotal": 330,
             "noAdd": true
         },
         "totalVoidMaps": {
@@ -2419,38 +2619,34 @@ var game = {
             "valueTotal": 0
         },
         "totalHeirlooms": {
-            "value": 1,
-            "valueTotal": 12837
-        },
-        "coresFound": {
-            "value": 0,
-            "valueTotal": 0
+            "value": 19,
+            "valueTotal": 1843
         },
         "cellsOverkilled": {
-            "value": 5937,
-            "valueTotal": 6798759
+            "value": 14305,
+            "valueTotal": 1523931
         },
         "trimpsGenerated": {
-            "value": 0,
-            "valueTotal": 3.272609609705824e+26
+            "value": 24062855788950572,
+            "valueTotal": 351169976049913300
         },
         "decayedNurseries": {
-            "value": 0,
-            "valueTotal": 588486
+            "value": 1228,
+            "valueTotal": 75285
         },
         "bestTokens": {
-            "value": 1,
-            "valueTotal": 696,
+            "value": 0,
+            "valueTotal": 0,
             "noAdd": true,
             "keepHighest": true
         },
         "amalgamators": {
-            "value": 1,
-            "valueTotal": 331
+            "value": 0,
+            "valueTotal": 0
         },
         "bestFluffyExp": {
             "value": 0,
-            "valueTotal": 56460056.4906234,
+            "valueTotal": 0,
             "noAdd": true,
             "keepHighest": true
         },
@@ -2461,34 +2657,34 @@ var game = {
             "noFormat": true
         },
         "bestFluffyExpHour": {
-            "valueTotal": 19599123
+            "valueTotal": 0
         },
         "totalPortals": {},
         "planetsBroken": {
-            "valueTotal": 540
+            "valueTotal": 210
         },
         "highestLevel": {},
         "tdKills": {
-            "value": 198,
-            "valueTotal": 11596
+            "value": 0,
+            "valueTotal": 0
         }
     },
     "generatorUpgrades": {
         "Efficiency": {
-            "upgrades": 293,
+            "upgrades": 84,
             "modifier": 1
         },
         "Capacity": {
-            "upgrades": 101,
-            "modifier": 43.39999999999991
+            "upgrades": 29,
+            "modifier": 14.600000000000009
         },
         "Supply": {
-            "upgrades": 64,
-            "modifier": 1.480000000000001
+            "upgrades": 16,
+            "modifier": 0.5200000000000002
         },
         "Overclocker": {
-            "upgrades": 88,
-            "modifier": 0.20856043996661022
+            "upgrades": 3,
+            "modifier": 0.49005
         }
     },
     "permanentGeneratorUpgrades": {
@@ -2505,55 +2701,55 @@ var game = {
             "owned": true
         },
         "Supervision": {
-            "owned": true
+            "owned": false
         },
         "Simulacrum": {
-            "owned": true
+            "owned": false
         }
     },
     "achievements": {
         "zones": {
-            "finished": 36
+            "finished": 32
         },
         "damage": {
             "finished": 12,
-            "highest": 9.918478443230354e+162
+            "highest": 1.7325284388524698e+108
         },
         "trimps": {
             "finished": 12,
-            "highest": 9.325391224923276e+25
+            "highest": 47126935484124720
         },
         "housing": {
             "finished": 10
         },
         "portals": {
-            "finished": 8
+            "finished": 7
         },
         "totalZones": {
-            "finished": 10
+            "finished": 9
         },
         "totalMaps": {
             "finished": 8
         },
         "totalHelium": {
-            "finished": 12
+            "finished": 9
         },
         "heliumHour": {
-            "finished": 11
+            "finished": 8
         },
         "totalHeirlooms": {
-            "finished": 9
+            "finished": 6
         },
         "totalGems": {
             "finished": 6
         },
         "dailyHelium": {
-            "finished": 7
+            "finished": 5
         },
         "humaneRun": {
-            "finished": 11,
-            "earnable": true,
-            "lastZone": 2
+            "finished": 6,
+            "earnable": false,
+            "lastZone": 200
         },
         "blockTimed": {
             "finished": 4,
@@ -2569,7 +2765,7 @@ var game = {
         },
         "angerTimed": {
             "finished": 5,
-            "highest": 70246,
+            "highest": 0,
             "reverse": true,
             "showAll": true
         },
@@ -2580,94 +2776,158 @@ var game = {
             "showAll": true
         },
         "prisonTimed": {
-            "finished": 9,
-            "highest": 5,
+            "finished": 8,
+            "highest": 18,
             "reverse": true,
             "showAll": true
         },
         "bionicTimed": {
             "finished": 6,
-            "highest": 16,
+            "highest": 28,
             "reverse": true,
             "showAll": true
         },
         "starTimed": {
-            "finished": 7,
-            "highest": 2,
+            "finished": 6,
+            "highest": 41,
             "reverse": true,
             "showAll": true
         },
         "spireTimed": {
             "finished": 6,
-            "highest": 3,
-            "reverse": true,
-            "showAll": true
-        },
-        "spire2Timed": {
-            "finished": 4,
-            "highest": 21,
-            "reverse": true,
-            "showAll": true
-        },
-        "spire3Timed": {
-            "finished": 4,
             "highest": 45,
             "reverse": true,
             "showAll": true
         },
-        "spire4Timed": {
+        "spire2Timed": {
             "finished": 3,
-            "highest": 1075,
+            "highest": 83,
             "reverse": true,
             "showAll": true
         },
-        "spire5Timed": {
+        "spire3Timed": {
+            "finished": 0,
+            "highest": 0,
+            "reverse": true,
+            "showAll": true
+        },
+        "spire4Timed": {
             "finished": 0,
             "highest": 0,
             "reverse": true,
             "showAll": true
         },
         "oneOffs": {
-            "finished": [false, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, false, true, true, true, true, false, true, true, true, true, true, true, true, true, true, false, false, false, false, false, true, false, false, false, false, false, false, false, false]
+            "finished": [
+                false,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                true,
+                false,
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                true,
+                true,
+                true,
+                true,
+                false,
+                true,
+                true,
+                true,
+                false,
+                false,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+            ]
         }
     },
     "heirlooms": {
-        "slots": [1, 2, 3, 3, 3, 4, 4, 5, 5],
-        "priceIncrease": [1.5, 1.5, 1.25, 1.19, 1.15, 1.12, 1.1, 1.06, 1.04],
-        "canReplaceMods": [true, true, true, true, true, true, true, true, false],
-        "Core": {
-            "fireTrap": {
-                "currentBonus": 0
-            },
-            "poisonTrap": {
-                "currentBonus": 0
-            },
-            "lightningTrap": {
-                "currentBonus": 0
-            },
-            "runestones": {
-                "currentBonus": 0
-            },
-            "strengthEffect": {
-                "currentBonus": 0
-            },
-            "condenserEffect": {
-                "currentBonus": 0,
-                "max": [-1, 10, 10, 15, 25, 35, 50]
-            }
-        },
+        "slots": [
+            1,
+            2,
+            2,
+            3,
+            3,
+            4,
+            4,
+            5,
+            5
+        ],
+        "priceIncrease": [
+            2,
+            1.5,
+            1.25,
+            1.19,
+            1.15,
+            1.12,
+            1.1,
+            1.06,
+            1.04
+        ],
+        "canReplaceMods": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+        ],
         "Staff": {
             "metalDrop": {
-                "currentBonus": 0
+                "currentBonus": 256
             },
             "foodDrop": {
                 "currentBonus": 0
             },
             "woodDrop": {
-                "currentBonus": 0
+                "currentBonus": 176
             },
             "gemsDrop": {
-                "currentBonus": 0
+                "currentBonus": 320
             },
             "fragmentsDrop": {
                 "currentBonus": 0
@@ -2676,22 +2936,22 @@ var game = {
                 "currentBonus": 0
             },
             "LumberjackSpeed": {
-                "currentBonus": 640
+                "currentBonus": 0
             },
             "MinerSpeed": {
-                "currentBonus": 2112
+                "currentBonus": 608
             },
             "DragimpSpeed": {
-                "currentBonus": 960
+                "currentBonus": 0
             },
             "ExplorerSpeed": {
-                "currentBonus": 1920
+                "currentBonus": 288
             },
             "ScientistSpeed": {
                 "currentBonus": 0
             },
             "FluffyExp": {
-                "currentBonus": 117
+                "currentBonus": 0
             },
             "empty": {
                 "currentBonus": 0
@@ -2711,28 +2971,58 @@ var game = {
                 "currentBonus": 0
             },
             "trimpHealth": {
-                "currentBonus": 518
+                "currentBonus": 266
             },
             "trimpAttack": {
-                "currentBonus": 650
+                "currentBonus": 350
             },
             "trimpBlock": {
                 "currentBonus": 0
             },
             "critDamage": {
-                "currentBonus": 1000
+                "currentBonus": 600
             },
             "critChance": {
-                "currentBonus": 30,
-                "max": [30, 30, 30, 30, 30, 30, 30, 30, 100]
+                "currentBonus": 17.1,
+                "max": [
+                    30,
+                    30,
+                    30,
+                    30,
+                    30,
+                    30,
+                    30,
+                    30,
+                    100
+                ]
             },
             "voidMaps": {
                 "currentBonus": 50,
-                "max": [50, 50, 50, 50, 50, 50, 50, 50, 80]
+                "max": [
+                    50,
+                    50,
+                    50,
+                    50,
+                    50,
+                    50,
+                    50,
+                    50,
+                    80
+                ]
             },
             "plaguebringer": {
                 "currentBonus": 0,
-                "max": [0, 0, 0, 0, 0, 0, 0, 0, 75]
+                "max": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    75
+                ]
             },
             "empty": {
                 "currentBonus": 0,
@@ -2749,41 +3039,41 @@ var game = {
     },
     "resources": {
         "food": {
-            "owned": 9.949183554213681e+68,
-            "max": 2.1062458333711437e+68
+            "owned": 1.5683774080711371e+87,
+            "max": 2.4283361152821613e+86
         },
         "wood": {
-            "owned": 2.4585591006193222e+69,
-            "max": 2.1062458333711437e+68
+            "owned": 2.386990828735052e+87,
+            "max": 2.4283361152821613e+86
         },
         "metal": {
-            "owned": 2.4814178552019417e+70,
-            "max": 1.684996666696915e+69
+            "owned": 4.161197222353949e+91,
+            "max": 3.978585891278293e+90
         },
         "trimps": {
-            "owned": 18299423217440396,
-            "max": 6449087,
+            "owned": 25763083274170164,
+            "max": 4923847363856.395,
             "maxMod": 1,
             "working": 0,
             "speed": 5,
-            "soldiers": 1235030000,
-            "maxSoldiers": 3.737054075843798e+33,
+            "soldiers": 13548875993555896,
+            "maxSoldiers": 2.8114470111179447e+37,
             "potency": 0.0085
         },
         "science": {
-            "owned": 1.7234811164854868e+46,
+            "owned": 1.5129397269787122e+55,
             "max": -1
         },
         "gems": {
-            "owned": 7.274821314584201e+76,
+            "owned": 6.730800619796768e+92,
             "max": -1
         },
         "fragments": {
-            "owned": 3.1924097776127234e+27,
+            "owned": 1.0426332247378886e+34,
             "max": -1
         },
         "helium": {
-            "owned": 111688569642509,
+            "owned": 22773558866,
             "max": -1,
             "respecMax": 0
         }
@@ -2795,11 +3085,11 @@ var game = {
             "level": 1,
             "oc": 40,
             "health": 4,
-            "healthCalculated": 3.182896143369176e+52,
+            "healthCalculated": 3.0408799802462334e+70,
             "blockNow": false,
             "block": 1.5,
             "blockCalculated": 1.5,
-            "prestige": 50
+            "prestige": 67
         },
         "Dagger": {
             "locked": 0,
@@ -2807,8 +3097,8 @@ var game = {
             "level": 1,
             "oc": 40,
             "attack": 2,
-            "attackCalculated": 3.1622147792253455e+48,
-            "prestige": 50
+            "attackCalculated": 1.506538830541923e+66,
+            "prestige": 68
         },
         "Boots": {
             "locked": 0,
@@ -2816,8 +3106,8 @@ var game = {
             "level": 1,
             "oc": 55,
             "health": 6,
-            "healthCalculated": 4.7743442150537635e+52,
-            "prestige": 50
+            "healthCalculated": 5.208923724109061e+71,
+            "prestige": 68
         },
         "Mace": {
             "locked": 0,
@@ -2825,8 +3115,8 @@ var game = {
             "level": 1,
             "oc": 80,
             "attack": 3,
-            "attackCalculated": 4.743322168838018e+48,
-            "prestige": 50
+            "attackCalculated": 2.2598082458128847e+66,
+            "prestige": 68
         },
         "Helmet": {
             "locked": 0,
@@ -2834,8 +3124,8 @@ var game = {
             "level": 1,
             "oc": 100,
             "health": 10,
-            "healthCalculated": 7.95724035842294e+52,
-            "prestige": 50
+            "healthCalculated": 8.681539540181769e+71,
+            "prestige": 68
         },
         "Polearm": {
             "locked": 0,
@@ -2843,8 +3133,8 @@ var game = {
             "level": 1,
             "oc": 140,
             "attack": 4,
-            "attackCalculated": 6.324429558450691e+48,
-            "prestige": 50
+            "attackCalculated": 3.271819446824234e+64,
+            "prestige": 66
         },
         "Pants": {
             "locked": 0,
@@ -2852,8 +3142,8 @@ var game = {
             "level": 1,
             "oc": 160,
             "health": 14,
-            "healthCalculated": 9.755129809844966e+51,
-            "prestige": 49
+            "healthCalculated": 9.31987020853923e+69,
+            "prestige": 66
         },
         "Battleaxe": {
             "locked": 0,
@@ -2861,8 +3151,8 @@ var game = {
             "level": 1,
             "oc": 230,
             "attack": 7,
-            "attackCalculated": 1.2018171918257125e+47,
-            "prestige": 48
+            "attackCalculated": 5.72568403194241e+64,
+            "prestige": 66
         },
         "Shoulderguards": {
             "locked": 0,
@@ -2870,8 +3160,8 @@ var game = {
             "level": 1,
             "oc": 275,
             "health": 23,
-            "healthCalculated": 1.4033803577895326e+51,
-            "prestige": 48
+            "healthCalculated": 1.5311215342600163e+70,
+            "prestige": 66
         },
         "Greatsword": {
             "locked": 0,
@@ -2879,8 +3169,8 @@ var game = {
             "level": 1,
             "oc": 375,
             "attack": 9,
-            "attackCalculated": 1.5451935323473446e+47,
-            "prestige": 48
+            "attackCalculated": 7.361593755354526e+64,
+            "prestige": 66
         },
         "Breastplate": {
             "locked": 0,
@@ -2888,8 +3178,8 @@ var game = {
             "level": 1,
             "oc": 415,
             "health": 35,
-            "healthCalculated": 2.1355788053318974e+51,
-            "prestige": 48
+            "healthCalculated": 2.3299675521348074e+70,
+            "prestige": 66
         },
         "Arbalest": {
             "locked": 0,
@@ -2897,8 +3187,8 @@ var game = {
             "level": 1,
             "oc": 450,
             "attack": 15,
-            "attackCalculated": 2.575322553912241e+47,
-            "prestige": 48
+            "attackCalculated": 1.2269322925590877e+65,
+            "prestige": 66
         },
         "Gambeson": {
             "locked": 0,
@@ -2906,8 +3196,8 @@ var game = {
             "level": 1,
             "oc": 500,
             "health": 60,
-            "healthCalculated": 3.660992237711824e+51,
-            "prestige": 48
+            "healthCalculated": 3.994230089373956e+70,
+            "prestige": 66
         }
     },
     "mapUnlocks": {
@@ -2933,11 +3223,6 @@ var game = {
         },
         "MapAtZone": {
             "title": "Auspicious Presence Part III",
-            "canRunOnce": true,
-            "filterUpgrade": true
-        },
-        "AutoEquip": {
-            "title": "Auspicious Presence Part IV",
             "canRunOnce": true,
             "filterUpgrade": true
         },
@@ -2979,83 +3264,83 @@ var game = {
         "Supershield": {
             "title": "Supershield",
             "prestige": true,
-            "last": 246
+            "last": 336
         },
         "Dagadder": {
             "title": "Dagadder",
             "prestige": true,
-            "last": 246
+            "last": 336
         },
         "Bootboost": {
             "title": "Bootboost",
             "prestige": true,
-            "last": 246
+            "last": 336
         },
         "Megamace": {
             "title": "Megamace",
             "prestige": true,
-            "last": 247
+            "last": 337
         },
         "Hellishmet": {
             "title": "Hellishmet",
             "prestige": true,
-            "last": 247
+            "last": 337
         },
         "Polierarm": {
             "title": "Polierarm",
             "prestige": true,
-            "last": 248
+            "last": 328
         },
         "Pantastic": {
             "title": "Pantastic",
             "prestige": true,
-            "last": 248
+            "last": 328
         },
         "Axeidic": {
             "title": "Axeidic",
             "prestige": true,
-            "last": 239
+            "last": 329
         },
         "Smoldershoulder": {
             "title": "Smoldershoulder",
             "prestige": true,
-            "last": 239
+            "last": 329
         },
         "Greatersword": {
             "title": "Greatersword",
             "prestige": true,
-            "last": 240
+            "last": 330
         },
         "Bestplate": {
             "title": "Bestplate",
             "prestige": true,
-            "last": 240
+            "last": 330
         },
         "Harmbalest": {
             "title": "Harmbalest",
             "prestige": true,
-            "last": 240
+            "last": 330
         },
         "GambesOP": {
             "title": "GambesOP",
             "prestige": true,
-            "last": 240
+            "last": 330
         },
         "Speedexplorer": {
             "addToCount": true,
             "title": "A well-hidden book",
-            "next": 240
+            "next": 330
         },
         "TheBlock": {
             "title": "The Block",
-            "canRunOnce": true
+            "canRunOnce": false
         },
         "TheWall": {
             "title": "The Wall",
-            "canRunOnce": true
+            "canRunOnce": false
         },
         "ThePrison": {
-            "canRunOnce": true,
+            "canRunOnce": false,
             "title": "The Prison"
         },
         "BionicWonderland": {
@@ -3063,7 +3348,7 @@ var game = {
             "title": "Bionic Wonderland"
         },
         "ImplodingStar": {
-            "canRunOnce": true,
+            "canRunOnce": false,
             "title": "Imploding Star"
         },
         "Mansion": {
@@ -3076,23 +3361,23 @@ var game = {
         },
         "UberHut": {
             "title": "Hut hut hut",
-            "canRunOnce": true
+            "canRunOnce": false
         },
         "UberHouse": {
             "title": "A Tale of Two Stories",
-            "canRunOnce": true
+            "canRunOnce": false
         },
         "UberMansion": {
             "title": "Sharing is Caring",
-            "canRunOnce": true
+            "canRunOnce": false
         },
         "UberHotel": {
             "title": "The Art of Tiny Hotel Rooms",
-            "canRunOnce": true
+            "canRunOnce": false
         },
         "UberResort": {
             "title": "Time for a better vacation",
-            "canRunOnce": true
+            "canRunOnce": false
         },
         "Resort": {
             "title": "Time for a vacation",
@@ -3112,7 +3397,7 @@ var game = {
         },
         "Trapstorm": {
             "title": "Trapstorm",
-            "canRunOnce": true
+            "canRunOnce": false
         },
         "Nursery": {
             "title": "Nursery",
@@ -3145,31 +3430,30 @@ var game = {
     "buildings": {
         "Trap": {
             "locked": 0,
-            "owned": 10,
-            "purchased": 0,
+            "owned": 379067,
+            "purchased": 379058,
             "craftTime": 5
         },
         "Barn": {
             "locked": 0,
-            "owned": 218,
-            "purchased": 218,
+            "owned": 278,
+            "purchased": 278,
             "craftTime": 0,
             "percent": true
         },
         "Shed": {
             "locked": 0,
-            "owned": 218,
-            "purchased": 218,
+            "owned": 278,
+            "purchased": 278,
             "craftTime": 0,
             "percent": true
         },
         "Forge": {
             "locked": 0,
-            "owned": 221,
-            "purchased": 221,
+            "owned": 292,
+            "purchased": 292,
             "craftTime": 0,
-            "percent": true,
-            "alert": false
+            "percent": true
         },
         "Hut": {
             "locked": 0,
@@ -3179,7 +3463,7 @@ var game = {
             "AP": true,
             "increase": {
                 "what": "trimps.max",
-                "by": 3
+                "by": 6
             }
         },
         "House": {
@@ -3190,7 +3474,7 @@ var game = {
             "AP": true,
             "increase": {
                 "what": "trimps.max",
-                "by": 5
+                "by": 10
             }
         },
         "Mansion": {
@@ -3201,7 +3485,7 @@ var game = {
             "AP": true,
             "increase": {
                 "what": "trimps.max",
-                "by": 10
+                "by": 20
             }
         },
         "Hotel": {
@@ -3212,7 +3496,7 @@ var game = {
             "AP": true,
             "increase": {
                 "what": "trimps.max",
-                "by": 20
+                "by": 40
             }
         },
         "Resort": {
@@ -3223,7 +3507,7 @@ var game = {
             "AP": true,
             "increase": {
                 "what": "trimps.max",
-                "by": 40
+                "by": 80
             }
         },
         "Gateway": {
@@ -3257,8 +3541,7 @@ var game = {
             "increase": {
                 "what": "trimps.max",
                 "by": 5000
-            },
-            "alert": false
+            }
         },
         "Warpstation": {
             "locked": 0,
@@ -3269,24 +3552,24 @@ var game = {
             "AP": true,
             "increase": {
                 "what": "trimps.max",
-                "by": 10000
+                "by": 12248096.399742376
             }
         },
         "Gym": {
             "locked": 0,
-            "owned": 923,
-            "purchased": 923,
+            "owned": 1143,
+            "purchased": 1143,
             "craftTime": 20,
             "AP": true,
             "increase": {
                 "what": "global.block",
-                "by": 6.342462334171999e+56
+                "by": 1.431471726572878e+70
             }
         },
         "Tribute": {
             "locked": 0,
-            "owned": 3125,
-            "purchased": 3125,
+            "owned": 3877,
+            "purchased": 3877,
             "craftTime": 120,
             "AP": true,
             "increase": {
@@ -3296,57 +3579,56 @@ var game = {
         },
         "Nursery": {
             "locked": 0,
-            "owned": 0,
-            "purchased": 0,
+            "owned": 1228,
+            "purchased": 2456,
             "craftTime": 120,
-            "AP": true,
-            "alert": false
+            "AP": true
         }
     },
     "jobs": {
         "Farmer": {
             "locked": 0,
-            "owned": 285228684023405,
+            "owned": 94673482117611,
             "increase": "food",
-            "modifier": 1.1320145890120226e+44
+            "modifier": 3.6079218141185025e+63
         },
         "Lumberjack": {
             "locked": 0,
-            "owned": 285228684023414,
+            "owned": 97893742423689,
             "increase": "wood",
-            "modifier": 1.1320145890120204e+44
+            "modifier": 3.607921814118501e+63
         },
         "Miner": {
             "locked": 0,
-            "owned": 5701182842268564,
+            "owned": 18975431877017944,
             "increase": "metal",
-            "modifier": 1.1320145890120232e+44
+            "modifier": 3.607921814118496e+63
         },
         "Scientist": {
             "locked": 0,
-            "owned": 2850591421134295,
+            "owned": 8746820955187,
             "increase": "science",
-            "modifier": 3.7293505849966975e+22
+            "modifier": 3.029696469129574e+32
         },
         "Trainer": {
             "locked": 0,
             "allowAutoFire": true,
-            "owned": 1566,
+            "owned": 1990,
             "increase": "custom",
-            "modifier": 260
+            "modifier": 355
         },
         "Explorer": {
             "locked": 0,
             "allowAutoFire": true,
-            "owned": 1534,
+            "owned": 1944,
             "increase": "fragments",
-            "modifier": 2161395332490533.8
+            "modifier": 293319451269965300000
         },
         "Dragimp": {
             "locked": 1,
             "owned": 1,
             "increase": "gems",
-            "modifier": 7.901945469013664e+66
+            "modifier": 1.4067394048628794e+83
         },
         "Geneticist": {
             "locked": 0,
@@ -3357,14 +3639,14 @@ var game = {
         },
         "Magmamancer": {
             "locked": 0,
-            "owned": 3336,
+            "owned": 7260,
             "allowAutoFire": true,
             "increase": "custom",
             "modifier": 1
         },
         "Amalgamator": {
-            "locked": 0,
-            "owned": 1,
+            "locked": 1,
+            "owned": 0,
             "allowAutoFire": true,
             "increase": "custom",
             "populationModifier": 1000,
@@ -3375,8 +3657,22 @@ var game = {
     },
     "goldenUpgrades": {
         "Helium": {
-            "currentBonus": 1.2,
-            "purchasedAt": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+            "currentBonus": 0.91,
+            "purchasedAt": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+            ]
         },
         "Battle": {
             "currentBonus": 0,
@@ -3389,14 +3685,15 @@ var game = {
     },
     "upgrades": {
         "Coordination": {
-            "locked": 1,
-            "done": 342,
-            "allowed": 342
+            "locked": 0,
+            "done": 382,
+            "allowed": 436,
+            "alert": true
         },
         "Gigastation": {
-            "locked": 0,
+            "locked": 1,
             "allowed": 39,
-            "done": 0
+            "done": 39
         },
         "Battle": {
             "locked": 1,
@@ -3415,8 +3712,8 @@ var game = {
         },
         "Trapstorm": {
             "locked": 1,
-            "allowed": 0,
-            "done": 0
+            "allowed": 1,
+            "done": 1
         },
         "Shieldblock": {
             "locked": 1,
@@ -3489,108 +3786,108 @@ var game = {
         },
         "UberHut": {
             "locked": 1,
-            "allowed": 0,
-            "done": 0
+            "allowed": 1,
+            "done": 1
         },
         "UberHouse": {
             "locked": 1,
-            "allowed": 0,
-            "done": 0
+            "allowed": 1,
+            "done": 1
         },
         "UberMansion": {
             "locked": 1,
-            "allowed": 0,
-            "done": 0
+            "allowed": 1,
+            "done": 1
         },
         "UberHotel": {
             "locked": 1,
-            "allowed": 0,
-            "done": 0
+            "allowed": 1,
+            "done": 1
         },
         "UberResort": {
             "locked": 1,
-            "allowed": 0,
-            "done": 0
+            "allowed": 1,
+            "done": 1
         },
         "Supershield": {
-            "locked": 1,
-            "allowed": 49,
-            "done": 49
+            "locked": 0,
+            "allowed": 67,
+            "done": 66
         },
         "Dagadder": {
             "locked": 1,
-            "allowed": 49,
-            "done": 49
+            "allowed": 67,
+            "done": 67
         },
         "Bootboost": {
             "locked": 1,
-            "allowed": 49,
-            "done": 49
+            "allowed": 67,
+            "done": 67
         },
         "Megamace": {
             "locked": 1,
-            "allowed": 49,
-            "done": 49
+            "allowed": 67,
+            "done": 67
         },
         "Hellishmet": {
             "locked": 1,
-            "allowed": 49,
-            "done": 49
+            "allowed": 67,
+            "done": 67
         },
         "Polierarm": {
             "locked": 1,
-            "allowed": 49,
-            "done": 49
+            "allowed": 65,
+            "done": 65
         },
         "Pantastic": {
-            "locked": 0,
-            "allowed": 49,
-            "done": 48
+            "locked": 1,
+            "allowed": 65,
+            "done": 65
         },
         "Axeidic": {
             "locked": 1,
-            "allowed": 47,
-            "done": 47
+            "allowed": 65,
+            "done": 65
         },
         "Smoldershoulder": {
             "locked": 1,
-            "allowed": 47,
-            "done": 47
+            "allowed": 65,
+            "done": 65
         },
         "Greatersword": {
             "locked": 1,
-            "allowed": 47,
-            "done": 47
+            "allowed": 65,
+            "done": 65
         },
         "Bestplate": {
             "locked": 1,
-            "allowed": 47,
-            "done": 47
+            "allowed": 65,
+            "done": 65
         },
         "Harmbalest": {
             "locked": 1,
-            "allowed": 47,
-            "done": 47
+            "allowed": 65,
+            "done": 65
         },
         "GambesOP": {
             "locked": 1,
-            "allowed": 47,
-            "done": 47
+            "allowed": 65,
+            "done": 65
         },
         "Potency": {
             "locked": 1,
-            "allowed": 48,
-            "done": 48
+            "allowed": 67,
+            "done": 67
         },
         "TrainTacular": {
             "locked": 1,
-            "allowed": 48,
-            "done": 48
+            "allowed": 67,
+            "done": 67
         },
         "Efficiency": {
             "locked": 1,
-            "allowed": 121,
-            "done": 121
+            "allowed": 168,
+            "done": 168
         },
         "Speedminer": {
             "locked": 1,
@@ -3614,28 +3911,28 @@ var game = {
         },
         "Speedexplorer": {
             "locked": 1,
-            "allowed": 24,
-            "done": 24
+            "allowed": 32,
+            "done": 32
         },
         "Megaminer": {
             "locked": 1,
-            "allowed": 183,
-            "done": 183
+            "allowed": 277,
+            "done": 277
         },
         "Megalumber": {
             "locked": 1,
-            "allowed": 183,
-            "done": 183
+            "allowed": 277,
+            "done": 277
         },
         "Megafarming": {
             "locked": 1,
-            "allowed": 183,
-            "done": 183
+            "allowed": 277,
+            "done": 277
         },
         "Megascience": {
             "locked": 1,
-            "allowed": 92,
-            "done": 92
+            "allowed": 139,
+            "done": 139
         }
     },
     "triggers": {
@@ -3690,870 +3987,123 @@ var game = {
             "Magnimp": true
         },
         "impCount": {
-            "Goblimp": 0,
-            "Feyimp": 728,
-            "Flutimp": 0,
-            "Tauntimp": 708,
-            "TauntimpAdded": 3901862,
-            "Venimp": 739,
-            "Whipimp": 755,
-            "Jestimp": 0,
+            "Goblimp": 4096,
+            "Feyimp": 1064,
+            "Flutimp": 4156,
+            "Tauntimp": 990,
+            "TauntimpAdded": 1893947793487,
+            "Venimp": 1027,
+            "Whipimp": 998,
+            "Jestimp": 4220,
             "Titimp": 0,
-            "Chronoimp": 0,
-            "Magnimp": 683
+            "Chronoimp": 4122,
+            "Magnimp": 1030
         }
     },
     "playerSpire": {
         "main": {
             "layout": [{
-                "trap": {
-                    "name": "Frost"
+                    "trap": {},
+                    "occupiedBy": {}
                 },
-                "occupiedBy": {}
-            }, {
-                "trap": {
-                    "name": "Lightning"
+                {
+                    "trap": {},
+                    "occupiedBy": {
+                        "name": "spades",
+                        "maxHealth": 13,
+                        "health": 13,
+                        "toxicity": 0,
+                        "threat": 1
+                    }
                 },
-                "occupiedBy": {
-                    "name": "diamonds",
-                    "maxHealth": 3733520,
-                    "health": 3703520,
-                    "toxicity": 0,
-                    "threat": 1342.1844869285187,
-                    "slowedFor": 5,
-                    "canMoveIn": 1,
-                    "slowMod": 1,
-                    "shockTurns": 2
-                }
-            }, {
-                "trap": {
-                    "name": "Knowledge"
+                {
+                    "trap": {},
+                    "occupiedBy": {}
                 },
-                "occupiedBy": {}
-            }, {
-                "trap": {
-                    "name": "Poison"
+                {
+                    "trap": {},
+                    "occupiedBy": {}
                 },
-                "occupiedBy": {
-                    "name": "spades",
-                    "maxHealth": 3155725,
-                    "health": 3105245,
-                    "toxicity": 480,
-                    "threat": 1341.1472592822377,
-                    "slowedFor": 10,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": 0,
-                    "slowTot": 1
-                }
-            }, {
-                "trap": {
-                    "name": "Poison"
-                },
-                "occupiedBy": {
-                    "name": "heart",
-                    "maxHealth": 4782527,
-                    "health": 4729647,
-                    "toxicity": 1080,
-                    "threat": 1341.1472592822377,
-                    "slowedFor": 9,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 3
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "clubs",
-                    "maxHealth": 7532151,
-                    "health": 7473871,
-                    "toxicity": 2160,
-                    "threat": 1341.1472592822377,
-                    "slowedFor": 8,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 5
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "diamonds",
-                    "maxHealth": 7505505,
-                    "health": 7438585,
-                    "toxicity": 3240,
-                    "threat": 1339.0522338215314,
-                    "slowedFor": 7,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 7
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "spades",
-                    "maxHealth": 2912299,
-                    "health": 2833499,
-                    "toxicity": 4320,
-                    "threat": 1338.0046719037389,
-                    "slowedFor": 6,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 9
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "heart",
-                    "maxHealth": 3696613,
-                    "health": 3602693,
-                    "toxicity": 5400,
-                    "threat": 1338.0046719037389,
-                    "slowedFor": 5,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 11
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "clubs",
-                    "maxHealth": 3245047,
-                    "health": 3132767,
-                    "toxicity": 6480,
-                    "threat": 1336.9556567460384,
-                    "slowedFor": 4,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 13
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "diamonds",
-                    "maxHealth": 4204248,
-                    "health": 4070368,
-                    "toxicity": 7560,
-                    "threat": 1335.9091319676409,
-                    "slowedFor": 3,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 15
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "spades",
-                    "maxHealth": 6196310,
-                    "health": 6037590,
-                    "toxicity": 8640,
-                    "threat": 1334.8653742773581,
-                    "slowedFor": 2,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 17
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "heart",
-                    "maxHealth": 5973135,
-                    "health": 5786215,
-                    "toxicity": 9840,
-                    "threat": 1332.7874241396576,
-                    "slowedFor": 1,
-                    "canMoveIn": 2,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 19
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "clubs",
-                    "maxHealth": 4625368,
-                    "health": 4381528,
-                    "toxicity": 10800,
-                    "threat": 1331.7421849556251,
-                    "slowedFor": 6,
-                    "canMoveIn": 0,
-                    "slowMod": 1,
-                    "shockTurns": -1,
-                    "slowTot": 21
-                },
-                "trap": {
-                    "name": "Frost"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "diamonds",
-                    "maxHealth": 3560914,
-                    "health": 3259674,
-                    "toxicity": 10800,
-                    "threat": 1331.7421849556251,
-                    "slowedFor": 11,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": 1,
-                    "slowTot": 22
-                },
-                "trap": {
-                    "name": "Knowledge"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "spades",
-                    "maxHealth": 4382021,
-                    "health": 4046581,
-                    "toxicity": 11520,
-                    "threat": 1330.6957506132135,
-                    "slowedFor": 10,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 24
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "heart",
-                    "maxHealth": 3804912,
-                    "health": 3432752,
-                    "toxicity": 12600,
-                    "threat": 1329.6520934073594,
-                    "slowedFor": 9,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 26
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "clubs",
-                    "maxHealth": 5749056,
-                    "health": 5336936,
-                    "toxicity": 13680,
-                    "threat": 1328.6115219087915,
-                    "slowedFor": 8,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 28
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "diamonds",
-                    "maxHealth": 7305620,
-                    "health": 6850300,
-                    "toxicity": 14760,
-                    "threat": 1327.566442465938,
-                    "slowedFor": 7,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 30
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "spades",
-                    "maxHealth": 3740210,
-                    "health": 3238450,
-                    "toxicity": 15840,
-                    "threat": 1325.4774554130368,
-                    "slowedFor": 6,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 32
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "heart",
-                    "maxHealth": 7035592,
-                    "health": 6484152,
-                    "toxicity": 16920,
-                    "threat": 1324.4292476184382,
-                    "slowedFor": 5,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 34
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "clubs",
-                    "maxHealth": 2365127,
-                    "health": 1760767,
-                    "toxicity": 18000,
-                    "threat": 1322.3042476404742,
-                    "slowedFor": 4,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 36
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "diamonds",
-                    "maxHealth": 4762084,
-                    "health": 4101564,
-                    "toxicity": 19080,
-                    "threat": 1321.2217242951567,
-                    "slowedFor": 3,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 38
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "spades",
-                    "maxHealth": 6280812,
-                    "health": 5560892,
-                    "toxicity": 20160,
-                    "threat": 1321.2217242951567,
-                    "slowedFor": 2,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 40
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "heart",
-                    "maxHealth": 3449808,
-                    "health": 2666528,
-                    "toxicity": 21600,
-                    "threat": 1321.2217242951567,
-                    "slowedFor": 1,
-                    "canMoveIn": 0,
-                    "slowMod": 2,
-                    "shockTurns": -1,
-                    "slowTot": 42
-                },
-                "trap": {
-                    "name": "Poison"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Frost"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "clubs",
-                    "maxHealth": 6820951,
-                    "health": 5922871,
-                    "toxicity": 21600,
-                    "threat": 1321.2217242951567,
-                    "slowedFor": 5,
-                    "canMoveIn": 0,
-                    "slowMod": 1,
-                    "shockTurns": 2,
-                    "slowTot": 43
-                },
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Knowledge"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "diamonds",
-                    "maxHealth": 2750197,
-                    "health": 1686837,
-                    "toxicity": 28800,
-                    "threat": 1320.1226242818411,
-                    "slowedFor": 10,
-                    "canMoveIn": 1,
-                    "slowMod": 2,
-                    "shockTurns": 2,
-                    "slowTot": 44
-                },
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "spades",
-                    "maxHealth": 6421005,
-                    "health": 5295525,
-                    "toxicity": 48600,
-                    "threat": 1319.0248588349473,
-                    "slowedFor": 9,
-                    "canMoveIn": 1,
-                    "slowMod": 2,
-                    "shockTurns": 0,
-                    "slowTot": 46
-                },
-                "trap": {
-                    "name": "Condenser"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "heart",
-                    "maxHealth": 5543829,
-                    "health": 4211099,
-                    "toxicity": 60750,
-                    "threat": 1317.9285762396332,
-                    "slowedFor": 8,
-                    "canMoveIn": 1,
-                    "slowMod": 2,
-                    "shockTurns": 2,
-                    "slowTot": 48
-                },
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "clubs",
-                    "maxHealth": 5709001,
-                    "health": 4067708.5,
-                    "toxicity": 136687.5,
-                    "threat": 1315.7237615556087,
-                    "slowedFor": 7,
-                    "canMoveIn": 1,
-                    "slowMod": 2,
-                    "shockTurns": 0,
-                    "slowTot": 50
-                },
-                "trap": {
-                    "name": "Condenser"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "diamonds",
-                    "maxHealth": 5480636,
-                    "health": 3301765.375,
-                    "toxicity": 170859.375,
-                    "threat": 1313.50931270016,
-                    "slowedFor": 6,
-                    "canMoveIn": 1,
-                    "slowMod": 2,
-                    "shockTurns": 2,
-                    "slowTot": 52
-                },
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {
-                    "name": "spades",
-                    "maxHealth": 5018485,
-                    "health": 2008032.34375,
-                    "toxicity": 384433.59375,
-                    "threat": 1313.50931270016,
-                    "slowedFor": 5,
-                    "canMoveIn": 1,
-                    "slowMod": 2,
-                    "shockTurns": 0,
-                    "slowTot": 54
-                },
-                "trap": {
-                    "name": "Condenser"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {
-                    "dead": true
-                },
-                "trap": {
-                    "name": "Condenser"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Frost"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Strength"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Frost"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Strength"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Frost"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Strength"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Frost"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Lightning"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Strength"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {
-                    "name": "Fire"
-                }
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }, {
-                "occupiedBy": {},
-                "trap": {}
-            }],
-            "rowsAllowed": 20,
-            "runestones": 1e+100,
-            "spirestones": 1e+100,
-            "maxEnemies": 51,
-            "currentEnemies": 30,
-            "enemiesKilled": 451,
-            "escapees": 86,
+                {
+                    "trap": {},
+                    "occupiedBy": {}
+                }
+            ],
+            "rowsAllowed": 1,
+            "runestones": 200,
+            "spirestones": 20,
+            "maxEnemies": 4,
+            "currentEnemies": 1,
+            "enemiesKilled": 0,
+            "escapees": 0,
             "ticksSinceLastEnemy": 1,
             "smallMode": false,
-            "popupOpen": false,
-            "strengthLocations": [8, 10, 12, 14],
-            "lightColumns": [2, 3, 2, 2, 5],
+            "popupOpen": true,
+            "strengthLocations": [],
+            "lightColumns": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
             "initialized": true,
-            "difficulty": 1343.2113251435048,
-            "tutorialStep": 8,
+            "difficulty": 1,
+            "tutorialStep": 0,
             "lootAvg": {
-                "accumulator": 152442.1048199176,
-                "average": 9070.361962433604,
-                "counter": 8,
-                "lastAvg": [1738.02, 1996, 1987.04, 2192.11, 2829.02, 2939.88, 3211.33, 3455.17, 3815.97, 4455.53, 4662.44, 5180.39, 5804.11, 6177.82, 6256.05, 7346.34, 8012.37, 8424.44, 8724.29, 9070.36]
+                "accumulator": 0,
+                "average": 0,
+                "counter": 4,
+                "lastAvg": [
+                    0
+                ]
             },
-            "killedSinceLeak": 382,
-            "nextIcon": 2,
-            "spentOnUpgrades": 91521060000,
+            "killedSinceLeak": 0,
+            "nextIcon": 1,
+            "spentOnUpgrades": 0,
             "savedLayout1": [],
             "savedLayout2": [],
             "layout1Note": "",
             "layout2Note": "",
-            "difficultyHidden": 1352.4528690783807,
-            "peakThreat": 1343.2113251435048,
+            "difficultyHidden": 1,
+            "peakThreat": 0,
             "paused": false
         },
         "traps": {
             "Fire": {
-                "owned": 23,
-                "level": 6,
+                "owned": 0,
+                "level": 1,
                 "locked": false
             },
             "Frost": {
-                "owned": 7,
-                "level": 6,
+                "owned": 0,
+                "level": 1,
                 "locked": false
             },
             "Poison": {
-                "owned": 21,
-                "level": 5,
-                "locked": false
+                "owned": 0,
+                "level": 1,
+                "locked": true
             },
             "Lightning": {
-                "owned": 14,
-                "level": 3,
-                "locked": false
+                "owned": 0,
+                "level": 1,
+                "locked": true
             },
             "Strength": {
-                "owned": 4,
+                "owned": 0,
                 "level": 1,
                 "locked": true
             },
             "Condenser": {
-                "owned": 4,
+                "owned": 0,
                 "level": 1,
                 "locked": true
             },
             "Knowledge": {
-                "owned": 3,
-                "level": 3,
-                "locked": false
+                "owned": 0,
+                "level": 1,
+                "locked": true
             }
         },
         "settings": {

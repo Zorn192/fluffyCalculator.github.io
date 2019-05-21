@@ -129,7 +129,7 @@ function flipFilter(f, type) {
 }
 
 function sendToConsole(add) {
-  var value = prettify(getDailyHeliumValueDaily(countDailyWeightDaily(getDailyChallenge(add, true, false))));
+  var value = dailyPrettify(getDailyHeliumValueDaily(countDailyWeightDaily(getDailyChallenge(add, true, false))));
   var returnText = getDailyChallenge(add, false, true);
   returnText += "Grants an additional " + value + "% of all helium earned before finishing.";
   console.log(returnText);
@@ -208,7 +208,7 @@ function divMaker(colorID, classList, date, percent, oneLetterMods, dropdown) {
   <hr style="margin-top:80%; position:absolute; width:100%">
   <div style="display:table; height:100%;width:100%">
   <span style="display:table-cell; vertical-align:middle; font-size: 130%">
-  ${prettify(percent)}%
+  ${dailyPrettify(percent)}%
   </span>
   </div>
   <div style="bottom: 0%; position:absolute; width:100%">
@@ -217,7 +217,7 @@ function divMaker(colorID, classList, date, percent, oneLetterMods, dropdown) {
   
   </div>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-  <a class="dropdown-item" onclick="copyToClipboard(this.textContent)" style="font-size:1.8vh">${dropdown}\n<br>Bonus is ${prettify(percent)}%
+  <a class="dropdown-item" onclick="copyToClipboard(this.textContent)" style="font-size:1.8vh">${dropdown}\n<br>Bonus is ${dailyPrettify(percent)}%
   </a>
   </div>
   </div>
@@ -431,7 +431,7 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
     }
   dailyObject.seed = dateSeed;
   if (objectOnly) return dailyObject;
-  // returnText += "</ul>Challenge has no end point, and grants an <u><b>additional " + prettify(getDailyHeliumValueDaily(currentWeight)) + "%</b></u> of all helium earned before finishing. <b>Can only be run once!</b> Reward does not count toward Bone Portals or affect best He/Hr stat.";
+  // returnText += "</ul>Challenge has no end point, and grants an <u><b>additional " + dailyPrettify(getDailyHeliumValueDaily(currentWeight)) + "%</b></u> of all helium earned before finishing. <b>Can only be run once!</b> Reward does not count toward Bone Portals or affect best He/Hr stat.";
   if (textOnly) return returnText;
   nextDaily = returnText;
   // if (document.getElementById('specificChallengeDescription') != null) document.getElementById('specificChallengeDescription').innerHTML = returnText;
@@ -499,7 +499,7 @@ function countDailyWeightDaily(daily) {
   return weight;
 }
 
-function prettify(x) {
+function dailyPrettify(x) {
   return (x).toFixed(1);
 }
 

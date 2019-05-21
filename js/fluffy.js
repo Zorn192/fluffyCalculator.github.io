@@ -90,7 +90,7 @@ var fluffyCalculator = {
     minutesPerRun: 0,
     instantUpdating: false,
     lastVersionSeen: version,
-    theme:"light"
+    theme: "light"
 };
 
 var update = {
@@ -224,8 +224,10 @@ var update = {
         document.getElementById("XpPerRun").value = numberWithCommas(Math.round(calc.xpPerRun));
         document.getElementById("PercentageToLevel").value = prettify((calc.currentExp / calc.neededExp) * 100) + "%";
         document.getElementById("CurrentZone").value = game.global.world;
-        document.getElementById("BonesToLevel").value = prettify(Math.ceil(((calc.neededExp - calc.currentExp) / game.stats.bestFluffyExp.valueTotal)) * 100);
-        (fluffyCalculator.minutesPerRun > 0) ? $("#FluffyXPHr").parent().show(): $("#FluffyXPHr").parent().hide();
+        if (game.stats.bestFluffyExp.valueTotal > 0) {
+            document.getElementById("BonesToLevel").value = prettify(Math.ceil(((calc.neededExp - calc.currentExp) / game.stats.bestFluffyExp.valueTotal)) * 100);
+        }
+        (fluffyCalculator.minutesPerRun > 0) ? $("#FluffyXPHr").parent().show(): $("#FluffyXPHr").parent().hide(); // jshint ignore:line
         if (fluffyCalculator.minutesPerRun > 0) {
             document.getElementById("FluffyXPHr").value = numberWithCommas(Math.ceil(((calc.xpPerRun / fluffyCalculator.minutesPerRun) * 60)));
         }
@@ -249,12 +251,11 @@ var update = {
             "E": game.global.fluffyPrestige,
             "L": 0,
         };
-        var tableValues = {
+        this.tableValues = {
             "runs": [],
             "runSeconds": [],
             "approxDate": []
         };
-        var approxDate = [];
         var seconds = (fluffyCalculator.minutesPerRun * 60);
         var runsAdded = 0;
         var runLength = 20;
@@ -274,37 +275,88 @@ var update = {
             }
             xpToLevel = calc.upgrade(e, l);
             if ((l <= calc.currentLevel - 1 && e == hypo.E)) { // if level is lower then the one "l" just put blank
-                approxDate[x] = "";
+                this.tableValues.approxDate[x] = "";
             } else if (l == calc.currentLevel && e == hypo.E) { // if level is the same as the one you are trying to upgrade from, calcualte from - currentXP
                 runsAdded += (xpToLevel - calc.currentExp) / calc.xpPerRun;
                 timeDate.setSeconds(timeDate.getDate() + (runsAdded * seconds));
-                tableValues.approxDate[x] = timeDate;
+                this.tableValues.approxDate[x] = timeDate;
                 date.setDate(date.getDate() + runsAdded);
             } else if (e > calc.maxEvolution) { // If evolution is above the max, put nothing for everything on the last column.
             } else { // If you are calculating the rest of your evolution, put data on the first columns
                 runsAdded += xpToLevel / calc.xpPerRun;
                 date.setDate(date.getDate() + runsAdded);
                 timeDate.setSeconds(timeDate.getDate() + (runsAdded * seconds));
-                tableValues.approxDate[x] = timeDate;
+                this.tableValues.approxDate[x] = timeDate;
             }
-            tableValues.runs[x] = Number((runsAdded).toFixed(2));
-            tableValues.runSeconds[x] = sformat(runsAdded * seconds);
+            this.tableValues.runs[x] = Number((runsAdded).toFixed(2));
+            this.tableValues.runSeconds[x] = sformat(runsAdded * seconds);
         }
-        // console.log(tableValues)
+        // console.log(this.tableValues)
         $("#TableBody").empty();
         var tbody = "";
         for (var y = 1; y <= 10; y++) {
             tbody += `<tr>`;
             tbody += `<th class="levelRows">L${y}</th>`;
-            tbody += `<td>${tableValues.runs[y]}</td>`;
-            if (fluffyCalculator.minutesPerRun > 0) tbody += `<td title="${tableValues.approxDate[y]}">${tableValues.runSeconds[y]}</td>`;
+            tbody += `<td>${this.tableValues.runs[y]}</td>`;
+            if (fluffyCalculator.minutesPerRun > 0) tbody += `<td title="${this.tableValues.approxDate[y]}">${this.tableValues.runSeconds[y]}</td>`;
             if (game.global.fluffyPrestige != calc.maxEvolution) {
-                tbody += `<td>${tableValues.runs[y+10]}</td>`;
-                if (fluffyCalculator.minutesPerRun > 0) tbody += `<td title="${tableValues.approxDate[y+10]}">${tableValues.runSeconds[y+10]}</td>`;
+                tbody += `<td>${this.tableValues.runs[y+10]}</td>`;
+                if (fluffyCalculator.minutesPerRun > 0) tbody += `<td title="${this.tableValues.approxDate[y+10]}">${this.tableValues.runSeconds[y+10]}</td>`;
             }
             tbody += `</tr>`;
         }
         $("#TableBody").append(tbody);
+        if (this.tableValues.runs[calc.currentLevel + 1] < 2) {
+            document.getElementById("zoneTable").innerHTML = "";
+            document.getElementById("zoneTable").style.display = "none";
+            this.zoneData = {
+                "zone": [],
+                "level": []
+            };
+            maxZone = game.global.highestLevelCleared + 50;
+
+            zone = game.global.world;
+            level = calc.currentLevel;
+            evolution = game.global.fluffyPrestige;
+            lastLeveled = zone;
+            xpToLevel = calc.neededExp - calc.currentExp;
+            timesLeveled = 0;
+            for (var z = zone; z < maxZone; z++) {
+                runXP = calc.zoneXP(lastLeveled, z + 1);
+                if (runXP > xpToLevel) {
+                    this.zoneData.zone[timesLeveled] = z;
+                    this.zoneData.level[timesLeveled] = `E${evolution}L${level+1}`;
+                    lastLeveled = z;
+
+                    if (level == 9) {
+                        evolution++;
+                        level = 0;
+                    } else {
+                        level++;
+                    }
+                    timesLeveled++;
+                    xpToLevel = calc.upgrade(evolution, (level));
+                }
+            }
+            if (this.zoneData.zone[0] > 0) {
+                zoneTable = `<tr>
+                <thead class="thead-active">
+                <tr><th>😲</th>
+                <th>On Zone</th></tr>
+                </thead>
+                `;
+                for (var zi = 0; zi < this.zoneData.zone.length; zi++) {
+                    zoneTable += `
+                    <tr><th class="levelRows">${this.zoneData.level[zi]}</th>
+                    <td>${this.zoneData.zone[zi]}</td></tr>
+                    `
+                }
+                zoneTable += `</tr>`;
+                document.getElementById("zoneTable").style.display = "inline-table";
+                document.getElementById("zoneTable").innerHTML = zoneTable;
+
+            }
+        }
         this.stats();
     },
     countHelium: function () {
@@ -397,8 +449,8 @@ function changeTheme(flip) {
     }
 }
 
-function versionSeen(){
-    if(version > fluffyCalculator.lastVersionSeen){
+function versionSeen() {
+    if (version > fluffyCalculator.lastVersionSeen) {
         //Do Future Stuff *people need to get it first*
         console.log("Your seeing a new version!")
         fluffyCalculator.lastVersionSeen = version;

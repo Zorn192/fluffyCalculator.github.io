@@ -87,7 +87,7 @@ label {
 
 .dropdown-item.active,
 .dropdown-item:active {
-    background-color: rgb(255, 255, 255) !important
+    background-color: $bg-color !important
 }
 
 label>span {
@@ -131,7 +131,7 @@ th {
     border-color: #dee2e6;
 }
 
-#TableHead>tr>th {
+.thead-active>tr>th {
     background-color: $tableheader;
 }
 

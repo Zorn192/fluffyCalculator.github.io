@@ -123,7 +123,7 @@ function flipFilter(f, type) {
 }
 
 function sendToConsole(add) {
-  var value = prettify(getDailyHeliumValueDaily(countDailyWeightDaily(getDailyChallenge(add, true, false))));
+  var value = dailyPrettify(getDailyHeliumValueDaily(countDailyWeightDaily(getDailyChallenge(add, true, false))));
   var returnText = getDailyChallenge(add, false, true);
   returnText += "Grants an additional " + value + "% of all helium earned before finishing.";
   console.log(returnText);
@@ -189,7 +189,7 @@ function makeDaily(times, returnn) {
       append += ("<div onmousedown=sendToConsole(" + x + ") class ='daily daily3 " + classList + "' title='" + dailyInfo + "' > ");
     }
     append += ("<small>" + dailyDate + "</small> <br>");
-    append += ("<span class=percent>" + prettify(dailyValue) + "% </span><br>");
+    append += ("<span class=percent>" + dailyPrettify(dailyValue) + "% </span><br>");
     append += ("<span style='font-size: smaller' class=mods>" + showMods + "</span>");
     if (x == 1) {
       append += ("<span style='font-size: smaller' title='This is the next daily' class=mods>" + "⭐" + "</span>");
@@ -391,7 +391,7 @@ function getDailyChallenge(add, objectOnly, textOnly, reddit) {
     }
   dailyObject.seed = dateSeed;
   if (objectOnly) return dailyObject;
-  // returnText += "</ul>Challenge has no end point, and grants an <u><b>additional " + prettify(getDailyHeliumValueDaily(currentWeight)) + "%</b></u> of all helium earned before finishing. <b>Can only be run once!</b> Reward does not count toward Bone Portals or affect best He/Hr stat.";
+  // returnText += "</ul>Challenge has no end point, and grants an <u><b>additional " + dailyPrettify(getDailyHeliumValueDaily(currentWeight)) + "%</b></u> of all helium earned before finishing. <b>Can only be run once!</b> Reward does not count toward Bone Portals or affect best He/Hr stat.";
   if (textOnly) return returnText;
   nextDaily = returnText;
   // if (document.getElementById('specificChallengeDescription') != null) document.getElementById('specificChallengeDescription').innerHTML = returnText;
@@ -459,7 +459,7 @@ function countDailyWeightDaily(daily) {
   return weight;
 }
 
-function prettify(x) {
+function dailyPrettify(x) {
   return (x).toFixed(1);
 }
 
