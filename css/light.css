@@ -1,6 +1,6 @@
 :root {
   --daily-width: 5.415vw;
-  --daily-margin: 0.2vw;
+  --daily-margin: 0vw;
   --filter-width: 8vw;
   --filter-height: 1.6vw;
   --filter-margin: 0.1vw;
@@ -134,9 +134,8 @@ th {
 }
 
 .daily {
-  border-radius: 10%;
   background-color: white;
-  border: 1px solid gray;
+  border: 1px solid white;
   color: black;
   cursor: pointer;
   position: relative;
@@ -249,6 +248,19 @@ html body {
 
 .nav-tabs .nav-link.active.show {
   background-color: white;
+}
+
+div.show > div.dropdown-menu.dropdown-menu-right.show,
+#myTab > span > div,
+#InstantUpdating > option {
+  background-color: white;
+  color: #495057;
+  border: 1px solid #dee2e6;
+}
+
+div.show > div.dropdown-menu.dropdown-menu-right.show > a:hover,
+#myTab > span > div > a:hover {
+  background-color: #e9ecef;
 }
 
 /*!
@@ -1961,7 +1973,7 @@ pre code {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: pink;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .table-hover tbody tr:hover {
@@ -2266,7 +2278,7 @@ pre code {
   color: #495057;
   background-color: white;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid #495057;
   border-radius: 0.25rem;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -4017,8 +4029,8 @@ input[type="button"].btn-block {
   color: #495057;
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
-  border: 1px solid #ced4da;
+  background-color: white;
+  border: 1px solid #495057;
   border-radius: 0.25rem;
 }
 
@@ -4255,7 +4267,7 @@ input[type="button"].btn-block {
   vertical-align: middle;
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
   background-color: white;
-  border: 1px solid #ced4da;
+  border: 1px solid #495057;
   border-radius: 0.25rem;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -4352,7 +4364,7 @@ input[type="button"].btn-block {
   line-height: 1.5;
   color: #495057;
   background-color: white;
-  border: 1px solid #ced4da;
+  border: 1px solid #495057;
   border-radius: 0.25rem;
 }
 
@@ -4368,7 +4380,7 @@ input[type="button"].btn-block {
   line-height: 1.5;
   color: #495057;
   content: "Browse";
-  background-color: #e9ecef;
+  background-color: white;
   border-left: inherit;
   border-radius: 0 0.25rem 0.25rem 0;
 }
@@ -4602,7 +4614,7 @@ input[type="button"].btn-block {
 }
 
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  border-color: #e9ecef #e9ecef #dee2e6;
+  border-color: #dee2e6;
 }
 
 .nav-tabs .nav-link.disabled {
@@ -4615,7 +4627,7 @@ input[type="button"].btn-block {
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
   background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+  border-color: #dee2e6;
 }
 
 .nav-tabs .dropdown-menu {

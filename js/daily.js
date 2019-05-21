@@ -510,9 +510,9 @@ function getDailyHeliumValueDaily(weight) {
   return value;
 }
 
-function maybeMakeDaily(){
+function maybeMakeDaily() {
   newestSeed = getDailyTimeString(0, false, false)
-  if(window.lastSeed == newestSeed){
+  if (window.lastSeed == newestSeed) {
     return;
   } else {
     makeDaily(365);

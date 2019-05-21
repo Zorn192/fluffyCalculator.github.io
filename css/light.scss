@@ -1,22 +1,33 @@
 $bg-color: white;
 $font-color: #495057;
-$nav-selected-color: $font-color;
+
 $plain-white: white;
+
+$nav-selected-color: $font-color;
 $nav-tabs-border-radius: 0rem;
-$tableheader: #e9ecef;
-$table-active-border-color: #e9ecef;
-$table-accent-bg: pink !default;
-$table-hover-bg: $table-active-border-color;
+$nav-selected-bg: white;
+
 $table-color: $font-color;
+$table-border-color: #dee2e6;
+$table-active-border-color: #e9ecef;
+$table-hover-bg: $table-active-border-color;
+$tableheader: #e9ecef;
+
+$nav-tabs-border-color: $table-border-color;
+$nav-tabs-link-hover-border-color: $table-border-color;
+$nav-tabs-link-active-border-color: $table-border-color;
+
 $input-bg: $bg-color !default;
 $input-color: $font-color !default;
 $input-disabled-bg: $bg-color !default;
-$nav-selected-bg: white;
+$input-border-color: $font-color !default;
+$input-group-addon-bg: $bg-color;
+
 $daily-color: black;
 
 :root {
     --daily-width: 5.415vw;
-    --daily-margin: 0.2vw;
+    --daily-margin: 0vw;
     --filter-width: 8vw;
     --filter-height: 1.6vw;
     --filter-margin: 0.1vw;
@@ -143,9 +154,8 @@ th {
 }
 
 .daily {
-    border-radius: 10%;
     background-color: $bg-color;
-    border: 1px solid gray;
+    border: 1px solid $bg-color;
     color: $daily-color;
     cursor: pointer;
     position: relative;
@@ -241,6 +251,19 @@ html body {
 
 .nav-tabs .nav-link.active.show {
     background-color: $nav-selected-bg;
+}
+
+div.show>div.dropdown-menu.dropdown-menu-right.show,
+#myTab>span>div,
+#InstantUpdating>option {
+    background-color: $bg-color;
+    color: $font-color;
+    border: 1px solid $table-border-color;
+}
+
+div.show>div.dropdown-menu.dropdown-menu-right.show>a:hover,
+#myTab>span>div>a:hover {
+    background-color: $tableheader;
 }
 
 @import "C:/Users/P/node_modules/bootstrap/scss/bootstrap.scss";

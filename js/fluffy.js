@@ -5,6 +5,9 @@ function handle_paste(ev) {
     update.fill();
     update.table();
 }
+
+var version = 0.04;
+
 var calc = {
     firstLevel: 1000,
     getFirstLevel: function () {
@@ -81,11 +84,15 @@ var calc = {
         return (value);
     }
 };
+
 var fluffyCalculator = {
     spireBonus: "",
     minutesPerRun: 0,
     instantUpdating: false,
+    lastVersionSeen: version,
+    theme:"light"
 };
+
 var update = {
     fill: function () {
         //jshint ignore:start
@@ -321,7 +328,7 @@ function correctLocalStorage() {
         var errormessage = err;
         if (err.name == "SyntaxError") errormessage = "couldn't parse oldSave";
         error = true;
-        // console.log(errormessage);
+        console.log(errormessage);
     }
     if (error) {
         localStorage.removeItem("fluffyCalculator");
@@ -342,6 +349,7 @@ function saveLocalStorage() {
     fluffyCalculator.spireBonus = $("#SpiresInARun").val();
     fluffyCalculator.minutesPerRun = Number($("#MinutesPerRun").val());
     fluffyCalculator.instantUpdating = document.getElementById("InstantUpdating").value;
+    fluffyCalculator.lastVersionSeen = version;
     localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
 }
 
@@ -354,6 +362,8 @@ function getLocalStorage() {
         document.getElementById("MinutesPerRun").value = fluffyCalculator.minutesPerRun;
         document.getElementById("InstantUpdating").value = fluffyCalculator.instantUpdating;
         document.getElementById("InstantUpdating").value = fluffyCalculator.instantUpdating;
+        document.getElementById("versionNumber").textContent = version;
+        versionSeen();
     }
 }
 
@@ -384,5 +394,14 @@ function changeTheme(flip) {
     } else {
         document.getElementById(currentTheme).disabled = false;
         document.getElementById(oppositeTheme).disabled = true;
+    }
+}
+
+function versionSeen(){
+    if(version > fluffyCalculator.lastVersionSeen){
+        //Do Future Stuff *people need to get it first*
+        console.log("Your seeing a new version!")
+        fluffyCalculator.lastVersionSeen = version;
+        localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
     }
 }

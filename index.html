@@ -35,11 +35,12 @@
 				aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
 				<img class="svg" src="css/cog.svg" alt="Microsoft">
 			</a>
-			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				<a class="dropdown-item" style="cursor:pointer; user-select: none;" onclick="changeTheme(true); saveLocalStorage()">Change
+			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+				<a class="dropdown-item" style="cursor:pointer; user-select: none;"
+					onclick="changeTheme(true); saveLocalStorage()">Change
 					Theme</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item disabled" style="text-align: center">V0.03</a>
+				<a class="dropdown-item disabled" id="versionNumber" style="text-align: center">V0.03</a>
 			</div>
 		</span>
 
@@ -235,8 +236,8 @@
 				maybeMakeDaily();
 			}
 		});
-
-		getLocalStorage()
+		correctLocalStorage();
+		getLocalStorage();
 		makeDaily(365, false);
 		changeTheme(fluffyCalculator.theme);
 

@@ -1,23 +1,33 @@
-$bg-color: black;
-$font-color: #c8c8c8;
-$nav-selected-color: black;
-$plain-white: #c8c8c8;
+$bg-color: #0C141B;
+$font-color: rgb(136, 153, 166);
+
+$plain-white: #cbdbe6;
+
+$nav-selected-color: #0C141B;
 $nav-tabs-border-radius: 0rem;
-$tableheader: black;
-$table-border-color: #c8c8c8;
-$table-accent-bg: pink !default;
+$nav-selected-bg: #e8e8e8;
+
+$table-color: $font-color;
+$table-border-color: rgb(56, 68, 77);
 $table-active-border-color: black;
 $table-hover-bg: $table-active-border-color;
-$table-color: $font-color;
+$tableheader: rgb(16, 31, 44);
+
+$nav-tabs-border-color: $table-border-color;
+$nav-tabs-link-hover-border-color: $table-border-color;
+$nav-tabs-link-active-border-color: $table-border-color;
+
 $input-bg: $bg-color !default;
 $input-color: $font-color !default;
 $input-disabled-bg: $bg-color !default;
-$nav-selected-bg: $plain-white;
-$daily-color: black;
+$input-border-color: $font-color !default;
+$input-group-addon-bg: $bg-color;
+
+$daily-color: #0C141B;
 
 :root {
     --daily-width: 5.415vw;
-    --daily-margin: 0.2vw;
+    --daily-margin: 0vw;
     --filter-width: 8vw;
     --filter-height: 1.6vw;
     --filter-margin: 0.1vw;
@@ -144,9 +154,8 @@ th {
 }
 
 .daily {
-    border-radius: 10%;
     background-color: $bg-color;
-    border: 1px solid gray;
+    border: 1px solid $bg-color;
     color: $daily-color;
     cursor: pointer;
     position: relative;
@@ -242,6 +251,19 @@ html body {
 
 .nav-tabs .nav-link.active.show {
     background-color: $nav-selected-bg;
+}
+
+div.show>div.dropdown-menu.dropdown-menu-right.show,
+#myTab>span>div,
+#InstantUpdating>option {
+    background-color: $bg-color;
+    color: $font-color;
+    border: 1px solid $table-border-color;
+}
+
+div.show>div.dropdown-menu.dropdown-menu-right.show>a:hover,
+#myTab>span>div>a:hover {
+    background-color: $tableheader;
 }
 
 @import "C:/Users/P/node_modules/bootstrap/scss/bootstrap.scss";
