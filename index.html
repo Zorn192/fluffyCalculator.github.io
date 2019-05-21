@@ -4,17 +4,10 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-
 	<title>Fluffy Calculator</title>
 	<link rel="icon" href="fluffy.png">
-
-	<!-- <link rel="stylesheet" href="bootstrap.css"> -->
-	<!-- <link rel="stylesheet" id="light"href="css/main.css"> -->
 	<link rel="stylesheet" id="light" href="css/light.css">
 	<link rel="stylesheet" id="dark" href="css/dark.css" disabled>
-
-
 </head>
 
 <body style="margin-top: -2px">
@@ -43,8 +36,6 @@
 				<a class="dropdown-item disabled" id="versionNumber" style="text-align: center">V0.03</a>
 			</div>
 		</span>
-
-
 	</ul>
 	<div class="tab-content" id="myTabContent">
 		<div class="tab-pane" id="fluffy" role="tabpanel" aria-labelledby="fluffy-tab">
@@ -131,10 +122,8 @@
 					<div class="col-7 table-responsive-md">
 						<table class="table table-bordered table-hover" style="text-align: center">
 							<thead class="thead-active" id="TableHead">
-
 							</thead>
 							<tbody id="TableBody">
-
 							</tbody>
 						</table>
 					</div>
@@ -144,7 +133,6 @@
 							<hr style="margin-top: 12%;position:relative; width: 100%;">
 						</div>
 						<div id="OtherStats" style="width: 100%">
-
 							<label>
 								<input id="XpPerRun" class="input-shadow form-control" placeholder=" " disabled>
 								<span>Xp Per Run</span>
@@ -177,8 +165,8 @@
 				<hr>
 				<div class="row">
 					<div class="col-12" style="text-align: center;">
-							<table class="table table-bordered table-hover" id="zoneTable" style="display:none; width:fit-content;">
-						
+						<table class="table table-bordered table-hover" id="zoneTable"
+							style="display:none; width:fit-content;">
 						</table>
 					</div>
 				</div>
@@ -204,10 +192,7 @@
 	</div>
 	</div>
 	</div>
-
-
 </body>
-
 <script id="testenv"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -217,7 +202,6 @@
 <script src="js/main.js"></script>
 <script src="js/fluffy.js"></script>
 <script src="js/daily.js"></script>
-
 <script>
 	$(function () {
 		var hash = window.location.hash;
@@ -228,10 +212,8 @@
 			"#fluffy": "Fluffy Calculator",
 			"#daily": "Daily Seeker"
 		}
-
 		hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 		$("title").text(titles[hash])
-
 		$('.nav-tabs a').click(function (e) {
 			if (e.currentTarget.id == "navbarDropdown" || e.target.classList[0] == "dropdown-item" || e
 				.currentTarget.id == "settingsButton") return;
@@ -248,7 +230,6 @@
 		getLocalStorage();
 		makeDaily(365, false);
 		changeTheme(fluffyCalculator.theme);
-
 		if (window.location.origin == "http://127.0.0.1:5500" || window.location.origin ==
 			"http://192.168.1.69:5500" || window.location.origin ==
 			"http://localhost:5500") {
@@ -257,7 +238,6 @@
 				update.fill()
 				update.table();
 			}, 1000)
-
 		}
 		window.lastSeed = getDailyTimeString(0, false, false);
 		$("#dropdownMenu").html(
@@ -269,7 +249,6 @@
 		if (window.clipboardData && window.clipboardData.setData) {
 			// IE specific code path to prevent textarea being shown while dialog is visible.
 			return clipboardData.setData("Text", text);
-
 		} else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
 			var textarea = document.createElement("textarea");
 			textarea.textContent = text;
@@ -286,18 +265,15 @@
 			}
 		}
 	}
-
 	$(function () {
 		jQuery('img.svg').each(function () {
 			var $img = jQuery(this);
 			var imgID = $img.attr('id');
 			var imgClass = $img.attr('class');
 			var imgURL = $img.attr('src');
-
 			jQuery.get(imgURL, function (data) {
 				// Get the SVG tag, ignore the rest
 				var $svg = jQuery(data).find('svg');
-
 				// Add replaced image's ID to the new SVG
 				if (typeof imgID !== 'undefined') {
 					$svg = $svg.attr('id', imgID);
@@ -306,20 +282,15 @@
 				if (typeof imgClass !== 'undefined') {
 					$svg = $svg.attr('class', imgClass + ' replaced-svg');
 				}
-
 				// Remove any invalid XML tags as per http://validator.w3.org
 				$svg = $svg.removeAttr('xmlns:a');
-
 				// Check if the viewport is set, else we gonna set it if we can.
 				if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
 					$svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
 				}
-
 				// Replace image with new SVG
 				$img.replaceWith($svg);
-
 			}, 'xml');
-
 		});
 	});
 </script>

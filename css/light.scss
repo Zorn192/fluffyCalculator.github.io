@@ -1,28 +1,22 @@
 $bg-color: white;
 $font-color: #495057;
-
 $plain-white: white;
-
 $nav-selected-color: $font-color;
 $nav-tabs-border-radius: 0rem;
 $nav-selected-bg: white;
-
 $table-color: $font-color;
 $table-border-color: #dee2e6;
 $table-active-border-color: #e9ecef;
 $table-hover-bg: $table-active-border-color;
 $tableheader: #e9ecef;
-
 $nav-tabs-border-color: $table-border-color;
 $nav-tabs-link-hover-border-color: $table-border-color;
 $nav-tabs-link-active-border-color: $table-border-color;
-
 $input-bg: $bg-color !default;
 $input-color: $font-color !default;
 $input-disabled-bg: $bg-color !default;
 $input-border-color: $font-color !default;
 $input-group-addon-bg: $bg-color;
-
 $daily-color: black;
 
 :root {
@@ -34,7 +28,6 @@ $daily-color: black;
     --daily-tier-1: rgb(221, 126, 107);
     --daily-tier-2: rgb(175, 203, 119);
     --daily-tier-3: rgb(98, 189, 135);
-
 }
 
 .nav#myTab,
@@ -61,7 +54,6 @@ $daily-color: black;
 // .nav .nav-item .nav-link:hover {
 //     background-color: #e3e6e7;
 // }
-
 :focus {
     outline: 0px !important
 }
@@ -107,7 +99,6 @@ select+span {
 //   opacity:1;
 //   transform: scale(0.75) translateY(-112%) translateX(-185px);
 // }
-
 .form-group>label {
     width: 49.1%;
 }

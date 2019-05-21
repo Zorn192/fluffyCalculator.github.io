@@ -25,7 +25,6 @@ function getDailyHeliumValue(weight) {
 //   $(document).tooltip();
 // });
 
-
 function prettify(a) {
   var yourNotation = game.options.menu.standardNotation.enabled;
   notations = [
@@ -44,9 +43,7 @@ function prettify(a) {
     d = b > c.length ? "e" + 3 * b : c[b - 1];
   return +a.toPrecision(3) + d;
 }
-
 /* jshint ignore:start */
-
 function decodePrettify(a) {
   if (a) {
     num = a.toLowerCase();
@@ -109,7 +106,6 @@ function decodePrettify(a) {
   return num;
 }
 /* jshint ignore:end */
-
 
 // get daily % for you
 var dailyModifiers = {
@@ -513,7 +509,6 @@ var dailyModifiers = {
       var size = str % 5;
       if (size == 0) size = "";
       else size = "the first " + prettify(size * 2) + " rows of";
-
       var name = (str < 4) ? "Mutimps" : "Hulking Mutimps";
       return "40% of Bad Guys in " + size + " the World will be mutated into " + name + ".";
     },
@@ -677,7 +672,6 @@ var dailyModifiers = {
   		} */
 };
 
-
 function romanNumeral(number) {
   //This is only accurate up to 399, but that's more than plenty for this game. Probably not the cleanest converter ever, but I thought of it myself, it works, and I'm proud.
   var numeral = "";
@@ -720,7 +714,6 @@ function romanNumeral(number) {
   }
   return numeral;
 }
-
 var rewards = ["stickler", "helium", "liquid", "purifier", "lucky", "void", "helium", "liquid", "eliminator", "overkiller"];
 var prestigeRewards = ["dailies", "voidance", "overkiller", "critChance", "megaCrit", "superVoid", "voidelicious", "naturesWrath", "voidSiphon"];
 
@@ -747,7 +740,6 @@ function isRewardActive(reward) {
 function uppercaseLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
 var game = {
   options: {
     menu: {
@@ -756,7 +748,7 @@ var game = {
       }
     }
   },
-  global : {
+  global: {
     recentDailies: [],
   }
 };
@@ -773,7 +765,6 @@ function getHeirloomValue() {
     return 1;
   }
 }
-
 //number with commas do numberWithCommas(number) and make numbers look good
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

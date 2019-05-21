@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 var months = ["Spacer", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var mods = {
@@ -158,12 +159,11 @@ function makeDaily(times) {
   }
   forX: for (var x = lastWeek; x < times; x++) {
     if ((x % 7 == 0) && (x != -7)) {
-      append += "<tr>"
+      append += "<tr>";
     }
     // console.log(`${x < (blank)} ${x%7} ${x != -7}`)
     if (x < (blank)) {
       // $("#DailyCalender").append(divMaker("empty",0,0,0,0));
-
       append += (divMaker(" daily-empty", 0, 0, 0, 0, "This is just a filler block"));
       continue forX;
     }
@@ -175,8 +175,6 @@ function makeDaily(times) {
       dailyValue += 100;
       add += 100;
     }
-
-
     showMods = "";
     classList = "";
     for (var m in dailyObj) {
@@ -185,11 +183,13 @@ function makeDaily(times) {
         showMods += mods[m];
       }
     }
+    if (x == 1) {
+      showMods += "<span title='This is the next daily'>⭐</span>";
+    }
     var dailyDate = getDailyTimeString(x, true, false);
     var tiers = [(200 + add), (300 + add), (400 + add)];
-
-    append += divMaker(findColor(dailyValue, tiers), classList, dailyDate, dailyValue, showMods, dailyInfo)
-    if (x % 7 == 6) append += "</tr>"
+    append += divMaker(findColor(dailyValue, tiers), classList, dailyDate, dailyValue, showMods, dailyInfo);
+    if (x % 7 == 6) append += "</tr>";
   }
   document.getElementById("DailyCalender").innerHTML += append;
   // $("#DailyCalender").append(append);
@@ -231,7 +231,7 @@ function dailyHeader(index) {
   ${days[index]}
   </div>
   </div>
-  `)
+  `);
 }
 
 function findColor(value, tiers) {
@@ -243,7 +243,6 @@ function findColor(value, tiers) {
     return 3;
   }
 }
-
 var matched;
 
 function doFilter() {
@@ -511,12 +510,12 @@ function getDailyHeliumValueDaily(weight) {
 }
 
 function maybeMakeDaily() {
-  newestSeed = getDailyTimeString(0, false, false)
+  newestSeed = getDailyTimeString(0, false, false);
   if (window.lastSeed == newestSeed) {
     return;
   } else {
     makeDaily(365);
-    console.log("makeDaily was allowed!")
+    console.log("makeDaily was allowed!");
     window.lastSeed = newestSeed;
     return;
   }
