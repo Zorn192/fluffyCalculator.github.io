@@ -373,14 +373,16 @@ function sformat(s) {
 function changeTheme(flip) {
     dir = "css/";
     currentTheme = fluffyCalculator.theme;
-    currentDir = dir + currentTheme;
+    // currentDir = dir + currentTheme;
     oppositeTheme = (currentTheme == "light") ? "dark" : "light";
-    oppositeDir = dir + oppositeTheme;
+    // oppositeDir = dir + oppositeTheme;
 
     if (flip == true) {
-        $("#theme").attr("href", oppositeDir + ".css");
         fluffyCalculator.theme = oppositeTheme;
+        document.getElementById(currentTheme).disabled = true;
+        document.getElementById(oppositeTheme).disabled = false;
     } else {
-        $("#theme").attr("href", currentDir + ".css");
+        document.getElementById(currentTheme).disabled = false;
+        document.getElementById(oppositeTheme).disabled = true;
     }
 }
