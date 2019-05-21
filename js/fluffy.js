@@ -306,13 +306,13 @@ var update = {
             tbody += `</tr>`;
         }
         $("#TableBody").append(tbody);
+        this.zoneData = {
+            "zone": [],
+            "level": []
+        };
         if (this.tableValues.runs[calc.currentLevel + 1] < 2) {
             document.getElementById("zoneTable").innerHTML = "";
             document.getElementById("zoneTable").style.display = "none";
-            this.zoneData = {
-                "zone": [],
-                "level": []
-            };
             maxZone = game.global.highestLevelCleared + 50;
 
             zone = game.global.world;
