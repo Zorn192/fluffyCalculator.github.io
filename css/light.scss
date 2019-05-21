@@ -1,13 +1,21 @@
+$bg-color: white;
+$font-color: #495057;
+$nav-selected-color: $font-color;
+$plain-white: white;
 $nav-tabs-border-radius: 0rem;
 $tableheader: #e9ecef;
 $table-active-border-color: #e9ecef;
-$table-accent-bg :pink !default;
+$table-accent-bg: pink !default;
 $table-hover-bg: $table-active-border-color;
-$table-color: #495057;
+$table-color: $font-color;
+$input-bg: $bg-color !default;
+$input-color: $font-color !default;
+$input-disabled-bg: $bg-color !default;
+$nav-selected-bg: white;
+$daily-color: black;
 
 :root {
-    --myColor: red;
-    --daily-width: 6.415vw;
+    --daily-width: 5.415vw;
     --daily-margin: 0.2vw;
     --filter-width: 8vw;
     --filter-height: 1.6vw;
@@ -23,14 +31,15 @@ $table-color: #495057;
     // line-height: 3;
     font-family: "Consolas";
     font-weight: 600;
+    color: $font-color;
 }
 
 .nav .nav-item .nav-link {
-    color: #495057;
+    color: $font-color;
 }
 
 .nav .nav-item .nav-link.active {
-    color: #495057;
+    color: $nav-selected-color;
     border-bottom-color: #ff0000a6;
     border-bottom-width: 1px;
     border-top-color: rgba(0, 0, 0, 0);
@@ -62,7 +71,7 @@ label {
     margin: 20px 0;
     position: relative;
     display: inline-block;
-    color: #2b2b2b;
+    color: $font-color;
 }
 
 .dropdown-item.active,
@@ -106,7 +115,7 @@ th {
 }
 
 .levelRows {
-    color: #495057;
+    color: $font-color;
     background-color: $tableheader;
     border-color: #dee2e6;
 }
@@ -135,8 +144,9 @@ th {
 
 .daily {
     border-radius: 10%;
-    background-color: white;
+    background-color: $bg-color;
     border: 1px solid gray;
+    color: $daily-color;
     cursor: pointer;
     position: relative;
     width: calc(var(--daily-width) - var(--daily-margin) * 2);
@@ -158,13 +168,13 @@ button,
 }
 
 .daily-empty {
-    color: white;
+    color: $plain-white;
     border: none;
     visibility: hidden;
 }
 
 .filter {
-    background-color: white;
+    background-color: $plain-white;
     border: 1px solid gray;
     border-radius: 5%;
     cursor: pointer;
@@ -174,31 +184,63 @@ button,
     margin: var(--filter-margin);
     text-align: center;
     font-size: 0.8vw;
-  }
+}
 
-  .containerFilter {
+.containerFilter {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
     flex: 0 0 calc(var(--filter-width) * 4)
-  }
-  .containerFilterInventory {
+}
+
+.containerFilterInventory {
     display: flex;
     align-content: flex-start;
     flex-flow: row wrap;
     flex: 0 0 calc(var(--filter-width) + var(--filter-height) * 36.13)
-  }
+}
 
-  .daily1{
-      background-color: var(--daily-tier-1)
-  }
-  .daily3{
-      background-color: var(--daily-tier-3)
-  }
+.daily1 {
+    background-color: var(--daily-tier-1)
+}
 
-  .input-shadow.filterButtons { 
-    width:auto;
-    display:inline-block
-  }
+.daily3 {
+    background-color: var(--daily-tier-3)
+}
+
+.input-shadow.filterButtons {
+    width: auto;
+    display: inline-block
+}
+
+a#navbarDropdown.nav-link.dropdown-toggle.active.show::after {
+    display: none !important;
+}
+
+.input-shadow.custom-select#InstantUpdating {
+    background-color: $plain-white;
+    background: none;
+}
+
+svg {
+    width: 21px;
+    height: 21px;
+}
+
+svg path {
+    fill: $font-color !important;
+}
+
+html body {
+    background-color: $bg-color;
+}
+
+.dailyHeader {
+    color: $font-color;
+}
+
+.nav-tabs .nav-link.active.show {
+    background-color: $nav-selected-bg;
+}
 
 @import "C:/Users/P/node_modules/bootstrap/scss/bootstrap.scss";

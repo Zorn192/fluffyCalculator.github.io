@@ -10,7 +10,9 @@
 	<link rel="icon" href="fluffy.png">
 
 	<!-- <link rel="stylesheet" href="bootstrap.css"> -->
-	<link rel="stylesheet" href="css/main.css">
+	<!-- <link rel="stylesheet" id="light"href="css/main.css"> -->
+	<link rel="stylesheet" id="theme" href="css/light.css">
+
 
 </head>
 
@@ -18,20 +20,29 @@
 	<div style="position: fixed; width: 100%; text-align: center">
 		<a href="old\index.html" style="text-align:center; position:fixed; padding: 0.5rem 1rem;">Old Site</a>
 	</div>
-
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link" id="fluffy-tab" data-toggle="tab" href="#fluffy" role="tab" aria-controls="home"
-				aria-selected="false">Fluffy Calculator</a>
+			<a class="nav-link" id="fluffy-tab" style="margin-left:-1px" data-toggle="tab" href="#fluffy" role="tab"
+				aria-controls="home" aria-selected="false">Fluffy Calculator</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" id="daily-tab" data-toggle="tab" href="#daily" role="tab" aria-controls="profile"
 				aria-selected="false">Daily Seeker</a>
 		</li>
-		<li class="nav-item" style="position: fixed; right:0%">
-			<a class="nav-link" id="Version" data-toggle="tab" role="tab" aria-controls="profile"
-				aria-selected="false">V0.02</a>
-		</li>
+		<span class="dropdown" style="position: fixed; right:0%; margin-right: -2px; cursor:pointer">
+			<a id="settingsButton" style="line-height: 1.5;  padding: 0.5rem 0.5rem; display: block" role="button"
+				aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
+				<img class="svg" src="css/cog.svg" alt="Microsoft">
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				<a class="dropdown-item" style="cursor:pointer; user-select: none;" onclick="changeTheme(true); saveLocalStorage()">Change
+					Theme</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item disabled" style="text-align: center">V0.03</a>
+			</div>
+		</span>
+
+
 	</ul>
 	<div class="tab-content" id="myTabContent">
 		<div class="tab-pane" id="fluffy" role="tabpanel" aria-labelledby="fluffy-tab">
@@ -165,17 +176,18 @@
 		</div>
 		<div class="tab-pane" id="daily" role="tabpanel" aria-labelledby="daily-tab">
 			<div style="text-align: center; margin-top: 5px">
-					<button class="button form-control input-shadow" style="width:auto; display:inline-block"
+				<button class="button form-control input-shadow" style="width:auto; display:inline-block"
 					onclick="showFilter()">Filter</button>
-					<br />
+				<br />
 			</div>
 			<div class="containerFilter">
 				<div class="containerFilterInventory" id="filter" style="display:none"></div>
 			</div>
 			<hr>
-			<label style="width:100%; text-align: center; margin:0"><input type="checkbox" id="100Daily" onclick="makeDaily(365)"> +100% Daily </label>
+			<label style="width:100%; text-align: center; margin:0"><input type="checkbox" id="100Daily"
+					onclick="makeDaily(365)"> +100% Daily </label>
 			<div class="containerInventory">
-				<div class="DailyCalender">
+				<div class="DailyCalender" id="DailyCalender">
 				</div>
 			</div>
 		</div>
@@ -189,18 +201,14 @@
 <script id="testenv"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="bootstrap.min.js"></script>
-<script src="lz-string.js"></script>
-<script src="trimps.js"></script>
-<script src="fluffy.js"></script>
-<script src="daily.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/lz-string.js"></script>
+<script src="js/trimps.js"></script>
+<script src="js/main.js"></script>
+<script src="js/fluffy.js"></script>
+<script src="js/daily.js"></script>
 
 <script>
-	$('#myTab a').on('click', function (e) {
-		e.preventDefault()
-		$(this).tab('show')
-	})
-
 	$(function () {
 		var hash = window.location.hash;
 		if (hash == "") {
@@ -210,38 +218,38 @@
 			"#fluffy": "Fluffy Calculator",
 			"#daily": "Daily Seeker"
 		}
-		
+
 		hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 		$("title").text(titles[hash])
-		
+
 		$('.nav-tabs a').click(function (e) {
+			if (e.currentTarget.id == "navbarDropdown" || e.target.classList[0] == "dropdown-item" || e
+				.currentTarget.id == "settingsButton") return;
 			$("title").text(titles[this.hash])
 			$(this).tab('show');
 			var scrollmem = $('body').scrollTop();
 			window.location.hash = this.hash;
 			$('html,body').scrollTop(scrollmem);
+			if (this.hash == "#daily") {
+				maybeMakeDaily();
+			}
 		});
-		
-		makeDaily(365, false)
+
 		getLocalStorage()
+		changeTheme(fluffyCalculator.theme);
+		makeDaily(365, false);
 
 		if (window.location.origin == "http://127.0.0.1:5500" || window.location.origin ==
 			"http://192.168.1.69:5500" || window.location.origin ==
 			"http://localhost:5500") {
-			document.getElementById("testenv").setAttribute("src", "testsave.js")
-			// console.log("ayy")
+			document.getElementById("testenv").setAttribute("src", "js/testsave.js")
 			setTimeout(function () {
-				// console.log("ayy")
-				//  console.log(game)
 				update.fill()
 				update.table();
-
-				// console.log(calc.zoneYouPortal)
-				// console.log(calc)
 			}, 1000)
 
 		}
-
+		window.lastSeed = getDailyTimeString(0, false, false);
 		$("#dropdownMenu").html(
 			"•May 13, 2019\n<br>•Trimp max damage increased by 175.0% (additive).\n<br>•Enemy attack in maps increased by 240.0%.\n<br>•Enemy health increased by 300.0%."
 		)
@@ -268,6 +276,42 @@
 			}
 		}
 	}
+
+	$(function () {
+		jQuery('img.svg').each(function () {
+			var $img = jQuery(this);
+			var imgID = $img.attr('id');
+			var imgClass = $img.attr('class');
+			var imgURL = $img.attr('src');
+
+			jQuery.get(imgURL, function (data) {
+				// Get the SVG tag, ignore the rest
+				var $svg = jQuery(data).find('svg');
+
+				// Add replaced image's ID to the new SVG
+				if (typeof imgID !== 'undefined') {
+					$svg = $svg.attr('id', imgID);
+				}
+				// Add replaced image's classes to the new SVG
+				if (typeof imgClass !== 'undefined') {
+					$svg = $svg.attr('class', imgClass + ' replaced-svg');
+				}
+
+				// Remove any invalid XML tags as per http://validator.w3.org
+				$svg = $svg.removeAttr('xmlns:a');
+
+				// Check if the viewport is set, else we gonna set it if we can.
+				if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+					$svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+				}
+
+				// Replace image with new SVG
+				$img.replaceWith($svg);
+
+			}, 'xml');
+
+		});
+	});
 </script>
 
 </html>

@@ -232,10 +232,10 @@ var update = {
         var thead = "<tr> <th>😊</th>";
         thead += `<th>Runs to E${game.global.fluffyPrestige}</th>`;
         if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige}</th>`;
-        if(game.global.fluffyPrestige != calc.maxEvolution){
-        thead += `<th>Runs to E${game.global.fluffyPrestige + 1}</th>`;
-        if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige + 1}</th>`;
-    }
+        if (game.global.fluffyPrestige != calc.maxEvolution) {
+            thead += `<th>Runs to E${game.global.fluffyPrestige + 1}</th>`;
+            if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige + 1}</th>`;
+        }
         thead += "</tr>";
         $("#TableHead").append(thead);
         var hypo = {
@@ -251,7 +251,7 @@ var update = {
         var seconds = (fluffyCalculator.minutesPerRun * 60);
         var runsAdded = 0;
         var runLength = 20;
-        if(game.global.fluffyPrestige == calc.maxEvolution){
+        if (game.global.fluffyPrestige == calc.maxEvolution) {
             runLength = 10;
         }
         for (var x = 0; runLength >= x; x++) {
@@ -291,7 +291,7 @@ var update = {
             tbody += `<th class="levelRows">L${y}</th>`;
             tbody += `<td>${tableValues.runs[y]}</td>`;
             if (fluffyCalculator.minutesPerRun > 0) tbody += `<td title="${tableValues.approxDate[y]}">${tableValues.runSeconds[y]}</td>`;
-            if(game.global.fluffyPrestige != calc.maxEvolution){
+            if (game.global.fluffyPrestige != calc.maxEvolution) {
                 tbody += `<td>${tableValues.runs[y+10]}</td>`;
                 if (fluffyCalculator.minutesPerRun > 0) tbody += `<td title="${tableValues.approxDate[y+10]}">${tableValues.runSeconds[y+10]}</td>`;
             }
@@ -353,6 +353,7 @@ function getLocalStorage() {
         document.getElementById("SpiresInARun").value = fluffyCalculator.spireBonus;
         document.getElementById("MinutesPerRun").value = fluffyCalculator.minutesPerRun;
         document.getElementById("InstantUpdating").value = fluffyCalculator.instantUpdating;
+        document.getElementById("InstantUpdating").value = fluffyCalculator.instantUpdating;
     }
 }
 
@@ -367,4 +368,19 @@ function sformat(s) {
     return $.map(fm, function (v, i) {
         return ((v < 10) ? '0' : '') + v;
     }).join(':');
+}
+
+function changeTheme(flip) {
+    dir = "css/";
+    currentTheme = fluffyCalculator.theme;
+    currentDir = dir + currentTheme;
+    oppositeTheme = (currentTheme == "light") ? "dark" : "light";
+    oppositeDir = dir + oppositeTheme;
+
+    if (flip == true) {
+        $("#theme").attr("href", oppositeDir + ".css");
+        fluffyCalculator.theme = oppositeTheme;
+    } else {
+        $("#theme").attr("href", currentDir + ".css");
+    }
 }

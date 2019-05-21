@@ -153,11 +153,9 @@ function makeDaily(times) {
   // console.log(lastWeek);
   append = "";
   $("#DailyCalender").empty();
-  header = "";
   for (var y = 0; y < 7; y++) {
-    header += dailyHeader(y);
+    append += dailyHeader(y);
   }
-  document.getElementsByClassName("DailyCalender")[0].innerHTML = (header)
   forX: for (var x = lastWeek; x < times; x++) {
     if ((x % 7 == 0) && (x != -7)) {
       append += "<tr>"
@@ -166,7 +164,7 @@ function makeDaily(times) {
     if (x < (blank)) {
       // $("#DailyCalender").append(divMaker("empty",0,0,0,0));
 
-      $(".DailyCalender").append(divMaker(" daily-empty", 0, 0, 0, 0, "This is just a filler block"));
+      append += (divMaker(" daily-empty", 0, 0, 0, 0, "This is just a filler block"));
       continue forX;
     }
     var add = 0;
@@ -193,7 +191,7 @@ function makeDaily(times) {
     append += divMaker(findColor(dailyValue, tiers), classList, dailyDate, dailyValue, showMods, dailyInfo)
     if (x % 7 == 6) append += "</tr>"
   }
-  document.getElementsByClassName("DailyCalender")[0].innerHTML += append;
+  document.getElementById("DailyCalender").innerHTML += append;
   // $("#DailyCalender").append(append);
   doFilter();
 }
@@ -207,10 +205,12 @@ function divMaker(colorID, classList, date, percent, oneLetterMods, dropdown) {
   ${date} \n <br>
   </div>
   <hr style="margin-top:20%; position:absolute; width:100%">
-  <div style="position:absolute; width:100%;top:37.7%; font-size: 133%">
-  ${prettify(percent)}%
-  </div>
   <hr style="margin-top:80%; position:absolute; width:100%">
+  <div style="display:table; height:100%;width:100%">
+  <span style="display:table-cell; vertical-align:middle; font-size: 130%">
+  ${prettify(percent)}%
+  </span>
+  </div>
   <div style="bottom: 0%; position:absolute; width:100%">
   ${oneLetterMods}
   </div>
@@ -226,7 +226,7 @@ function divMaker(colorID, classList, date, percent, oneLetterMods, dropdown) {
 
 function dailyHeader(index) {
   return (`
-  <div class="daily" style="display:table; border:none; cursor:default; user-select:none " >
+  <div class="daily dailyHeader" style="display:table; border:none; cursor:default; user-select:none " >
   <div style="vertical-align:middle; text-align:center; display:table-cell">
   ${days[index]}
   </div>
@@ -508,4 +508,16 @@ function getDailyHeliumValueDaily(weight) {
   if (value < 100) value = 100;
   else if (value > 500) value = 500;
   return value;
+}
+
+function maybeMakeDaily(){
+  newestSeed = getDailyTimeString(0, false, false)
+  if(window.lastSeed == newestSeed){
+    return;
+  } else {
+    makeDaily(365);
+    console.log("makeDaily was allowed!")
+    window.lastSeed = newestSeed;
+    return;
+  }
 }
