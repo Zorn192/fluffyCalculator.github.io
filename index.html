@@ -11,9 +11,6 @@
 </head>
 
 <body style="margin-top: -2px">
-	<div style="position: fixed; width: 100%; text-align: center">
-		<a href="old\index.html" style="text-align:center; position:fixed; padding: 0.5rem 1rem;">Old Site</a>
-	</div>
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
 		<li class="nav-item">
 			<a class="nav-link" id="fluffy-tab" style="margin-left:-1px" data-toggle="tab" href="#fluffy" role="tab"
@@ -23,7 +20,11 @@
 			<a class="nav-link" id="daily-tab" data-toggle="tab" href="#daily" role="tab" aria-controls="profile"
 				aria-selected="false">Daily Seeker</a>
 		</li>
-		<span class="dropdown" style="position: fixed; right:0%; margin-right: -2px; cursor:pointer">
+		<li class="nav-item">
+			<a class="nav-link" id="old-site" href="old\index.html" role="tab" aria-controls="profile"
+				aria-selected="false">Old Site</a>
+		</li>
+		<span class="dropdown" style="position: fixed; right:0%; margin-right: -2px; cursor:pointer; z-index: 10">
 			<a id="settingsButton" style="line-height: 1.5;  padding: 0.5rem 0.5rem; display: block" role="button"
 				aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
 				<img class="svg" src="css/cog.svg" alt="Microsoft">
@@ -49,7 +50,7 @@
 						<br>
 						<div class="form-group">
 							<label>
-								<input id="CapablePerk" type="number" class="input-shadow form-control"
+								<input id="CapablePerk" type="number" max="10" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Capable Level</span>
 							</label>
@@ -90,12 +91,12 @@
 									placeholder=" ">
 								<span>List of Spire Clears</span>
 							</label>
-							<label>
+							<label style="display:none">
 								<input id="KnowledgeTowers" type="number" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Knowledge Towers</span>
 							</label>
-							<label>
+							<label  style="display:none">
 								<input id="KnowledgeLevel" type="number" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Knowledge Level</span>
@@ -119,7 +120,7 @@
 								value="Calculate" onclick="update.table()"></input>
 						</div>
 					</div>
-					<div class="col-7 table-responsive-md">
+					<div class="col-7 table-responsive-md" style="min-width: 24.6em;">
 						<table class="table table-bordered table-hover" style="text-align: center">
 							<thead class="thead-active" id="TableHead">
 							</thead>
@@ -127,7 +128,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="col-2">
+					<div class="col-2" style="min-width: 9.8em">
 						<div style="position: relative; text-align:center">
 							<h7 id="statsHeader" style="font-size: 90%">Varied Stats</h7>
 							<hr style="margin-top: 12%;position:relative; width: 100%;">

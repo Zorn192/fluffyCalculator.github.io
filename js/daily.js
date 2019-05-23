@@ -201,17 +201,17 @@ function divMaker(colorID, classList, date, percent, oneLetterMods, dropdown) {
   <div class="daily daily-tier-${colorID} ${classList} " type="button" style="background-color:var(--daily-tier-${colorID}); position:relative"
   
   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  <div style="position:absolute; top:0; width:100%">
+  <div class="dailyDate">
   ${date} \n <br>
   </div>
   <hr style="margin-top:20%; position:absolute; width:100%">
   <hr style="margin-top:80%; position:absolute; width:100%">
-  <div style="display:table; height:100%;width:100%">
-  <span style="display:table-cell; vertical-align:middle; font-size: 130%">
+  <div style="display:table; height:100%;width:100%; position:absolute">
+  <span  class="dailyPercentage">
   ${dailyPrettify(percent)}%
   </span>
   </div>
-  <div style="bottom: 0%; position:absolute; width:100%">
+  <div class="dailyMods" >
   ${oneLetterMods}
   </div>
   
@@ -226,8 +226,8 @@ function divMaker(colorID, classList, date, percent, oneLetterMods, dropdown) {
 
 function dailyHeader(index) {
   return (`
-  <div class="daily dailyHeader" style="display:table; border:none; cursor:default; user-select:none " >
-  <div style="vertical-align:middle; text-align:center; display:table-cell">
+  <div class="daily dailyHeader" style="display:table; border:none; cursor:default; user-select:none;" >
+  <div style="vertical-align:middle; text-align:center; display:table-cell;" class="dailyDays">
   ${days[index]}
   </div>
   </div>

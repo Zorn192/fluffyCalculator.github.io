@@ -6,7 +6,7 @@ function handle_paste(ev) {
     update.table();
 }
 
-var version = 0.04;
+var version = 0.05;
 
 var calc = {
     firstLevel: 1000,
@@ -55,6 +55,9 @@ var calc = {
     maxEvolution: 10,
     xpPerRun: 0,
     zoneXP: function (start, end) {
+        if(end < this.startToEarn){
+            return 0;
+        }
         // So if you start at zone 0, it wouldn't count you're gaining xp at there.
         if (start < this.startToEarn) {
             start = this.startToEarn;
@@ -118,6 +121,10 @@ var update = {
         document.getElementById("HeirloomPercentage").value = getHeirloomValue() * 100 - 100;
         calc.heirloomBonus = getHeirloomValue()
         getHeirloomValue() > 1 && !$("#HeirloomPercentage").is(":visible") && $("#HeirloomPercentage").parent().toggle();
+        if(game.playerSpire.traps.Knowledge.owned && !$("#KnowledgeTowers").is(":visible")){
+            $("#KnowledgeTowers").parent().toggle();
+            $("#KnowledgeLevel").parent().toggle();
+        }
         document.getElementById("KnowledgeTowers").value = game.playerSpire.traps.Knowledge.owned;
         document.getElementById("KnowledgeLevel").value = game.playerSpire.traps.Knowledge.level;
         calc.currentExp = Math.ceil(game.global.fluffyExp - calc.removeExp(game.global.fluffyPrestige, calc.calculateLevel()));
@@ -238,7 +245,7 @@ var update = {
         this.expBonus();
         this.XpPerRun();
         $("#TableHead").empty();
-        var thead = "<tr> <th>😊</th>";
+        var thead = "<tr> <th>🤯</th>";
         thead += `<th>Runs to E${game.global.fluffyPrestige}</th>`;
         if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige}</th>`;
         if (game.global.fluffyPrestige != calc.maxEvolution) {
@@ -310,11 +317,13 @@ var update = {
             "zone": [],
             "level": []
         };
-        if (this.tableValues.runs[calc.currentLevel + 1] < 2) {
+        if (this.tableValues.runs[calc.currentLevel + 1] < 3) {
             document.getElementById("zoneTable").innerHTML = "";
             document.getElementById("zoneTable").style.display = "none";
             maxZone = game.global.highestLevelCleared + 50;
-
+            if(game.global.world > game.global.highestLevelCleared){
+                maxZone = game.global.world + 50;
+            }
             zone = game.global.world;
             level = calc.currentLevel;
             evolution = game.global.fluffyPrestige;
@@ -341,7 +350,7 @@ var update = {
             if (this.zoneData.zone[0] > 0) {
                 zoneTable = `<tr>
                 <thead class="thead-active">
-                <tr><th>😲</th>
+                <tr><th>🤬</th>
                 <th>On Zone</th></tr>
                 </thead>
                 `;

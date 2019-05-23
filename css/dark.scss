@@ -30,6 +30,46 @@ $daily-color: #0C141B;
     --daily-tier-3: rgb(98, 189, 135);
 }
 
+.dailyPercentage {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 130%
+}
+
+.dailyDate {
+    position: absolute;
+    top: 0;
+    width: 100%
+}
+
+.dailyMods {
+    position: absolute;
+    width: 100%;
+    bottom: 0px
+}
+
+@media screen and (max-width: 900px) {
+    :root {
+        --daily-width: 13vw;
+    }
+
+    .dailyPercentage {
+        font-size: 400%
+    }
+
+    .dailyDate {
+        font-size: 262%
+    }
+
+    .dailyMods {
+        font-size: 243%
+    }
+
+    .dailyDays {
+        font-size: 307%
+    }
+}
+
 .nav#myTab,
 #statsHeader {
     // line-height: 3;
