@@ -55,7 +55,7 @@ var calc = {
     maxEvolution: 10,
     xpPerRun: 0,
     zoneXP: function (start, end) {
-        if(end < this.startToEarn){
+        if (end < this.startToEarn) {
             return 0;
         }
         // So if you start at zone 0, it wouldn't count you're gaining xp at there.
@@ -121,7 +121,7 @@ var update = {
         document.getElementById("HeirloomPercentage").value = getHeirloomValue() * 100 - 100;
         calc.heirloomBonus = getHeirloomValue()
         getHeirloomValue() > 1 && !$("#HeirloomPercentage").is(":visible") && $("#HeirloomPercentage").parent().toggle();
-        if(game.playerSpire.traps.Knowledge.owned && !$("#KnowledgeTowers").is(":visible")){
+        if (game.playerSpire.traps.Knowledge.owned && !$("#KnowledgeTowers").is(":visible")) {
             $("#KnowledgeTowers").parent().toggle();
             $("#KnowledgeLevel").parent().toggle();
         }
@@ -318,12 +318,15 @@ var update = {
             "level": []
         };
         if (this.tableValues.runs[calc.currentLevel + 1] < 3) {
-            document.getElementById("zoneTable").innerHTML = "";
-            document.getElementById("zoneTable").style.display = "none";
             maxZone = game.global.highestLevelCleared + 50;
-            if(game.global.world > game.global.highestLevelCleared){
+            if (game.global.world > game.global.highestLevelCleared) {
                 maxZone = game.global.world + 50;
             }
+            if (calc.zoneYouPortal > game.global.highestLevelCleared) {
+                maxZone = calc.zoneYouPortal + 50;
+            }
+            document.getElementById("zoneTable").innerHTML = "";
+            document.getElementById("zoneTable").style.display = "none";
             zone = game.global.world;
             level = calc.currentLevel;
             evolution = game.global.fluffyPrestige;
@@ -332,7 +335,7 @@ var update = {
             timesLeveled = 0;
             for (var z = zone; z < maxZone; z++) {
                 runXP = calc.zoneXP(lastLeveled, z + 1);
-                if (runXP > xpToLevel) {
+                if (runXP >= xpToLevel) {
                     this.zoneData.zone[timesLeveled] = z;
                     this.zoneData.level[timesLeveled] = `E${evolution}L${level+1}`;
                     lastLeveled = z;
