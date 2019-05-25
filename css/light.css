@@ -101,7 +101,8 @@ label > span {
 }
 
 input + span,
-select + span {
+select + span,
+div + span {
   opacity: 1;
   -webkit-transform: scale(0.75) translateY(-112%) translateX(-20px);
           transform: scale(0.75) translateY(-112%) translateX(-20px);

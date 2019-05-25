@@ -6,7 +6,7 @@ function handle_paste(ev) {
     update.table();
 }
 
-var version = 0.05;
+var version = 0.06;
 
 var calc = {
     firstLevel: 1000,
@@ -238,14 +238,14 @@ var update = {
         if (fluffyCalculator.minutesPerRun > 0) {
             document.getElementById("FluffyXPHr").value = numberWithCommas(Math.ceil(((calc.xpPerRun / fluffyCalculator.minutesPerRun) * 60)));
         }
-        document.getElementById("HeliumSpentFluffy").value = this.countHelium() + "%";
+        this.countHelium();
     },
     table: function () {
         calc.getMinZoneForExp();
         this.expBonus();
         this.XpPerRun();
         $("#TableHead").empty();
-        var thead = "<tr> <th>🤯</th>";
+        var thead = "<tr> <th>👽</th>";
         thead += `<th>Runs to E${game.global.fluffyPrestige}</th>`;
         if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige}</th>`;
         if (game.global.fluffyPrestige != calc.maxEvolution) {
@@ -353,7 +353,7 @@ var update = {
             if (this.zoneData.zone[0] > 0) {
                 zoneTable = `<tr>
                 <thead class="thead-active">
-                <tr><th>🤬</th>
+                <tr><th>🤳</th>
                 <th>On Zone</th></tr>
                 </thead>
                 `;
@@ -373,99 +373,21 @@ var update = {
     },
     countHelium: function () {
         allHelium = game.global.totalHeliumEarned;
-        var capableCost = game.portal.Capable.heliumSpent;
-        var cunningCost = game.portal.Cunning.heliumSpent;
-        var curiousCost = game.portal.Curious.heliumSpent;
-        var classyCost = game.portal.Classy.heliumSpent;
-        return prettify((capableCost + cunningCost + curiousCost + classyCost) / allHelium * 100);
+        var capablePercent = (game.portal.Capable.heliumSpent / allHelium) * 100;
+        var cunningPercent = (game.portal.Cunning.heliumSpent / allHelium) * 100;
+        var curiousPercent = (game.portal.Curious.heliumSpent / allHelium) * 100;
+        var classyPercent = (game.portal.Classy.heliumSpent / allHelium) * 100;
+
+        htmlContent = `
+        <div class="progress-bar bg-success" title = "Capable" style="width:${capablePercent}%"></div>
+        <div class="progress-bar bg-info" title = "Cunning" style="width:${cunningPercent}%"></div>
+        <div class="progress-bar bg-warning" title = "Curious" style="width:${curiousPercent}%"></div>
+        <div class="progress-bar bg-danger" title = "Classy" style="width:${classyPercent}%"></div>
+        `;
+
+        document.getElementById("HeliumOnFluffy").innerText = `Helium on Fluffy: ${Math.round(capablePercent + cunningPercent + curiousPercent + classyPercent)}%`
+
+        document.getElementById("HeliumSpentFluffy").innerHTML = htmlContent;
+        // return prettify((capableCost + cunningCost + curiousCost + classyCost) / allHelium * 100);
     }
 };
-
-function correctLocalStorage() {
-    error = false;
-    oldSave = (localStorage.getItem("fluffyCalculator"));
-    try {
-        if (!JSON.parse(oldSave));
-        if (typeof JSON.parse(oldSave) == "string") throw "typeof was string";
-        if (typeof Number(oldSave) == "number" && !isNaN(Number(oldSave))) throw "typeof was number";
-    } catch (err) {
-        var errormessage = err;
-        if (err.name == "SyntaxError") errormessage = "couldn't parse oldSave";
-        error = true;
-        console.log(errormessage);
-    }
-    if (error) {
-        localStorage.removeItem("fluffyCalculator");
-        localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
-    }
-    var localStorageSave = JSON.parse(localStorage.getItem("fluffyCalculator"));
-    var accurateStorageSave = fluffyCalculator;
-    for (var x in accurateStorageSave) {
-        if (localStorageSave.hasOwnProperty(x) == false) {
-            console.log("you didn't have " + x);
-            localStorageSave[x] = accurateStorageSave[x];
-            localStorage.setItem("fluffyCalculator", JSON.stringify(localStorageSave));
-        }
-    }
-}
-
-function saveLocalStorage() {
-    fluffyCalculator.spireBonus = $("#SpiresInARun").val();
-    fluffyCalculator.minutesPerRun = Number($("#MinutesPerRun").val());
-    fluffyCalculator.instantUpdating = document.getElementById("InstantUpdating").value;
-    fluffyCalculator.lastVersionSeen = version;
-    localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
-}
-
-function getLocalStorage() {
-    if (localStorage.getItem("fluffyCalculator") == null) {
-        localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
-    } else {
-        fluffyCalculator = JSON.parse(localStorage.getItem("fluffyCalculator"));
-        document.getElementById("SpiresInARun").value = fluffyCalculator.spireBonus;
-        document.getElementById("MinutesPerRun").value = fluffyCalculator.minutesPerRun;
-        document.getElementById("InstantUpdating").value = fluffyCalculator.instantUpdating;
-        document.getElementById("InstantUpdating").value = fluffyCalculator.instantUpdating;
-        document.getElementById("versionNumber").textContent = version;
-        versionSeen();
-    }
-}
-
-function sformat(s) {
-    if (s == 0) return 0;
-    var fm = [
-        Math.floor(s / 60 / 60 / 24), // DAYS
-        Math.floor(s / 60 / 60) % 24, // HOURS
-        Math.floor(s / 60) % 60, // MINUTES
-        Math.floor(s % 60) // SECONDS
-    ];
-    return $.map(fm, function (v, i) {
-        return ((v < 10) ? '0' : '') + v;
-    }).join(':');
-}
-
-function changeTheme(flip) {
-    dir = "css/";
-    currentTheme = fluffyCalculator.theme;
-    // currentDir = dir + currentTheme;
-    oppositeTheme = (currentTheme == "light") ? "dark" : "light";
-    // oppositeDir = dir + oppositeTheme;
-
-    if (flip == true) {
-        fluffyCalculator.theme = oppositeTheme;
-        document.getElementById(currentTheme).disabled = true;
-        document.getElementById(oppositeTheme).disabled = false;
-    } else {
-        document.getElementById(currentTheme).disabled = false;
-        document.getElementById(oppositeTheme).disabled = true;
-    }
-}
-
-function versionSeen() {
-    if (version > fluffyCalculator.lastVersionSeen) {
-        //Do Future Stuff *people need to get it first*
-        console.log("Your seeing a new version!")
-        fluffyCalculator.lastVersionSeen = version;
-        localStorage.setItem("fluffyCalculator", JSON.stringify(fluffyCalculator));
-    }
-}
