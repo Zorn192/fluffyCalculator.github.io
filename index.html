@@ -4,6 +4,8 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="Description" content="Home of Fluffy Calculator and Daily Seeker">
+
 	<title>Fluffy Calculator</title>
 	<link rel="icon" href="fluffy.png">
 	<link rel="stylesheet" id="light" href="css/light.css">
@@ -33,6 +35,8 @@
 				<a class="dropdown-item" style="cursor:pointer; user-select: none;"
 					onclick="changeTheme(true); saveLocalStorage()">Change
 					Theme</a>
+				<a class="dropdown-item" style="cursor:pointer; user-select: none;"
+					onclick="unlockHiddenStats(true);">Unlock Hidden Stats</a>
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item disabled" id="versionNumber" style="text-align: center">V0.03</a>
 			</div>
@@ -50,37 +54,37 @@
 						<br>
 						<div class="form-group">
 							<label>
-								<input id="CapablePerk" type="number" max="10" class="input-shadow form-control"
+								<input id="CapablePerk" type="number" max="10" min="0" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Capable Level</span>
 							</label>
 							<label style="display: none">
-								<input id="CunningPerk" type="number" class="input-shadow form-control"
+								<input id="CunningPerk" type="number" min="0" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Cunning Level</span>
 							</label>
 							<label style="display: none">
-								<input id="CuriousPerk" type="number" class="input-shadow form-control"
+								<input id="CuriousPerk" type="number" min="0" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Curious Level</span>
 							</label>
 							<label style="display: none">
-								<input id="ClassyPerk" type="number" class="input-shadow form-control"
+								<input id="ClassyPerk" type="number" min="0" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Classy Level</span>
 							</label>
 							<label>
-								<input id="ZoneYouPortal" type="number" class="input-shadow form-control"
+								<input id="ZoneYouPortal" type="number" min="0" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Zone You Portal</span>
 							</label>
 							<label>
-								<input id="DailyPercentage" type="number" class="input-shadow form-control"
+								<input id="DailyPercentage" type="number" min="0" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Daily Bonus</span>
 							</label>
 							<label style="display: none">
-								<input id="HeirloomPercentage" type="number" class="input-shadow form-control"
+								<input id="HeirloomPercentage" type="number" min="0" class="input-shadow form-control"
 									oninput="update.vars(this.id,this.value)" placeholder=" ">
 								<span>Heirloom Bonus</span>
 							</label>
@@ -267,34 +271,6 @@
 			}
 		}
 	}
-	$(function () {
-		jQuery('img.svg').each(function () {
-			var $img = jQuery(this);
-			var imgID = $img.attr('id');
-			var imgClass = $img.attr('class');
-			var imgURL = $img.attr('src');
-			jQuery.get(imgURL, function (data) {
-				// Get the SVG tag, ignore the rest
-				var $svg = jQuery(data).find('svg');
-				// Add replaced image's ID to the new SVG
-				if (typeof imgID !== 'undefined') {
-					$svg = $svg.attr('id', imgID);
-				}
-				// Add replaced image's classes to the new SVG
-				if (typeof imgClass !== 'undefined') {
-					$svg = $svg.attr('class', imgClass + ' replaced-svg');
-				}
-				// Remove any invalid XML tags as per http://validator.w3.org
-				$svg = $svg.removeAttr('xmlns:a');
-				// Check if the viewport is set, else we gonna set it if we can.
-				if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
-					$svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
-				}
-				// Replace image with new SVG
-				$img.replaceWith($svg);
-			}, 'xml');
-		});
-	});
 </script>
 
 </html>

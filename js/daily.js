@@ -84,7 +84,7 @@ function showFilter() {
   show += `
   <div style='text-align:center; width:100%; position:relative'>
   <button class='button form-control input-shadow filterButtons' onclick=flipFilter('all')>Flip all</button>
-  <input id="XpPerRun" onchange='makeDaily(365)' type="number" style="width:10%" class="input-shadow form-control filterButtons" value='2' placeholder=" ">
+  <input id="filterMatch" onchange='makeDaily(365)' type="number" style="width:10%" class="input-shadow form-control filterButtons" value='2' placeholder=" ">
   <label style="margin-top:0; position:absolute; width:13%">
   <span style="width: 100%;transform: scale(0.75) translateY(185%) translateX(-184.6%);">Match Atleast</span>
   </label>
@@ -126,7 +126,7 @@ function flipFilter(f, type) {
       filterType.has = true;
     }
   }
-  makeDaily(365);
+  doFilter();
 }
 
 function sendToConsole(add) {
@@ -197,8 +197,8 @@ function makeDaily(times) {
 }
 
 function divMaker(colorID, classList, date, percent, oneLetterMods, dropdown) {
-  return `<div>
-  <div class="daily daily-tier-${colorID} ${classList} " type="button" style="background-color:var(--daily-tier-${colorID}); position:relative"
+  return `<span class="${classList}">
+  <div class="daily daily-tier-${colorID} " type="button" style="background-color:var(--daily-tier-${colorID}); position:relative"
   
   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   <div class="dailyDate">
@@ -217,10 +217,9 @@ function divMaker(colorID, classList, date, percent, oneLetterMods, dropdown) {
   
   </div>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-  <a class="dropdown-item" onclick="copyToClipboard(this.textContent)" style="font-size:1.8vh">${dropdown}\n<br>Bonus is ${dailyPrettify(percent)}%
-  </a>
+  <a class="dropdown-item" onclick="copyToClipboard(this.textContent)" style="font-size:1.8vh">${dropdown}\n<br>Bonus is ${dailyPrettify(percent)}%</a>
   </div>
-  </div>
+  </span>
 `;
 }
 
@@ -253,7 +252,9 @@ function doFilter() {
     for (var f in filter) {
       if (f == "seed") continue;
       if (!filter[f]) {
-        badDivs.push($("." + f));
+        f.style.visibility = "hidden";
+      } else {
+        f.style.visibility = "";
       }
     }
   }
@@ -270,17 +271,15 @@ function doFilter() {
       if (toFilter <= 0) break;
       for (var n in toFilter) {
         if ($(d).hasClass(toFilter[n])) {
-          // console.log("matched");
           matched++;
         }
       }
       if (matched < toMatch) {
-        badDivs.push(d);
+        d.style.visibility = "hidden";
+      } else {
+        d.style.visibility = "";
       }
     }
-  }
-  for (var b in badDivs) {
-    $(badDivs[b]).replaceWith(divMaker(" daily-empty", 0, 0, 0, 0, "Not In Filter"));
   }
 }
 

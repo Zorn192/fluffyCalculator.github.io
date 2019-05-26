@@ -62,6 +62,9 @@ var calc = {
         if (start < this.startToEarn) {
             start = this.startToEarn;
         }
+        if (end - start == 1) {
+            return this.spireXP(start);
+        }
         mcalc1 = (Math.pow(this.expGrowth, (end - start)) - 1) / (this.expGrowth - 1);
         mcalc2 = (50 + (game.portal.Curious.level * 30)) * (1 + (game.portal.Cunning.level * 0.25)) * this.expBonus;
         // Starting spire bonus information
@@ -361,7 +364,7 @@ var update = {
                     zoneTable += `
                     <tr><th class="levelRows">${this.zoneData.level[zi]}</th>
                     <td>${this.zoneData.zone[zi]}</td></tr>
-                    `
+                    `;
                 }
                 zoneTable += `</tr>`;
                 document.getElementById("zoneTable").style.display = "inline-table";
@@ -385,9 +388,25 @@ var update = {
         <div class="progress-bar bg-danger" title = "Classy" style="width:${classyPercent}%"></div>
         `;
 
-        document.getElementById("HeliumOnFluffy").innerText = `Helium on Fluffy: ${Math.round(capablePercent + cunningPercent + curiousPercent + classyPercent)}%`
+        document.getElementById("HeliumOnFluffy").innerText = `Helium on Fluffy: ${Math.round(capablePercent + cunningPercent + curiousPercent + classyPercent)}%`;
 
         document.getElementById("HeliumSpentFluffy").innerHTML = htmlContent;
         // return prettify((capableCost + cunningCost + curiousCost + classyCost) / allHelium * 100);
     }
 };
+
+function unlockHiddenStats() {
+    //jshint ignore:start
+    game.portal.Cunning.locked = false;
+    !$("#CunningPerk").is(":visible") && $("#CunningPerk").parent().toggle();
+    game.portal.Curious.locked = false;
+    !$("#CuriousPerk").is(":visible") && $("#CuriousPerk").parent().toggle();
+    game.portal.Classy.locked = false;
+    !$("#ClassyPerk").is(":visible") && $("#ClassyPerk").parent().toggle();
+    !$("#HeirloomPercentage").is(":visible") && $("#HeirloomPercentage").parent().toggle();
+    if (!$("#KnowledgeTowers").is(":visible")) {
+        $("#KnowledgeTowers").parent().toggle();
+        $("#KnowledgeLevel").parent().toggle();
+    }
+    //jshint ignore:end
+}
