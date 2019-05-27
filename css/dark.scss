@@ -285,7 +285,7 @@ html body {
     background-color: $nav-selected-bg;
 }
 
-div.show>div.dropdown-menu.dropdown-menu-right.show,
+span.show>div.dropdown-menu.dropdown-menu-right.show,
 #myTab>span>div,
 #InstantUpdating>option {
     background-color: $bg-color;
@@ -293,9 +293,22 @@ div.show>div.dropdown-menu.dropdown-menu-right.show,
     border: 1px solid $table-border-color;
 }
 
-div.show>div.dropdown-menu.dropdown-menu-right.show>a:hover,
+span.show>div.dropdown-menu.dropdown-menu-right.show>a:hover,
 #myTab>span>div>a:hover {
     background-color: $tableheader;
 }
 
-@import "C:/Users/P/node_modules/bootstrap/scss/bootstrap.scss";
+@import "C:/Users/P/node_modules/bootstrap/scss/functions";
+@import "C:/Users/P/node_modules/bootstrap/scss/variables";
+@import "C:/Users/P/node_modules/bootstrap/scss/mixins";
+
+@import "C:/Users/P/node_modules/bootstrap/scss/_reboot";
+@import "C:/Users/P/node_modules/bootstrap/scss/_type";
+@import "C:/Users/P/node_modules/bootstrap/scss/_grid";
+@import "C:/Users/P/node_modules/bootstrap/scss/_custom-forms";
+@import "C:/Users/P/node_modules/bootstrap/scss/_dropdown";
+@import "C:/Users/P/node_modules/bootstrap/scss/_tables";
+@import "C:/Users/P/node_modules/bootstrap/scss/_nav";
+@import "C:/Users/P/node_modules/bootstrap/scss/_forms";
+@import "C:/Users/P/node_modules/bootstrap/scss/_progress";
+@import "C:/Users/P/node_modules/bootstrap/scss/utilities";
