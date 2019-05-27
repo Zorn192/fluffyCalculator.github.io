@@ -2,12 +2,14 @@
 function handle_paste(ev) {
     var save_string = ev.clipboardData.getData("text/plain").replace(/\s/g, '');
     game = JSON.parse(LZString.decompressFromBase64(save_string));
+    timesNextRunned = 0;
     update.fill();
     update.table();
 }
 
-var version = 0.06;
-
+var version = 0.07;
+var firstTableCorner = "🍆";
+var secondTableCorner = "💦";
 var calc = {
     firstLevel: 1000,
     getFirstLevel: function () {
@@ -54,6 +56,7 @@ var calc = {
     neededExp: 0,
     maxEvolution: 10,
     xpPerRun: 0,
+    graphNextIce: false,
     zoneXP: function (start, end) {
         if (end < this.startToEarn) {
             return 0;
@@ -131,6 +134,8 @@ var update = {
         document.getElementById("KnowledgeTowers").value = game.playerSpire.traps.Knowledge.owned;
         document.getElementById("KnowledgeLevel").value = game.playerSpire.traps.Knowledge.level;
         calc.currentExp = Math.ceil(game.global.fluffyExp - calc.removeExp(game.global.fluffyPrestige, calc.calculateLevel()));
+        calc.iceBonus = (1 + (0.0025 * game.empowerments.Ice.level));
+
         this.expBonus()
         this.stats();
         // jshint ignore:end
@@ -219,9 +224,9 @@ var update = {
             }
         }
         // iceBonus
-        // if (iceBonus > 1 && graphNextIce) {
-        //     returnN *= iceBonus;
-        // }
+        if (calc.iceBonus > 1 && calc.graphNextIce) {
+            returnN *= calc.iceBonus;
+        }
         calc.expBonus = returnN;
     },
     XpPerRun: function () {
@@ -232,7 +237,8 @@ var update = {
     stats: function () {
         calc.neededExp = calc.upgrade(game.global.fluffyPrestige, calc.currentLevel);
         document.getElementById("XpPerRun").value = numberWithCommas(Math.round(calc.xpPerRun));
-        document.getElementById("PercentageToLevel").value = prettify((calc.currentExp / calc.neededExp) * 100) + "%";
+        document.getElementById("PercentageToLevelLabel").innerText = `% Of Level: ${prettify(Math.round((calc.currentExp / calc.neededExp) * 100))}%`;
+        document.getElementById("PercentageToLevel").innerHTML = `<div class="progress-bar" style="width:${prettify((calc.currentExp / calc.neededExp) * 100)}%"></div>`;
         document.getElementById("CurrentZone").value = game.global.world;
         if (game.stats.bestFluffyExp.valueTotal > 0) {
             document.getElementById("BonesToLevel").value = prettify(Math.ceil(((calc.neededExp - calc.currentExp) / game.stats.bestFluffyExp.valueTotal)) * 100);
@@ -248,7 +254,7 @@ var update = {
         this.expBonus();
         this.XpPerRun();
         $("#TableHead").empty();
-        var thead = "<tr> <th>👽</th>";
+        var thead = `<tr> <th>${firstTableCorner}</th>`;
         thead += `<th>Runs to E${game.global.fluffyPrestige}</th>`;
         if (fluffyCalculator.minutesPerRun > 0) thead += `<th>Time to E${game.global.fluffyPrestige}</th>`;
         if (game.global.fluffyPrestige != calc.maxEvolution) {
@@ -356,7 +362,7 @@ var update = {
             if (this.zoneData.zone[0] > 0) {
                 zoneTable = `<tr>
                 <thead class="thead-active">
-                <tr><th>🤳</th>
+                <tr><th>${secondTableCorner}</th>
                 <th>On Zone</th></tr>
                 </thead>
                 `;
@@ -409,4 +415,156 @@ function unlockHiddenStats() {
         $("#KnowledgeLevel").parent().toggle();
     }
     //jshint ignore:end
+}
+
+function makePopup(title, innerHTML, type, width) {
+
+    titleNoSpaces = title.replace(/\s/g, '');
+
+    if (document.getElementById(titleNoSpaces)) {
+        closePopup(titleNoSpaces);
+    }
+
+
+    firstLayer = document.createElement('div');
+    firstLayer.setAttribute("class", "firstLayer");
+    firstLayer.setAttribute("id", titleNoSpaces);
+
+    secondLayer = document.createElement('div');
+    secondLayer.setAttribute("class", "secondLayer");
+
+    thirdLayer = document.createElement('div');
+    thirdLayer.setAttribute("class", "thirdLayer");
+
+
+    thirdLayer.style.width = width;
+    thirdLayer.innerHTML += "<div class='tooltipTitle' style='position: relative; width:100%; text-align: center;'><u>" + uppercaseLetter(title) + "</u></div>";
+    if (type == "daily") thirdLayer.innerHTML += "<div style='text-align:center'> (" + timesNextRunned + ")</div>";
+    thirdLayer.innerHTML += innerHTML;
+
+    thirdLayer.innerHTML += "<br /> <div> <input type='button' class='form-control input-shadow' value='Close' onmousedown=closePopup('" + titleNoSpaces + "')></input> </div>";
+
+    firstLayer.appendChild(secondLayer);
+    secondLayer.appendChild(thirdLayer);
+    document.getElementById("basicallyBody").appendChild(firstLayer);
+
+}
+
+function closePopup(title) {
+    if (document.getElementById(title)) {
+        document.getElementById(title).remove();
+    }
+}
+
+function graphNextLevel() {
+    innerHTML = "<div style='text-align:center'>";
+    shownDailies = [];
+    var todayOfWeek = getDailyTimeString(0, false, true);
+    for (var z = 0; z < 8; z++) {
+        dayIndex = (todayOfWeek * -1) + z;
+        if (dayIndex > -1) {
+            dayIndex = (z - todayOfWeek) - 7;
+        }
+    }
+    lastWeek = dayIndex - 7;
+    blank = lastWeek - dayIndex + 1;
+    index = lastWeek;
+    do {
+        if (blank > index) {
+            index++;
+            continue;
+        }
+        daily = getDailyChallenge(index, true, false);
+        if (game.global.recentDailies.includes(daily.seed)) {
+            index++;
+            continue;
+        } else {
+            shownDailies.push(index);
+            index++;
+            continue;
+        }
+    } while (shownDailies.length < 7);
+
+    for (var x = 0; x < shownDailies.length; x++) {
+        if (x == 7) innerHTML += "<br>";
+        thisIndex = shownDailies[x];
+
+        var dailyObj = getDailyChallenge(thisIndex, true, false);
+        var dailyHeliumValue = getDailyHeliumValue(countDailyWeight(dailyObj));
+        var tooltip = getDailyTimeString(thisIndex, false, false, "long") + "\n" + getDailyChallenge(thisIndex, false, true).replace(/<br>/g, "");
+
+        innerHTML += `
+      <div onmousedown=makeNextWith(this.id) class="graphNextLevel" id="${thisIndex}" 
+      style="background-color: var(--${getDailyClass(dailyHeliumValue)})"
+      title="${tooltip} Bonus is ${dailyPrettify(dailyHeliumValue)}%">
+      
+      ${getDailyTimeString(thisIndex, true)} <br /> <div> ${prettify(dailyHeliumValue)}% </div>
+      </div>
+      `;
+    }
+
+    innerHTML += "<br> <br> <div class='graphNextLevel' id='none' onmousedown=makeNextWith(this.id)>⠀No Daily⠀</div>";
+    innerHTML += "<br> <div class='graphNextLevel' id='ice" + calc.graphNextIce + "' title='Would apply a " + prettify(calc.iceBonus * 100) + "% bonus to your run' onmousedown=toggleIceBonus(this.id)> Ice Enlightenment</div>";
+
+    innerHTML += "</div>";
+
+
+    makePopup("Graph Next Level", innerHTML, "daily", "50%");
+}
+timesNextRunned = 0;
+
+function getDailyClass(value) {
+    add = 0;
+    if (isRewardActive("dailies")) add = 100;
+    var tiers = [(200 + add), (300 + add), (400 + add)];
+
+    if (value <= tiers[0]) {
+        return "daily-tier-1";
+    } else if (value <= tiers[1] && value > tiers[0]) {
+        return "daily-tier-2";
+    } else if (value > tiers[1]) {
+        return "daily-tier-3";
+    }
+}
+
+function makeNextWith(input) {
+    //NowLevel
+    nowLevel = calc.calculateLevel();
+    // finish off this run;
+    if (game.global.world < calc.zoneYouPortal) {
+        game.global.fluffyExp += calc.zoneXP(game.global.world, calc.zoneYouPortal);
+    }
+    game.global.world = 0;
+    //Then Level
+    thenLevel = calc.calculateLevel();
+
+    if (thenLevel > nowLevel) {
+        if (thenLevel == 10) {
+            game.global.fluffyPrestige += 1;
+            game.global.fluffyExp = 0;
+        }
+    }
+
+    if (input == "none") {
+        game.global.dailyChallenge = {};
+    } else {
+        input = Number(input);
+        dailyObj = getDailyChallenge(input, true);
+        game.global.dailyChallenge = dailyObj;
+        game.global.recentDailies.push(dailyObj.seed);
+    }
+    timesNextRunned++;
+
+    closePopup("GraphNextLevel");
+    graphNextLevel();
+    $('.ui-tooltip').remove(); // tooltips stay why
+    update.fill();
+    update.table();
+}
+
+function toggleIceBonus() {
+    calc.graphNextIce = !calc.graphNextIce;
+    $('.ui-tooltip').remove(); // tooltips stay why
+    closePopup("GraphNextLevel");
+    graphNextLevel();
 }

@@ -300,6 +300,51 @@ span.show > div.dropdown-menu.dropdown-menu-right.show > a:hover,
   background-color: #101f2c;
 }
 
+.firstLayer {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.secondLayer {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.thirdLayer {
+  margin-left: auto;
+  margin-right: auto;
+  /* width: 400px; */
+  border: 1px solid #8899a6;
+  background-color: #0C141B;
+  padding: 1%;
+  pointer-events: all;
+  color: #8899a6;
+}
+
+.graphNextLevel {
+  border: 1px solid #38444d;
+  display: inline-table;
+  cursor: pointer;
+  color: #0C141B;
+}
+
+#none {
+  color: #8899a6;
+}
+
+#icetrue {
+  background-color: var(--daily-tier-3) !important;
+}
+
+#icefalse {
+  background-color: var(--daily-tier-1) !important;
+}
+
 *,
 *::before,
 *::after {

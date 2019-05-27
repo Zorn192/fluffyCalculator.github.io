@@ -12,7 +12,7 @@
 	<link rel="stylesheet" id="dark" href="css/dark.css" disabled>
 </head>
 
-<body style="margin-top: -2px">
+<body style="margin-top: -2px" id="basicallyBody">
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
 		<li class="nav-item">
 			<a class="nav-link" id="fluffy-tab" style="margin-left:-1px" data-toggle="tab" href="#fluffy" role="tab"
@@ -21,10 +21,6 @@
 		<li class="nav-item">
 			<a class="nav-link" id="daily-tab" data-toggle="tab" href="#daily" role="tab" aria-controls="profile"
 				aria-selected="false">Daily Seeker</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="old-site" href="old\index.html" role="tab" aria-controls="profile"
-				aria-selected="false">Old Site</a>
 		</li>
 		<span class="dropdown" style="position: fixed; right:0%; margin-right: -2px; cursor:pointer; z-index: 10">
 			<a id="settingsButton" style="line-height: 1.5;  padding: 0.5rem 0.5rem; display: block" role="button"
@@ -120,8 +116,10 @@
 								</select>
 								<span>Instant Updating</span>
 							</label>
-							<input type="button" id="CalculateButton" class="input-shadow form-control"
+							<input type="button" style="margin-bottom:0.5rem" id="CalculateButton" class="input-shadow form-control"
 								value="Calculate" onclick="update.table()"></input>
+							<input type="button" id="calButton2" class="input-shadow form-control"
+								value="Calculate Next Run" onclick="graphNextLevel()"></input>
 						</div>
 					</div>
 					<div class="col-7 table-responsive-md" style="min-width: 24.6em;">
@@ -142,10 +140,9 @@
 								<input id="XpPerRun" class="input-shadow form-control" placeholder=" " disabled>
 								<span>Xp Per Run</span>
 							</label>
-							<label>
-								<input id="PercentageToLevel" class="input-shadow form-control" placeholder=" "
-									disabled>
-								<span>% Of Level</span>
+							<label  style="width:100%">
+								<div id="PercentageToLevel" class="progress" placeholder=" "></div>
+								<span id="PercentageToLevelLabel">% Of Level</span>
 							</label>
 							<label>
 								<input id="CurrentZone" class="input-shadow form-control" placeholder=" " disabled>
@@ -230,6 +227,7 @@
 			$('html,body').scrollTop(scrollmem);
 			if (this.hash == "#daily") {
 				maybeMakeDaily();
+				closePopup("GraphNextLevel");
 			}
 		});
 		correctLocalStorage();

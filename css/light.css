@@ -287,7 +287,7 @@ html body {
   background-color: white;
 }
 
-div.show > div.dropdown-menu.dropdown-menu-right.show,
+span.show > div.dropdown-menu.dropdown-menu-right.show,
 #myTab > span > div,
 #InstantUpdating > option {
   background-color: white;
@@ -295,9 +295,54 @@ div.show > div.dropdown-menu.dropdown-menu-right.show,
   border: 1px solid #dee2e6;
 }
 
-div.show > div.dropdown-menu.dropdown-menu-right.show > a:hover,
+span.show > div.dropdown-menu.dropdown-menu-right.show > a:hover,
 #myTab > span > div > a:hover {
   background-color: #e9ecef;
+}
+
+.firstLayer {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.secondLayer {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.thirdLayer {
+  margin-left: auto;
+  margin-right: auto;
+  /* width: 400px; */
+  border: 1px solid #495057;
+  background-color: white;
+  padding: 1%;
+  pointer-events: all;
+  color: #495057;
+}
+
+.graphNextLevel {
+  border: 1px solid #dee2e6;
+  display: inline-table;
+  cursor: pointer;
+  color: black;
+}
+
+#none {
+  color: #495057;
+}
+
+#icetrue {
+  background-color: var(--daily-tier-3) !important;
+}
+
+#icefalse {
+  background-color: var(--daily-tier-1) !important;
 }
 
 *,
